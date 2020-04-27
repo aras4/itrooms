@@ -48,5 +48,9 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "engines": {
+    "node": "13.3.0",
+    "npm": "6.13.1"
+  }
 }
