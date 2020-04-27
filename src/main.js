@@ -5,8 +5,7 @@ import routes from './app-routes';
 import socketio from 'socket.io-client';
 import VueSocketIO from 'vue-socket.io';
 
-//const SocketInstance = socketio('https://it-collaboration-server.herokuapp.com/');
-const SocketInstance = socketio('http://localhost:3000');
+const SocketInstance = socketio('https://it-collaboration-server.herokuapp.com/');
 
 Vue.config.productionTip = false;
 
@@ -15,12 +14,6 @@ Vue.use(new VueSocketIO({
   debug: false,
   connection: SocketInstance
 }));
-Vue.use(require('vue-pusher'), {
-  api_key: 'e94b9ba997d91777551c',
-  options: {
-    cluster: 'eu'
-  }
-});
 
 const router = new VueRouter({
   routes: routes,

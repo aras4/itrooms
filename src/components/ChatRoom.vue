@@ -11,8 +11,6 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "ChatRoom",
   props: {
@@ -29,16 +27,6 @@ export default {
     sendMessage() {
       this.$socket.emit("chatMessage", this.message);
       this.message = "";
-    },
-    shareCode() {
-      axios
-        .post(`http://localhost:3000/api/v1/share-code`, {
-          shareText: this.shareText
-        })
-        .then(() => {})
-        .catch(e => {
-          console.error(e);
-        });
     }
   },
   sockets: {
@@ -46,15 +34,6 @@ export default {
       console.log(data);
       this.messages.push(data);
     }
-  },
-  created() {
-    // const { room } = this.$route.query;
-    var channel = this.$pusher.subscribe("room-channel");
-    console.log(channel);
-    channel.bind("share-code", data => {
-      this.shareText = data.shareText;
-      console.log(data);
-    });
   }
 };
 </script>
