@@ -9,14 +9,14 @@
           <h1>Join</h1>
           <div class="input-fields">
             <!--ion-icon name="mail-outline"></ion-icon-->
-            <input type="text" placeholder="Username" />
+            <input type="text" v-model="username" placeholder="Username" />
           </div>
           <div class="input-fields">
             <!--ion-icon name="key-outline"></ion-icon-->
-            <input type="text" placeholder="Room" />
+            <input type="text" v-model="room" placeholder="Room" />
           </div>
           <div class="button-field">
-            <button>JOIN</button>
+            <button @click="joinRoom">JOIN</button>
             <p>
               <a href="#">Forgot Username / Password?</a>
             </p>
@@ -35,7 +35,8 @@ export default {
   name: "RoomHome",
   data() {
     return {
-      username: ""
+      username: "",
+      room: ""
     };
   },
   methods: {
@@ -43,7 +44,7 @@ export default {
       this.$socket.emit("joinRoom", { username: this.username, room: "js" });
       this.$router.push({
         path: "chatroom",
-        query: { room: "js" }
+        query: { username: this.username, room: "js" }
       });
     }
   }
@@ -51,15 +52,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-body {
-  background-image: url("../assets/bcgimg.svg");
-  background-position: cover;
-  font-family: "Poppins", sans-serif;
-}
 .main {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 90px;
 
   .login-form {
     background-color: white;
@@ -67,6 +64,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    padding: 50px;
     width: 70%;
 
     .login-img {
@@ -95,10 +93,6 @@ body {
         margin-bottom: 10px;
         height: 50px;
 
-        ion-icon {
-          margin: 16px 0 0 20px;
-          width: 30px;
-        }
         input {
           padding: 15px;
           border: none;
