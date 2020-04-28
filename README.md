@@ -1,4 +1,4 @@
-# it-rooms
+# ITRooms
 
 ## Project setup
 ```
