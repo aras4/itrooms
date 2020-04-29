@@ -41,7 +41,6 @@ export default {
   },
   methods: {
     joinRoom() {
-      this.$socket.emit("joinRoom", { username: this.username, room: "js" });
       this.$router.push({
         path: "chatroom",
         query: { username: this.username, room: "js" }

@@ -1,50 +1,45 @@
 <template>
- 
   <div class="main">
-        <div class="chat-form">
-            <div class="users">
-                <h3>Chat users:</h3>
-                <div class="one-user">
-                    <img src="../assets/user_avatar_var2.png">
-                    <h4>Profa</h4>
-                </div>
-              
-                <div class="one-user" >
-                 
-                    <img src="../assets/user_avatar.png">
-                    <h4>User</h4>
-                   
-                </div>
-               
-            </div>
-            <div class="messages">
-                <h3>room_name</h3>
-                <hr>
-                <div class="display">
-                <div class="chatbox">
-                    <div class="user-msg" >
-                        <img src="../assets/user_avatar_var2.png">
-                        
-                        <div class="msg"><p>Sto je dobar ovaj git :)</p>
-                        </div>
-                    </div>
-                    <div class="my-msg" v-for="(message,index) in messages"
-                    :key="index" >
-                        <div class="msg">
-                            <p> {{message.text}}</p><span class="username-time">{{message.username}}, {{message.time}}</span>
-                        </div>
-                        <img src="../assets/user_avatar.png">
-                       
-                    </div>
-                    </div>
-                    <div class="type-area">
-                        <input type="text" placeholder="Type a message..." v-model=" message">
-                        <button @click="sendMessage">SEND</button>
-                    </div>
-                </div>
-            </div>
+    <div class="chat-form">
+      <div class="users">
+        <h3>Chat users:</h3>
+        <div v-for="(user,index) in roomUsers.users" :key="index" class="one-user">
+          <img src="../assets/user_avatar.png" />
+          <h4>{{user.username}}</h4>
         </div>
+      </div>
+      <div class="messages">
+        <h3>{{roomUsers.room}}</h3>
+        <hr />
+        <div class="display">
+          <div class="chatbox">
+            <div class="user-msg">
+              <img src="../assets/user_avatar.png" />
+              <div class="msg">
+                <p>Sto je dobar ovaj git :)</p>
+              </div>
+            </div>
+            <div class="my-msg" v-for="(message,index) in messages" :key="index">
+              <div class="msg">
+                <p>{{message.text}}</p>
+                <span class="username-time">{{message.username}}, {{message.time}}</span>
+              </div>
+              <img src="../assets/user_avatar.png" />
+            </div>
+          </div>
+          <div class="type-area">
+            <input
+              type="text"
+              placeholder="Type a message..."
+              v-model="message"
+              @keyup.enter="sendMessage"
+            />
+            <button @click="sendMessage">SEND</button>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -55,41 +50,29 @@ export default {
     return {
       messages: [],
       message: "",
-      shareText: "",
-      
-      
-  
-   
-     
-
-    }
-   
+      roomUsers: { room: "", users: [] }
+    };
   },
   methods: {
     sendMessage() {
-      
       this.$socket.emit("chatMessage", this.message);
-      console.log(this.$socket)
-     
-       this.message="";
-      
-    },
-   
-    
-    
-    
+      console.log(this.$socket);
+
+      this.message = "";
+    }
   },
   sockets: {
-    message(data) {  
-       
-
+    message(data) {
       this.messages.push(data);
-  
-
     },
-    
+    roomUsers(data) {
+      this.roomUsers = data;
+    }
+  },
+  created() {
+    const { room, username } = this.$route.query;
+    this.$socket.emit("joinRoom", { username: username, room: room });
   }
-  
 };
 </script>
 
@@ -100,11 +83,11 @@ export default {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   height: 700px;
   padding: 30px;
 }
@@ -113,8 +96,8 @@ export default {
   width: 80%;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (33.33%)[3];
-      grid-template-columns: repeat(3, 33.33%);
+  -ms-grid-columns: (33.33%);
+  grid-template-columns: repeat(3, 33.33%);
   border-radius: 20px;
   height: 700px;
 }
@@ -138,8 +121,8 @@ export default {
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   margin: 10px;
 }
 
@@ -180,18 +163,18 @@ export default {
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   float: left;
   padding: 10px;
-  margin-right:100px;
-  margin-top:10px;
+  margin-right: 100px;
+  margin-top: 10px;
 }
 
 .main .chat-form .messages .display .user-msg img {
@@ -218,18 +201,18 @@ export default {
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   float: right;
   padding: 10px;
   margin-left: 200px;
-  margin-bottom:20px;
+  margin-bottom: 20px;
 }
 
 .main .chat-form .messages .display .my-msg img {
@@ -256,11 +239,11 @@ export default {
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   padding: 10px;
   margin: 10px;
   margin-bottom: 0px;
@@ -278,7 +261,7 @@ export default {
   outline: none;
   margin: 5px;
   width: 70%;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 12px;
 }
 
@@ -292,7 +275,7 @@ export default {
   background-color: #920f92;
   color: white;
   font-weight: bold;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   letter-spacing: 1px;
   -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
@@ -301,23 +284,21 @@ export default {
 .main .chat-form .messages .display .type-area button:hover {
   background-color: #610b61;
 }
-.chatbox{
-  height:500px;
-  overflow-y:scroll;
+.chatbox {
+  height: 500px;
+  overflow-y: scroll;
 }
-::-webkit-scrollbar{
- 
+::-webkit-scrollbar {
 }
-::-webkit-scrollbar-thmub{
- 
- background-color:#e4e4e4;
+::-webkit-scrollbar-thmub {
+  background-color: #e4e4e4;
 }
-.username-time{
-  font-size:12px;
-  float:left;
-  margin-top:10px;
-  margin-left:10px;
-  opacity:0.6;
+.username-time {
+  font-size: 12px;
+  float: left;
+  margin-top: 10px;
+  margin-left: 10px;
+  opacity: 0.6;
 }
 </style>
 
