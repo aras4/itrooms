@@ -18,13 +18,10 @@
           <div class="button-field">
             <button class="join-btn" @click="joinRoom">JOIN</button>
             <button class="create-btn">CREATE ROOM</button>
-            <p>
-              <a href="#">Forgot Username / Password?</a>
-            </p>
           </div>
-          <p id="create-acc">
+          <!--p id="create-acc">
             <a href="#">Create your Account &rarr;</a>
-          </p>
+          </p-->
         </div>
       </div>
     </div>
@@ -53,20 +50,18 @@ export default {
 
 <style lang="scss" scoped>
 .main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 90px;
-
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
   .login-form {
     background-color: white;
     border-radius: 10px;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    padding: 50px;
-    width: 70%;
-
+    padding: 70px;
     .login-img {
       width: 50%;
       display: flex;
