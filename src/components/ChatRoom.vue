@@ -256,4 +256,29 @@ export default {
     }
   }
 }
+@media only screen and (max-width:768px){
+  .messages{
+    width:400px;
+  }
+  .main{
+    padding:0px;
+    margin-right:70px;
+  }
+ 
+}
+@media only screen and (max-width:600px){
+  
+ 
+.main{
+  width:500px;
+  
+  
+}
+.chat-form{
+margin-top:150px;
+margin-right:98px;
+}
+}
+
+
 </style>
