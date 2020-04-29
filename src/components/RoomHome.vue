@@ -6,7 +6,7 @@
           <img src="../assets/login.png" />
         </div>
         <div class="login">
-          <h1>Join</h1>
+          <h1>ITRooms</h1>
           <div class="input-fields">
             <!--ion-icon name="mail-outline"></ion-icon-->
             <input type="text" v-model="username" placeholder="Username" />
@@ -16,7 +16,8 @@
             <input type="text" v-model="room" placeholder="Room" />
           </div>
           <div class="button-field">
-            <button @click="joinRoom">JOIN</button>
+            <button class="join-btn" @click="joinRoom">JOIN</button>
+            <button class="create-btn">CREATE ROOM</button>
             <p>
               <a href="#">Forgot Username / Password?</a>
             </p>
@@ -109,11 +110,9 @@ export default {
           padding: 15px;
           border: none;
           outline: none;
-          background-color: rgb(82, 187, 82);
           border-radius: 30px;
-          margin: 30px 0px 5px 0px;
-          padding: 10px;
-          width: 100%;
+          margin: 15px 5px 3px 0px;
+          width: 35%;
           color: white;
           font-family: "Poppins", sans-serif;
           height: 50px;
@@ -123,8 +122,20 @@ export default {
           transition: all 0.2 ease;
         }
 
-        button:hover {
+        .join-btn {
+          background-color: rgb(82, 187, 82);
+        }
+
+        .join-btn:hover {
           background-color: #4caf50;
+        }
+
+        .create-btn {
+          background-color: rgb(26, 149, 237);
+        }
+
+        .create-btn:hover {
+          background-color: rgb(52, 160, 237);
         }
 
         p {
@@ -140,7 +151,6 @@ export default {
           }
         }
       }
-
       #create-acc {
         font-size: 14px;
         text-align: center;
