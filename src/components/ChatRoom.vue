@@ -1,30 +1,27 @@
 <template>
   <div class="main">
     <div class="chat-form">
-      <div class="users">
+      <div class="users-wrapper">
         <h3>Chat users:</h3>
-        <div v-for="(user,index) in roomUsers.users" :key="index" class="one-user">
-          <img src="../assets/user_avatar.png" />
-          <h4>{{user.username}}</h4>
+        <div class="users">
+          <div v-for="(user,index) in roomUsers.users" :key="index" class="one-user">
+            <img src="../assets/user_avatar.png" />
+            <p>{{user.username}}</p>
+          </div>
         </div>
       </div>
       <div class="messages">
         <h3>{{roomUsers.room}}</h3>
-        <hr />
         <div class="display">
-          <div class="chatbox">
-            <div class="user-msg">
+          <div class="display-messages">
+            <div class="user-msg" v-for="(message,index) in messages" :key="index">
               <img src="../assets/user_avatar.png" />
-              <div class="msg">
-                <p>Sto je dobar ovaj git :)</p>
-              </div>
-            </div>
-            <div class="my-msg" v-for="(message,index) in messages" :key="index">
-              <div class="msg">
-                <p>{{message.text}}</p>
+              <div class="user-msg-time">
+                <div class="msg">
+                  <p>{{message.text}}</p>
+                </div>
                 <span class="username-time">{{message.username}}, {{message.time}}</span>
               </div>
-              <img src="../assets/user_avatar.png" />
             </div>
           </div>
           <div class="type-area">
@@ -34,7 +31,7 @@
               v-model="message"
               @keyup.enter="sendMessage"
             />
-            <button @click="sendMessage">SEND</button>
+            <button @click="sendMessage">Send</button>
           </div>
         </div>
       </div>
@@ -57,9 +54,26 @@ export default {
     sendMessage() {
       this.$socket.emit("chatMessage", this.message);
       console.log(this.$socket);
-
       this.message = "";
+    },
+    scrollToEndMessages() {
+      var container = document.querySelector(".display-messages");
+      var scrollHeight = container.scrollHeight;
+      container.scrollTop = scrollHeight;
+    },
+    scrollToEndUsers() {
+      var container = document.querySelector(".users");
+      var scrollHeight = container.scrollHeight;
+      container.scrollTop = scrollHeight;
     }
+  },
+  mounted() {
+    this.scrollToEndMessages();
+    this.scrollToEndMessages();
+  },
+  updated() {
+    this.scrollToEndMessages();
+    this.scrollToEndUsers();
   },
   sockets: {
     message(data) {
@@ -76,229 +90,170 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
+@mixin custom-scroll-bar() {
+  &::-webkit-scrollbar {
+    border-radius: 10px;
+    height: 10px;
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgb(177, 177, 177);
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+}
+
 .main {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   height: 700px;
   padding: 30px;
-}
+  .chat-form {
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(3, 33.33%);
+    border-radius: 20px;
+    height: 700px;
 
-.main .chat-form {
-  width: 80%;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: (33.33%);
-  grid-template-columns: repeat(3, 33.33%);
-  border-radius: 20px;
-  height: 700px;
-}
+    .users-wrapper {
+      background-color: rgb(66, 64, 64);
+      padding: 30px;
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+      font-family: "Poppins", sans-serif;
+      h3 {
+        text-align: left;
+        margin: 5px;
+        margin-bottom: 10px;
+        color: white;
+      }
+      .users {
+        @include custom-scroll-bar;
+        overflow: auto;
+        height: 620px;
+        border-top: 1px solid rgb(187, 185, 185);
+        display: flex;
+        flex-direction: column;
+        .one-user {
+          display: flex;
+          flex-direction: row;
+          margin: 10px;
+          border-bottom: 1px solid rgb(187, 185, 185);
+          img {
+            height: 40px;
+            margin: 5px;
+          }
+          p {
+            color: white;
+            font-size: 16px;
+            margin: 5px;
+            padding: 7px;
+          }
+        }
+      }
+    }
+    .messages {
+      grid-column: 2 span;
+      background-color: rgb(228, 228, 228);
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+      padding: 15px;
+      font-family: "Poppins", sans-serif;
+      h3 {
+        text-align: left;
+        margin: 10px 10px 0px 10px;
+        color: white;
+        padding: 10px;
+      }
+      .display {
+        height: 600px;
+        font-family: "Poppins", sans-serif;
+        .display-messages {
+          @include custom-scroll-bar;
+          overflow: auto;
+          height: 550px;
+          border-bottom: 1px solid rgb(187, 185, 185);
+          border-top: 1px solid rgb(187, 185, 185);
+          .user-msg {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-top: 5px;
+            .user-msg-time {
+              display: flex;
+              flex-direction: column;
+              .msg {
+                background-color: white;
+                border-radius: 10px;
+                margin: 5px;
+                margin-bottom: 0px;
+                border: 1px solid rgb(179, 179, 179);
+                p {
+                  margin: 8px;
+                  color: rgb(0, 0, 0);
+                  font-size: 12px;
+                }
+              }
+              .username-time {
+                font-size: 10px;
+                color: rgb(187, 185, 185);
+                text-align: left;
+                margin-left: 5px;
+              }
+            }
+            img {
+              height: 40px;
+              width: 40px;
+              margin: 5px;
+              margin: 5px;
+            }
+          }
+        }
+        .type-area {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          padding: 10px;
+          margin: 10px;
+          width: 90%;
 
-.main .chat-form .users {
-  background-color: #424040;
-  padding: 30px;
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-}
+          input {
+            background-color: white;
+            border: 1px solid rgb(179, 179, 179);
+            border-radius: 20px;
+            padding: 12px;
+            outline: none;
+            margin: 5px;
+            width: 70%;
+            font-family: "Poppins", sans-serif;
+            font-size: 12px;
+          }
 
-.main .chat-form .users h3 {
-  margin: 0;
-  margin-bottom: 30px;
-  color: white;
-}
+          button {
+            border: 1px solid rgb(179, 179, 179);
+            border-radius: 20px;
+            padding: 10px;
+            outline: none;
+            margin: 5px;
+            width: 15%;
+            background-color: rgb(146, 15, 146);
+            color: white;
+            font-weight: bold;
+            font-family: "Poppins", sans-serif;
+            letter-spacing: 1px;
+            transition: all 0.2s ease;
+          }
 
-.main .chat-form .users .one-user {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  margin: 10px;
-}
-
-.main .chat-form .users .one-user img {
-  height: 40px;
-  margin-right: 20px;
-}
-
-.main .chat-form .users .one-user h4 {
-  color: white;
-  font-size: 16px;
-  margin: 5px;
-}
-
-.main .chat-form .messages {
-  grid-column: 2 span;
-  background-color: #e4e4e4;
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
-  padding: 20px;
-}
-
-.main .chat-form .messages h3 {
-  margin: 10px;
-  color: white;
-}
-
-.main .chat-form .messages .display {
-  overflow: hidden;
-  position: relative;
-  height: 90%;
-  margin-top: 40px;
-}
-
-.main .chat-form .messages .display .user-msg {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  float: left;
-  padding: 10px;
-  margin-right: 100px;
-  margin-top: 10px;
-}
-
-.main .chat-form .messages .display .user-msg img {
-  height: 40px;
-  margin-right: 20px;
-}
-
-.main .chat-form .messages .display .user-msg .msg {
-  background-color: white;
-  border: 1px solid #b3b3b3;
-  padding: 10px;
-  border-radius: 20px;
-  margin-right: 60px;
-}
-
-.main .chat-form .messages .display .user-msg .msg p {
-  margin: 0 10px;
-  font-size: 12px;
-}
-
-.main .chat-form .messages .display .my-msg {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  float: right;
-  padding: 10px;
-  margin-left: 200px;
-  margin-bottom: 20px;
-}
-
-.main .chat-form .messages .display .my-msg img {
-  height: 40px;
-  margin-left: 20px;
-}
-
-.main .chat-form .messages .display .my-msg .msg {
-  background-color: #920f92;
-  border: 1px solid #b3b3b3;
-  padding: 10px;
-  border-radius: 20px;
-}
-
-.main .chat-form .messages .display .my-msg .msg p {
-  margin: 0 10px;
-  font-size: 12px;
-  color: white;
-}
-
-.main .chat-form .messages .display .type-area {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  padding: 10px;
-  margin: 10px;
-  margin-bottom: 0px;
-  width: 90%;
-  position: absolute;
-  bottom: 10px;
-  border-top: 1px solid #b3b3b3;
-}
-
-.main .chat-form .messages .display .type-area input {
-  background-color: white;
-  border: 1px solid #b3b3b3;
-  border-radius: 20px;
-  padding: 12px;
-  outline: none;
-  margin: 5px;
-  width: 70%;
-  font-family: "Poppins", sans-serif;
-  font-size: 12px;
-}
-
-.main .chat-form .messages .display .type-area button {
-  border: 1px solid #b3b3b3;
-  border-radius: 20px;
-  padding: 10px;
-  outline: none;
-  margin: 5px;
-  width: 15%;
-  background-color: #920f92;
-  color: white;
-  font-weight: bold;
-  font-family: "Poppins", sans-serif;
-  letter-spacing: 1px;
-  -webkit-transition: all 0.2s ease;
-  transition: all 0.2s ease;
-}
-
-.main .chat-form .messages .display .type-area button:hover {
-  background-color: #610b61;
-}
-.chatbox {
-  height: 500px;
-  overflow-y: scroll;
-}
-::-webkit-scrollbar {
-}
-::-webkit-scrollbar-thmub {
-  background-color: #e4e4e4;
-}
-.username-time {
-  font-size: 12px;
-  float: left;
-  margin-top: 10px;
-  margin-left: 10px;
-  opacity: 0.6;
+          button:hover {
+            background-color: rgb(97, 11, 97);
+          }
+        }
+      }
+    }
+  }
 }
 </style>
-
