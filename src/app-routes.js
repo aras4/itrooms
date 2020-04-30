@@ -2,8 +2,8 @@ import ChatRoom from './components/ChatRoom.vue';
 import RoomHome from './components/RoomHome.vue';
 
 export default [
-    { path: '/', component: RoomHome },
-    { path: '/chatroom', component: ChatRoom },
-    { path: '*', component: RoomHome }
+    { path: '/', name: 'roomhome', component: RoomHome },
+    { path: '/chatroom/:room/:username', name: 'chatroom', component: ChatRoom },
+    { path: '*', redirect: '/', component: RoomHome }
 ]
 

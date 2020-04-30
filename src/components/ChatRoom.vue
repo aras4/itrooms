@@ -19,7 +19,7 @@
               :key="index"
               :class="[username === message.username ? 'my-msg':'user-msg']"
             >
-              <img src="../assets/user_avatar.png" />
+              <img v-if="username !== message.username" src="../assets/user_avatar.png" />
               <div class="user-msg-time">
                 <div class="msg">
                   <p>{{message.text}}</p>
@@ -119,8 +119,8 @@ export default {
     }
   },
   created() {
-    this.username = this.$route.query.username;
-    this.room = this.$route.query.room;
+    this.username = this.$route.params.username;
+    this.room = this.$route.params.room;
     this.$socket.emit("joinRoom", { username: this.username, room: this.room });
   }
 };
@@ -304,6 +304,13 @@ export default {
 .my-msg {
   @extend .user-msg;
   justify-content: flex-end !important;
+  .msg {
+    border-radius: 10px !important;
+    border-bottom-right-radius: 0 !important;
+  }
+  .username-time {
+    text-align: right !important;
+  }
 }
 
 @media only screen and (max-width: 768px) {

@@ -40,8 +40,8 @@ export default {
   methods: {
     joinRoom() {
       this.$router.push({
-        path: "chatroom",
-        query: { username: this.username, room: "js" }
+        name: "chatroom",
+        params: { username: this.username, room: "js" }
       });
     }
   }
