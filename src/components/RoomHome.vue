@@ -1,10 +1,29 @@
 <template>
   <div>
+    <div class="header">
+      <nav class="navbar">
+        <ul class="nav_links">
+          <!-- Delete the unnecessary ones -->
+          <li>
+            <a href="#">Login</a>
+          </li>
+          <li>
+            <a href="#">About us</a>
+          </li>
+          <li>
+            <a href="#">Register</a>
+          </li>
+          <li>
+            <a href="#">Contact</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
     <div class="main">
       <div class="login-form">
-        <div class="login-img">
+        <!--         <div class="login-img">
           <img src="../assets/login.png" />
-        </div>
+        </div>-->
         <div class="login">
           <h1>ITRooms</h1>
           <div class="input-fields">
@@ -23,6 +42,9 @@
             <a href="#">Create your Account &rarr;</a>
           </p-->
         </div>
+      </div>
+      <div class="footer">
+        <p>Copyright &copy; | ITAcademy 2020</p>
       </div>
     </div>
   </div>
@@ -49,6 +71,34 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 5px 7%;
+}
+li,
+a {
+  font-family: "Poppins", sans-serif;
+  color: #ffffff;
+  text-decoration: none;
+}
+.nav_links {
+  list-style: none;
+}
+.nav_links li {
+  display: inline-block;
+  padding: 0px 20px;
+}
+
+.nav_links li a {
+  transition: all 0.3 ease 0s;
+}
+
+.nav_links li a:hover {
+  color: #d9cfce;
+}
+
 .main {
   position: absolute;
   left: 50%;
@@ -56,13 +106,13 @@ export default {
   transform: translate(-50%, -50%);
   width: 70%;
   .login-form {
-    background-color: white;
+    /*     background-color: white;*/
     border-radius: 10px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     padding: 70px;
-    .login-img {
+    /*     .login-img {
       width: 50%;
       display: flex;
       justify-content: center;
@@ -71,7 +121,7 @@ export default {
       img {
         width: 40%;
       }
-    }
+    } */
 
     .login {
       width: 40%;
@@ -162,5 +212,11 @@ export default {
       }
     }
   }
+}
+.footer {
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;
+  color: #ffffff;
 }
 </style>
