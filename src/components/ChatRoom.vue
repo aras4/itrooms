@@ -30,6 +30,13 @@
           </div>
           <div class="type-area">
             <p class="user-typing">{{userTypingMsg}}</p>
+            <input type="button" value="🙂" id="emoji" @click="openEmojisArea()">
+          <div  class="emoji-area" v-if="clickEmoji">
+          <div class="emojiBox">
+          <span  v-for="(emoji,index) in Emojis"
+          :key="index" @click="copy(index)">{{emoji.icon}}</span>
+          </div>
+          </div>
             <input
               type="text"
               placeholder="Type a message..."
@@ -55,7 +62,17 @@ export default {
       roomUsers: { room: "", users: [] },
       username: "",
       room: "",
-      userTypingMsg: ""
+      userTypingMsg: "",
+      Emojis:[
+     
+        {icon:"😁"},{icon:"😍"},{icon:"😎"},{icon:"😘"},
+       {icon:"🙂"}, {icon:"😈"},{icon:"😋"},{icon:"😥"},
+       {icon:"😱"},{icon:"😤"},{icon:"😑"},{icon:"🤣"},
+       {icon:"😂"},{icon:"🤮"},{icon:"🤬"},{icon:"💩"},
+       {icon:"🔥"},{icon:"🎓"},{icon:"💓"},{icon:"👏"}
+      ],
+      clickEmoji:false,
+      emoji:""
     };
   },
   methods: {
@@ -98,6 +115,23 @@ export default {
       var scrollHeight = container.scrollHeight;
       container.scrollTop = scrollHeight;
     }
+    ,
+    copy(index){
+      this.emoji=this.Emojis[index].icon;
+     this.message+=this.emoji;
+     
+
+    },
+    openEmojisArea(){
+      if(this.clickEmoji==false){
+        this.clickEmoji=true;
+      }
+      else{
+        this.clickEmoji=false;
+      }
+      
+    }
+    
   },
   mounted() {
     this.scrollToEndMessages();
@@ -331,4 +365,31 @@ export default {
     margin-right: 98px;
   }
 }
+#emoji{
+  width:40px;
+}
+.emoji-area{
+  width:200px;
+  padding:10px;
+   border: 1px solid rgb(179, 179, 179);
+  background:white;
+  position:absolute;
+  top:500px;
+  left:500px;
+  text-align:left;
+  border-radius:30px;
+  background-color:#e9ebee;
+ -webkit-box-shadow: 9px 10px 5px -2px rgba(0,0,0,0.22);
+-moz-box-shadow: 9px 10px 5px -2px rgba(0,0,0,0.22);
+box-shadow: 9px 10px 5px -2px rgba(0,0,0,0.22);
+}
+.emoji-area span{
+  cursor:pointer;
+  font-size:26px;
+}
+.emojiBox{
+height:150px;
+overflow-y:scroll;
+}
+
 </style>
