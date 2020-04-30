@@ -14,7 +14,11 @@
         <h3>{{roomUsers.room}}</h3>
         <div class="display">
           <div class="display-messages">
-            <div class="user-msg" v-for="(message,index) in messages" :key="index">
+            <div
+              v-for="(message,index) in messages"
+              :key="index"
+              :class="[username === message.username ? 'my-msg':'user-msg']"
+            >
               <img src="../assets/user_avatar.png" />
               <div class="user-msg-time">
                 <div class="msg">
@@ -47,7 +51,9 @@ export default {
     return {
       messages: [],
       message: "",
-      roomUsers: { room: "", users: [] }
+      roomUsers: { room: "", users: [] },
+      username: "",
+      room: ""
     };
   },
   methods: {
@@ -84,8 +90,9 @@ export default {
     }
   },
   created() {
-    const { room, username } = this.$route.query;
-    this.$socket.emit("joinRoom", { username: username, room: room });
+    this.username = this.$route.query.username;
+    this.room = this.$route.query.room;
+    this.$socket.emit("joinRoom", { username: this.username, room: this.room });
   }
 };
 </script>
@@ -178,40 +185,6 @@ export default {
           height: 550px;
           border-bottom: 1px solid rgb(187, 185, 185);
           border-top: 1px solid rgb(187, 185, 185);
-          .user-msg {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            margin-top: 5px;
-            .user-msg-time {
-              display: flex;
-              flex-direction: column;
-              .msg {
-                background-color: white;
-                border-radius: 10px;
-                margin: 5px;
-                margin-bottom: 0px;
-                border: 1px solid rgb(179, 179, 179);
-                p {
-                  margin: 8px;
-                  color: rgb(0, 0, 0);
-                  font-size: 12px;
-                }
-              }
-              .username-time {
-                font-size: 10px;
-                color: rgb(187, 185, 185);
-                text-align: left;
-                margin-left: 5px;
-              }
-            }
-            img {
-              height: 40px;
-              width: 40px;
-              margin: 5px;
-              margin: 5px;
-            }
-          }
         }
         .type-area {
           display: flex;
@@ -256,29 +229,63 @@ export default {
     }
   }
 }
-@media only screen and (max-width:768px){
-  .messages{
-    width:400px;
+
+.user-msg {
+  display: flex;
+  margin-top: 5px;
+  justify-content: flex-start;
+  .user-msg-time {
+    display: flex;
+    flex-direction: column;
+    .msg {
+      background-color: white;
+      border-radius: 10px;
+      margin: 5px;
+      margin-bottom: 0px;
+      border: 1px solid rgb(179, 179, 179);
+      border-bottom-left-radius: 0;
+      p {
+        margin: 8px;
+        color: rgb(0, 0, 0);
+        font-size: 12px;
+      }
+    }
+    .username-time {
+      font-size: 10px;
+      color: rgb(187, 185, 185);
+      text-align: left;
+      margin-left: 5px;
+    }
   }
-  .main{
-    padding:0px;
-    margin-right:70px;
+  img {
+    height: 40px;
+    width: 40px;
+    margin: 5px;
+    margin: 5px;
   }
- 
-}
-@media only screen and (max-width:600px){
-  
- 
-.main{
-  width:500px;
-  
-  
-}
-.chat-form{
-margin-top:150px;
-margin-right:98px;
-}
 }
 
+.my-msg {
+  @extend .user-msg;
+  justify-content: flex-end !important;
+}
 
+@media only screen and (max-width: 768px) {
+  .messages {
+    width: 400px;
+  }
+  .main {
+    padding: 0px;
+    margin-right: 70px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .main {
+    width: 500px;
+  }
+  .chat-form {
+    margin-top: 150px;
+    margin-right: 98px;
+  }
+}
 </style>
