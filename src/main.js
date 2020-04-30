@@ -5,7 +5,8 @@ import routes from './app-routes';
 import socketio from 'socket.io-client';
 import VueSocketIO from 'vue-socket.io';
 
-const SocketInstance = socketio('https://it-collaboration-server.herokuapp.com/');
+//const SocketInstance = socketio('https://it-collaboration-server.herokuapp.com/');
+const SocketInstance = socketio('http://localhost:3000');
 
 Vue.config.productionTip = false;
 

@@ -29,11 +29,12 @@
             </div>
           </div>
           <div class="type-area">
+            <p class="user-typing">{{userTypingMsg}}</p>
             <input
               type="text"
               placeholder="Type a message..."
               v-model="message"
-              @keyup.enter="sendMessage"
+              @keyup="typingMessage($event)"
             />
             <button @click="sendMessage">Send</button>
           </div>
@@ -53,13 +54,38 @@ export default {
       message: "",
       roomUsers: { room: "", users: [] },
       username: "",
-      room: ""
+      room: "",
+      userTypingMsg: ""
     };
   },
   methods: {
+    typingMessage(e) {
+      let canPublish = true;
+
+      if (!this.message) {
+        return this.emitTypingEvent(false);
+      }
+
+      if (e.keyCode === 13) {
+        this.sendMessage();
+      } else {
+        if (canPublish) {
+          this.emitTypingEvent(true);
+          canPublish = false;
+          setTimeout(() => (canPublish = true), 1000);
+        }
+      }
+    },
+    emitTypingEvent(isTyping) {
+      this.$socket.emit("typing", {
+        room: this.room,
+        username: this.username,
+        isTyping: isTyping
+      });
+    },
     sendMessage() {
+      this.emitTypingEvent(false);
       this.$socket.emit("chatMessage", this.message);
-      console.log(this.$socket);
       this.message = "";
     },
     scrollToEndMessages() {
@@ -82,6 +108,9 @@ export default {
     this.scrollToEndUsers();
   },
   sockets: {
+    typing(data) {
+      this.userTypingMsg = data.username !== this.username ? data.msg : "";
+    },
     message(data) {
       this.messages.push(data);
     },
@@ -98,6 +127,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.user-typing {
+  position: absolute;
+  top: -55px;
+  left: 0;
+}
+
 @mixin custom-scroll-bar() {
   &::-webkit-scrollbar {
     border-radius: 10px;
@@ -193,6 +228,7 @@ export default {
           padding: 10px;
           margin: 10px;
           width: 90%;
+          position: relative;
 
           input {
             background-color: white;
