@@ -4,6 +4,8 @@ import VueRouter from 'vue-router';
 import routes from './app-routes';
 import socketio from 'socket.io-client';
 import VueSocketIO from 'vue-socket.io';
+import '@fortawesome/fontawesome-free/css/all.css';
+import '@fortawesome/fontawesome-free/js/all.js';
 
 const SocketInstance = socketio('https://it-collaboration-server.herokuapp.com/');
 //const SocketInstance = socketio('http://localhost:3000');

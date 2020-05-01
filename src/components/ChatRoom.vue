@@ -1,17 +1,33 @@
 <template>
   <div class="main">
+    <div class="topbar">
+      <button id="close">x</button>
+      <button id="swipe-left">&larr;</button>
+      <p>itrooms</p>
+    </div>
+    <!--div class="logo-img">
+      <img src="../assets/logo.png">
+    </div-->
+    <div class="search-roomname-bar">
+      <div class="search">
+        <input type="text" placeholder="Search">
+        <button><i class="fas fa-search"></i></button>
+      </div>
+      <div class="room-name">
+        <p>{{roomUsers.room}}</p>
+      </div>
+    </div>
     <div class="chat-form">
       <div class="users-wrapper">
-        <h3>Chat users:</h3>
         <div class="users">
-          <div v-for="(user,index) in roomUsers.users" :key="index" class="one-user">
-            <img src="../assets/user_avatar.png" />
+          <div v-for="(user,index) in roomUsers.users" :key="index" 
+          :class="[index % 2 === 0 ? 'first-user':'second-user']">
+            <img src="../assets/pngfuel.com.png" />
             <p>{{user.username}}</p>
           </div>
         </div>
       </div>
       <div class="messages">
-        <h3>{{roomUsers.room}}</h3>
         <div class="display">
           <div class="display-messages">
             <div
@@ -19,7 +35,7 @@
               :key="index"
               :class="[username === message.username ? 'my-msg':'user-msg']"
             >
-              <img v-if="username !== message.username" src="../assets/user_avatar.png" />
+              <img v-if="username !== message.username" src="../assets/pngfuel.com.png" />
               <div class="user-msg-time">
                 <div class="msg">
                   <p>{{message.text}}</p>
@@ -28,18 +44,28 @@
               </div>
             </div>
           </div>
-          <div class="type-area">
+        </div>
+      </div>
+    </div>
+    <div class="bottombar">
+      <div class="options">
+        <button><i class="fas fa-cog"></i></button>
+        <button><i class="fas fa-user"></i></button>
+        <button><i class="fas fa-phone"></i></button>
+        <button><i class="fas fa-paper-plane"></i></button>
+      </div>
+      <div class="type-area">
             <p class="user-typing">{{userTypingMsg}}</p>
+            <button><i class="fas fa-smile"></i></button>
+            <button><i class="fas fa-paperclip"></i></button>
             <input
               type="text"
               placeholder="Type a message..."
               v-model="message"
               @keyup="typingMessage($event)"
             />
-            <button @click="sendMessage">Send</button>
+            <button class="button-right" @click="sendMessage"><i class="fas fa-paper-plane"></i></button>
           </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -119,8 +145,8 @@ export default {
     }
   },
   created() {
-    this.username = this.$route.params.username;
-    this.room = this.$route.params.room;
+    this.username = this.$route.query.username;
+    this.room = this.$route.query.room;
     this.$socket.emit("joinRoom", { username: this.username, room: this.room });
   }
 };
@@ -149,118 +175,250 @@ export default {
 }
 
 .main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 700px;
-  padding: 30px;
-  .chat-form {
-    width: 80%;
+  width: 100%;
+  //position: relative;
+
+  .topbar {
+    background-color:rgb(66, 64, 64);
+    overflow: hidden;
+
+    #close {
+      display: block;
+      float: left;
+      outline: none;
+      background-color: rgb(66, 64, 64);
+      color:rgb(177, 177, 177);
+      font-weight: bold;
+      border: none;
+      font-size: 18px;
+      margin: 5px 20px;
+      padding: 0px;
+      font-family: "Poppins", sans-serif;
+    }
+
+    #swipe-left {
+      display: none;
+      float: left;
+      outline: none;
+      background-color: rgb(66, 64, 64);
+      color:rgb(177, 177, 177);
+      font-weight: bold;
+      border: none;
+      font-size: 18px;
+      margin: 5px 20px;
+      padding: 0px;
+      font-family: "Poppins", sans-serif;
+    }
+
+    #close:hover {
+      color:rgb(128, 127, 127)
+    }
+
+    p {
+      font-family: "Poppins", sans-serif;
+      color:rgb(177, 177, 177);
+      font-size: 14px;
+      margin: 10px;
+    }
+  }
+
+  /*.logo-img {
+    border-radius: 50%;
+    position: absolute;
+    top: 7%;
+    left: 62%;
+    background-color: rgb(46, 44, 44);
+    padding: 10px;
+
+    img {
+      width: 40px;
+      border-radius: 50%;
+    }
+  }*/
+
+  .search-roomname-bar{
     display: grid;
     grid-template-columns: repeat(3, 33.33%);
-    border-radius: 20px;
-    height: 700px;
+    background-color: rgb(75, 71, 71);
 
-    .users-wrapper {
-      background-color: rgb(66, 64, 64);
-      padding: 30px;
-      border-top-left-radius: 20px;
-      border-bottom-left-radius: 20px;
-      font-family: "Poppins", sans-serif;
-      h3 {
-        text-align: left;
-        margin: 5px;
-        margin-bottom: 10px;
-        color: white;
+    .search {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+       border-right: 1px solid rgb(110, 110, 110);
+      
+      input {
+        padding: 10px;
+        margin-left: 10px;
+        width: 70%;
+        background-color: rgb(75, 71, 71);
+        font-size: 16px;
+        color:rgb(177, 177, 177);
+        font-family: "Poppins", sans-serif;
+        border: none;
+        outline: none;
       }
+
+      button {
+        padding: 9px;
+        background-color: rgb(75, 71, 71);
+        font-size: 16px;
+        margin-right: 10px;
+        color:rgb(177, 177, 177);
+        font-family: "Poppins", sans-serif;
+        border: none;
+        outline: none;
+        font-size: 20px;
+      }
+
+      button:hover {
+        color:rgb(161, 161, 161);
+      }
+
+    }
+    .room-name {
+      grid-column: 2 span;
+      background-color: rgb(75, 71, 71);
+
+      p {
+         color:rgb(177, 177, 177);
+         text-align: left;
+         margin: 15px 0px 15px 40px;
+         font-size: 18px;
+      }
+    }
+  }
+  
+  .chat-form {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 33.33%);
+    background-color: white;
+
       .users {
         @include custom-scroll-bar;
         overflow: auto;
-        height: 620px;
-        border-top: 1px solid rgb(187, 185, 185);
+        height: 650px;
         display: flex;
         flex-direction: column;
-        .one-user {
+        border-right: 1px solid rgb(187, 185, 185);
+
+        .first-user {
           display: flex;
           flex-direction: row;
-          margin: 10px;
-          border-bottom: 1px solid rgb(187, 185, 185);
+          padding: 20px;
+          background-color: white;
+          color:rgb(0, 0, 0);
+          transition: all 0.1s ease;
           img {
-            height: 40px;
+            height: 50px;
             margin: 5px;
+            border-radius: 50%;
           }
+
           p {
-            color: white;
+            font-family: "Poppins", sans-serif;
             font-size: 16px;
+            font-weight: bold;
             margin: 5px;
             padding: 7px;
           }
         }
+
+        .second-user {
+           @extend .first-user;
+           background-color: rgb(243, 243, 243);
+        } 
+
+        .first-user:hover {
+          background-color: rgb(65, 225, 240);
+          color:rgb(255, 255, 255);
+          }
+        
       }
-    }
     .messages {
       grid-column: 2 span;
-      background-color: rgb(228, 228, 228);
-      border-top-right-radius: 20px;
-      border-bottom-right-radius: 20px;
-      padding: 15px;
-      font-family: "Poppins", sans-serif;
-      h3 {
-        text-align: left;
-        margin: 10px 10px 0px 10px;
-        color: white;
-        padding: 10px;
-      }
+      background-color: rgb(255, 255, 255);
+      font-family: "Poppins", sans-serif;      
+     
       .display {
-        height: 600px;
         font-family: "Poppins", sans-serif;
+
         .display-messages {
           @include custom-scroll-bar;
-          overflow: auto;
-          height: 550px;
-          border-bottom: 1px solid rgb(187, 185, 185);
-          border-top: 1px solid rgb(187, 185, 185);
+          overflow-y: scroll;
+          height: 630px;
+          margin:0 0 0 20px;
         }
-        .type-area {
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
-          padding: 10px;
-          margin: 10px;
-          width: 90%;
-          position: relative;
+      }
+    }
+  }
 
-          input {
-            background-color: white;
-            border: 1px solid rgb(179, 179, 179);
-            border-radius: 20px;
-            padding: 12px;
-            outline: none;
-            margin: 5px;
-            width: 70%;
-            font-family: "Poppins", sans-serif;
-            font-size: 12px;
-          }
+  .bottombar {
+    width:100%;
+    display: grid;
+    grid-template-columns: repeat(3, 33.33%);
+    background-color: white;
+    border-top: 1px solid rgb(187, 185, 185);
 
-          button {
-            border: 1px solid rgb(179, 179, 179);
-            border-radius: 20px;
-            padding: 10px;
-            outline: none;
-            margin: 5px;
-            width: 15%;
-            background-color: rgb(146, 15, 146);
-            color: white;
-            font-weight: bold;
-            font-family: "Poppins", sans-serif;
-            letter-spacing: 1px;
-            transition: all 0.2s ease;
-          }
+    .options {
+      display: grid;
+      grid-template-columns: repeat(4, 25%);
 
-          button:hover {
-            background-color: rgb(97, 11, 97);
-          }
+      button {
+        border: none;
+        outline: none;
+        font-size: 22px;
+        background-color: white;
+        border-right: 1px solid rgb(187, 185, 185);
+        color:rgb(187, 185, 185)
+      }
+
+      button:hover {
+        background-color:rgb(65, 225, 240);
+        color:rgb(66, 64, 64);
+      }
+    }
+
+    .type-area {
+      grid-column: 2 span;
+      display: flex;
+      flex-direction: row;
+      overflow: hidden;
+     margin-left: 20px;
+
+      button {
+        border: none;
+        outline: none;
+        color:rgb(187, 185, 185);
+        background-color: white;
+        margin: 10px;
+        font-size: 22px;
+      }
+
+      button:hover {
+        color:rgb(161, 161, 161);
+      }
+
+      input {
+        outline: none;
+        padding: 10px;
+        width: 80%;
+        color: black;
+        font-family: "Poppins", sans-serif;
+        border: none;
+           
+      }
+
+      .button-right {
+        color: rgb(75, 71, 71);
+        background-color: white;
+        margin: 10px;
+        font-size: 22px;
         }
+
+      .button-right:hover {
+        color:rgb(65, 225, 240);
       }
     }
   }
@@ -268,21 +426,23 @@ export default {
 
 .user-msg {
   display: flex;
-  margin-top: 5px;
+  margin: 5px 10px 0;
   justify-content: flex-start;
+
   .user-msg-time {
     display: flex;
     flex-direction: column;
+
     .msg {
-      background-color: white;
-      border-radius: 10px;
+      background-color: rgb(92, 86, 86);
+      border-radius: 15px;
       margin: 5px;
       margin-bottom: 0px;
-      border: 1px solid rgb(179, 179, 179);
       border-bottom-left-radius: 0;
+
       p {
         margin: 8px;
-        color: rgb(0, 0, 0);
+        color: rgb(255, 255, 255);
         font-size: 12px;
       }
     }
@@ -298,37 +458,47 @@ export default {
     width: 40px;
     margin: 5px;
     margin: 5px;
+    border-radius: 50%;
   }
 }
 
 .my-msg {
   @extend .user-msg;
   justify-content: flex-end !important;
+
   .msg {
-    border-radius: 10px !important;
+    border-radius: 15px !important;
     border-bottom-right-radius: 0 !important;
+    background-color:rgb(65, 225, 240) !important;
   }
+
   .username-time {
     text-align: right !important;
   }
 }
 
-@media only screen and (max-width: 768px) {
-  .messages {
-    width: 400px;
+@media only screen and (max-width: 425px) {
+
+.main {
+  .topbar {
+    #close {
+      display: none;
+    }
+    #swipe-left {
+      display: block;
+    }
   }
-  .main {
-    padding: 0px;
-    margin-right: 70px;
+
+  .search-roomname-bar {
+    display: none;
   }
+  
+}
+  
+ 
 }
 @media only screen and (max-width: 600px) {
-  .main {
-    width: 500px;
-  }
-  .chat-form {
-    margin-top: 150px;
-    margin-right: 98px;
-  }
+
 }
+  
 </style>
