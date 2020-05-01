@@ -64,6 +64,8 @@
               v-model="message"
               @keyup="typingMessage($event)"
             />
+            
+           <VueEmoji  ref="emoji" @input="onInput"  class="text" @keyup="typingMessage($event)"  />
             <button class="button-right" @click="sendMessage"><i class="fas fa-paper-plane"></i></button>
           </div>
     </div>
@@ -71,8 +73,12 @@
 </template>
 
 <script>
+import VueEmoji from 'emoji-vue'
 export default {
   name: "ChatRoom",
+  components: {
+    VueEmoji
+  },
   props: {},
   data() {
     return {
@@ -112,6 +118,7 @@ export default {
     sendMessage() {
       this.emitTypingEvent(false);
       this.$socket.emit("chatMessage", this.message);
+      this.$refs.emoji.clear();
       this.message = "";
     },
     scrollToEndMessages() {
@@ -123,7 +130,11 @@ export default {
       var container = document.querySelector(".users");
       var scrollHeight = container.scrollHeight;
       container.scrollTop = scrollHeight;
-    }
+    },
+    onInput(event) {
+          event.data 
+           this.message=event.data;
+      }
   },
   mounted() {
     this.scrollToEndMessages();
@@ -500,5 +511,14 @@ export default {
 @media only screen and (max-width: 600px) {
 
 }
-  
+
+.text{
+ color: black;
+ background-color: white;;
+   margin-left:300px;
+   border: 1px solid rgb(179, 179, 179);
+           
+            width:240px;
+          
+}
 </style>
