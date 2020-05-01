@@ -10,8 +10,10 @@
     </div-->
     <div class="search-roomname-bar">
       <div class="search">
-        <input type="text" placeholder="Search">
-        <button><i class="fas fa-search"></i></button>
+        <input type="text" placeholder="Search" />
+        <button>
+          <i class="fas fa-search"></i>
+        </button>
       </div>
       <div class="room-name">
         <p>{{roomUsers.room}}</p>
@@ -20,8 +22,11 @@
     <div class="chat-form">
       <div class="users-wrapper">
         <div class="users">
-          <div v-for="(user,index) in roomUsers.users" :key="index" 
-          :class="[index % 2 === 0 ? 'first-user':'second-user']">
+          <div
+            v-for="(user,index) in roomUsers.users"
+            :key="index"
+            :class="[index % 2 === 0 ? 'first-user':'second-user']"
+          >
             <img src="../assets/pngfuel.com.png" />
             <p>{{user.username}}</p>
           </div>
@@ -49,31 +54,45 @@
     </div>
     <div class="bottombar">
       <div class="options">
-        <button><i class="fas fa-cog"></i></button>
-        <button><i class="fas fa-user"></i></button>
-        <button><i class="fas fa-phone"></i></button>
-        <button><i class="fas fa-paper-plane"></i></button>
+        <button>
+          <i class="fas fa-cog"></i>
+        </button>
+        <button>
+          <i class="fas fa-user"></i>
+        </button>
+        <button>
+          <i class="fas fa-phone"></i>
+        </button>
+        <button>
+          <i class="fas fa-paper-plane"></i>
+        </button>
       </div>
       <div class="type-area">
-            <p class="user-typing">{{userTypingMsg}}</p>
-            <button><i class="fas fa-smile"></i></button>
-            <button><i class="fas fa-paperclip"></i></button>
-            <input
-              type="text"
-              placeholder="Type a message..."
-              v-model="message"
-              @keyup="typingMessage($event)"
-            />
-            
-           <VueEmoji  ref="emoji" @input="onInput"  class="text" @keyup="typingMessage($event)"  />
-            <button class="button-right" @click="sendMessage"><i class="fas fa-paper-plane"></i></button>
-          </div>
+        <p class="user-typing">{{userTypingMsg}}</p>
+        <button>
+          <i class="fas fa-smile"></i>
+        </button>
+        <button>
+          <i class="fas fa-paperclip"></i>
+        </button>
+        <input
+          type="text"
+          placeholder="Type a message..."
+          v-model="message"
+          @keyup="typingMessage($event)"
+        />
+
+        <VueEmoji ref="emoji" @input="onInput" class="text" @keyup="typingMessage($event)" />
+        <button class="button-right" @click="sendMessage">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import VueEmoji from 'emoji-vue'
+import VueEmoji from "emoji-vue";
 export default {
   name: "ChatRoom",
   components: {
@@ -132,9 +151,9 @@ export default {
       container.scrollTop = scrollHeight;
     },
     onInput(event) {
-          event.data 
-           this.message=event.data;
-      }
+      event.data;
+      this.message = event.data;
+    }
   },
   mounted() {
     this.scrollToEndMessages();
@@ -156,8 +175,8 @@ export default {
     }
   },
   created() {
-    this.username = this.$route.query.username;
-    this.room = this.$route.query.room;
+    this.username = this.$route.params.username;
+    this.room = this.$route.params.room;
     this.$socket.emit("joinRoom", { username: this.username, room: this.room });
   }
 };
@@ -190,7 +209,7 @@ export default {
   //position: relative;
 
   .topbar {
-    background-color:rgb(66, 64, 64);
+    background-color: rgb(66, 64, 64);
     overflow: hidden;
 
     #close {
@@ -198,7 +217,7 @@ export default {
       float: left;
       outline: none;
       background-color: rgb(66, 64, 64);
-      color:rgb(177, 177, 177);
+      color: rgb(177, 177, 177);
       font-weight: bold;
       border: none;
       font-size: 18px;
@@ -212,7 +231,7 @@ export default {
       float: left;
       outline: none;
       background-color: rgb(66, 64, 64);
-      color:rgb(177, 177, 177);
+      color: rgb(177, 177, 177);
       font-weight: bold;
       border: none;
       font-size: 18px;
@@ -222,12 +241,12 @@ export default {
     }
 
     #close:hover {
-      color:rgb(128, 127, 127)
+      color: rgb(128, 127, 127);
     }
 
     p {
       font-family: "Poppins", sans-serif;
-      color:rgb(177, 177, 177);
+      color: rgb(177, 177, 177);
       font-size: 14px;
       margin: 10px;
     }
@@ -247,7 +266,7 @@ export default {
     }
   }*/
 
-  .search-roomname-bar{
+  .search-roomname-bar {
     display: grid;
     grid-template-columns: repeat(3, 33.33%);
     background-color: rgb(75, 71, 71);
@@ -256,15 +275,15 @@ export default {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-       border-right: 1px solid rgb(110, 110, 110);
-      
+      border-right: 1px solid rgb(110, 110, 110);
+
       input {
         padding: 10px;
         margin-left: 10px;
         width: 70%;
         background-color: rgb(75, 71, 71);
         font-size: 16px;
-        color:rgb(177, 177, 177);
+        color: rgb(177, 177, 177);
         font-family: "Poppins", sans-serif;
         border: none;
         outline: none;
@@ -275,7 +294,7 @@ export default {
         background-color: rgb(75, 71, 71);
         font-size: 16px;
         margin-right: 10px;
-        color:rgb(177, 177, 177);
+        color: rgb(177, 177, 177);
         font-family: "Poppins", sans-serif;
         border: none;
         outline: none;
@@ -283,75 +302,73 @@ export default {
       }
 
       button:hover {
-        color:rgb(161, 161, 161);
+        color: rgb(161, 161, 161);
       }
-
     }
     .room-name {
       grid-column: 2 span;
       background-color: rgb(75, 71, 71);
 
       p {
-         color:rgb(177, 177, 177);
-         text-align: left;
-         margin: 15px 0px 15px 40px;
-         font-size: 18px;
+        color: rgb(177, 177, 177);
+        text-align: left;
+        margin: 15px 0px 15px 40px;
+        font-size: 18px;
       }
     }
   }
-  
+
   .chat-form {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 33.33%);
     background-color: white;
 
-      .users {
-        @include custom-scroll-bar;
-        overflow: auto;
-        height: 650px;
+    .users {
+      @include custom-scroll-bar;
+      overflow: auto;
+      height: 650px;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid rgb(187, 185, 185);
+
+      .first-user {
         display: flex;
-        flex-direction: column;
-        border-right: 1px solid rgb(187, 185, 185);
-
-        .first-user {
-          display: flex;
-          flex-direction: row;
-          padding: 20px;
-          background-color: white;
-          color:rgb(0, 0, 0);
-          transition: all 0.1s ease;
-          img {
-            height: 50px;
-            margin: 5px;
-            border-radius: 50%;
-          }
-
-          p {
-            font-family: "Poppins", sans-serif;
-            font-size: 16px;
-            font-weight: bold;
-            margin: 5px;
-            padding: 7px;
-          }
+        flex-direction: row;
+        padding: 20px;
+        background-color: white;
+        color: rgb(0, 0, 0);
+        transition: all 0.1s ease;
+        img {
+          height: 50px;
+          margin: 5px;
+          border-radius: 50%;
         }
 
-        .second-user {
-           @extend .first-user;
-           background-color: rgb(243, 243, 243);
-        } 
-
-        .first-user:hover {
-          background-color: rgb(65, 225, 240);
-          color:rgb(255, 255, 255);
-          }
-        
+        p {
+          font-family: "Poppins", sans-serif;
+          font-size: 16px;
+          font-weight: bold;
+          margin: 5px;
+          padding: 7px;
+        }
       }
+
+      .second-user {
+        @extend .first-user;
+        background-color: rgb(243, 243, 243);
+      }
+
+      .first-user:hover {
+        background-color: rgb(65, 225, 240);
+        color: rgb(255, 255, 255);
+      }
+    }
     .messages {
       grid-column: 2 span;
       background-color: rgb(255, 255, 255);
-      font-family: "Poppins", sans-serif;      
-     
+      font-family: "Poppins", sans-serif;
+
       .display {
         font-family: "Poppins", sans-serif;
 
@@ -359,14 +376,14 @@ export default {
           @include custom-scroll-bar;
           overflow-y: scroll;
           height: 630px;
-          margin:0 0 0 20px;
+          margin: 0 0 0 20px;
         }
       }
     }
   }
 
   .bottombar {
-    width:100%;
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 33.33%);
     background-color: white;
@@ -382,12 +399,12 @@ export default {
         font-size: 22px;
         background-color: white;
         border-right: 1px solid rgb(187, 185, 185);
-        color:rgb(187, 185, 185)
+        color: rgb(187, 185, 185);
       }
 
       button:hover {
-        background-color:rgb(65, 225, 240);
-        color:rgb(66, 64, 64);
+        background-color: rgb(65, 225, 240);
+        color: rgb(66, 64, 64);
       }
     }
 
@@ -396,19 +413,19 @@ export default {
       display: flex;
       flex-direction: row;
       overflow: hidden;
-     margin-left: 20px;
+      margin-left: 20px;
 
       button {
         border: none;
         outline: none;
-        color:rgb(187, 185, 185);
+        color: rgb(187, 185, 185);
         background-color: white;
         margin: 10px;
         font-size: 22px;
       }
 
       button:hover {
-        color:rgb(161, 161, 161);
+        color: rgb(161, 161, 161);
       }
 
       input {
@@ -418,7 +435,6 @@ export default {
         color: black;
         font-family: "Poppins", sans-serif;
         border: none;
-           
       }
 
       .button-right {
@@ -426,10 +442,10 @@ export default {
         background-color: white;
         margin: 10px;
         font-size: 22px;
-        }
+      }
 
       .button-right:hover {
-        color:rgb(65, 225, 240);
+        color: rgb(65, 225, 240);
       }
     }
   }
@@ -480,7 +496,7 @@ export default {
   .msg {
     border-radius: 15px !important;
     border-bottom-right-radius: 0 !important;
-    background-color:rgb(65, 225, 240) !important;
+    background-color: rgb(65, 225, 240) !important;
   }
 
   .username-time {
@@ -489,36 +505,30 @@ export default {
 }
 
 @media only screen and (max-width: 425px) {
+  .main {
+    .topbar {
+      #close {
+        display: none;
+      }
+      #swipe-left {
+        display: block;
+      }
+    }
 
-.main {
-  .topbar {
-    #close {
+    .search-roomname-bar {
       display: none;
     }
-    #swipe-left {
-      display: block;
-    }
   }
-
-  .search-roomname-bar {
-    display: none;
-  }
-  
-}
-  
- 
 }
 @media only screen and (max-width: 600px) {
-
 }
 
-.text{
- color: black;
- background-color: white;;
-   margin-left:300px;
-   border: 1px solid rgb(179, 179, 179);
-           
-            width:240px;
-          
+.text {
+  color: black;
+  background-color: white;
+  margin-left: 300px;
+  border: 1px solid rgb(179, 179, 179);
+
+  width: 240px;
 }
 </style>
