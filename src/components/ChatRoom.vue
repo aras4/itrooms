@@ -4,9 +4,6 @@
       <button id="close">x</button>
       <p>itrooms</p>
     </div>
-    <!--div class="logo-img">
-      <img src="../assets/logo.png">
-    </div-->
     <div class="search-roomname-bar">
       <div class="search">
         <input type="text" placeholder="Search" />
@@ -30,69 +27,64 @@
             <p>{{user.username}}</p>
           </div>
         </div>
-        <div class="options">
-          <button><i class="fas fa-cog"></i></button>
-          <button><i class="fas fa-user"></i></button>
-          <button><i class="fas fa-phone"></i></button>
-          <button><i class="fas fa-paper-plane"></i></button>
-        </div>
       </div>
-      <div class="messages">
-        <div class="display">
-          <div class="display-messages">
-            <div
-              v-for="(message,index) in messages"
-              :key="index"
-              :class="[username === message.username ? 'my-msg':'user-msg']"
-            >
-              <img v-if="username !== message.username" src="../assets/pngfuel.com.png" />
-              <div class="user-msg-time">
-                <div class="msg">
-                  <p>{{message.text}}</p>
-                </div>
-                <span class="username-time">{{message.username}}, {{message.time}}</span>
+    </div>
+    <div class="messages">
+      <div class="display">
+        <div class="display-messages">
+          <div
+            v-for="(message,index) in messages"
+            :key="index"
+            :class="[username === message.username ? 'my-msg':'user-msg']"
+          >
+            <img v-if="username !== message.username" src="../assets/pngfuel.com.png" />
+            <div class="user-msg-time">
+              <div class="msg">
+                <p>{{message.text}}</p>
               </div>
+              <span class="username-time">{{message.username}}, {{message.time}}</span>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="bottombar">
-      <div class="options">
-        <button>
-          <i class="fas fa-cog"></i>
-        </button>
-        <button>
-          <i class="fas fa-user"></i>
-        </button>
-        <button>
-          <i class="fas fa-phone"></i>
-        </button>
-        <button>
-          <i class="fas fa-paper-plane"></i>
-        </button>
-      </div>
-      <div class="type-area">
-        <p class="user-typing">{{userTypingMsg}}</p>
-        <button>
-          <i class="fas fa-smile"></i>
-        </button>
-        <button>
-          <i class="fas fa-paperclip"></i>
-        </button>
-        <input
-          type="text"
-          placeholder="Type a message..."
-          v-model="message"
-          @keyup="typingMessage($event)"
-        />
+      <div class="bottombar">
+        <div class="options">
+          <button>
+            <i class="fas fa-cog"></i>
+          </button>
+          <button>
+            <i class="fas fa-user"></i>
+          </button>
+          <button>
+            <i class="fas fa-phone"></i>
+          </button>
+          <button>
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+        <div class="type-area">
+          <p class="user-typing">{{userTypingMsg}}</p>
+          <button>
+            <i class="fas fa-smile"></i>
+          </button>
+          <button>
+            <i class="fas fa-paperclip"></i>
+          </button>
+          <input
+            type="text"
+            placeholder="Type a message..."
+            v-model="message"
+            @keyup="typingMessage($event)"
+          />
 
-        <VueEmoji ref="emoji" @input="onInput" class="text" @keyup="typingMessage($event)" />
-        <button class="button-right" @click="sendMessage">
-          <i class="fas fa-paper-plane"></i>
-        </button>
+          <VueEmoji ref="emoji" @input="onInput" class="text" @keyup="typingMessage($event)" />
+          <button class="button-right" @click="sendMessage">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -358,94 +350,25 @@ export default {
         }
       }
 
-        .options {
-          display: grid;
-          grid-template-columns: repeat(4, 25%);
-          border-top: 1px solid rgb(187, 185, 185);
+      .options {
+        display: grid;
+        grid-template-columns: repeat(4, 25%);
+        border-top: 1px solid rgb(187, 185, 185);
 
-          button {
-            border: none;
-            outline: none;
-            font-size: 22px;
-            background-color: white;
-            border-right: 1px solid rgb(187, 185, 185);
-            color:rgb(187, 185, 185);
-            padding: 10px;
-          }
-
-          button:hover {
-            background-color:rgb(65, 225, 240);
-            color:rgb(66, 64, 64);
-          }
+        button {
+          border: none;
+          outline: none;
+          font-size: 22px;
+          background-color: white;
+          border-right: 1px solid rgb(187, 185, 185);
+          color: rgb(187, 185, 185);
+          padding: 10px;
         }
-      }
-      .messages {
-        grid-column: 2 span;
-        background-color: rgb(255, 255, 255);
-        font-family: "Poppins", sans-serif;      
-     
-          .display {
-            font-family: "Poppins", sans-serif;
 
-            .display-messages {
-              @include custom-scroll-bar;
-              overflow-y: scroll;
-              height: 83vh;
-              margin:0 0 0 20px;
-            }
-          }
-
-          .type-area {
-            grid-column: 2 span;
-            display: flex;
-            flex-direction: row;
-            overflow: hidden;
-            padding: 0 20px;
-            border-top: 1px solid rgb(187, 185, 185);
-
-            button {
-              border: none;
-              outline: none;
-              color:rgb(187, 185, 185);
-              background-color: white;
-              margin: 10px;
-              font-size: 22px;
-            }
-
-            button:hover {
-            color:rgb(161, 161, 161);
-            }
-
-            input {
-            outline: none;
-            padding: 10px;
-            width: 85%;
-            color: black;
-            font-family: "Poppins", sans-serif;
-            border: none;   
-            }
-
-            .button-right {
-              color: rgb(75, 71, 71);
-              background-color: white;
-              margin: 10px;
-              font-size: 22px;
-            }
-
-            .button-right:hover {
-            color:rgb(65, 225, 240);
-            }
-          }
+        button:hover {
+          background-color: rgb(65, 225, 240);
+          color: rgb(66, 64, 64);
         }
-        
-      .second-user {
-        @extend .first-user;
-        background-color: rgb(243, 243, 243);
-      }
-
-      .first-user:hover {
-        background-color: rgb(65, 225, 240);
-        color: rgb(255, 255, 255);
       }
     }
     .messages {
@@ -459,78 +382,146 @@ export default {
         .display-messages {
           @include custom-scroll-bar;
           overflow-y: scroll;
-          height: 630px;
+          height: 83vh;
           margin: 0 0 0 20px;
         }
       }
+
+      .type-area {
+        grid-column: 2 span;
+        display: flex;
+        flex-direction: row;
+        overflow: hidden;
+        padding: 0 20px;
+        border-top: 1px solid rgb(187, 185, 185);
+
+        button {
+          border: none;
+          outline: none;
+          color: rgb(187, 185, 185);
+          background-color: white;
+          margin: 10px;
+          font-size: 22px;
+        }
+
+        button:hover {
+          color: rgb(161, 161, 161);
+        }
+
+        input {
+          outline: none;
+          padding: 10px;
+          width: 85%;
+          color: black;
+          font-family: "Poppins", sans-serif;
+          border: none;
+        }
+
+        .button-right {
+          color: rgb(75, 71, 71);
+          background-color: white;
+          margin: 10px;
+          font-size: 22px;
+        }
+
+        .button-right:hover {
+          color: rgb(65, 225, 240);
+        }
+      }
+    }
+
+    .second-user {
+      @extend .first-user;
+      background-color: rgb(243, 243, 243);
+    }
+
+    .first-user:hover {
+      background-color: rgb(65, 225, 240);
+      color: rgb(255, 255, 255);
+    }
+  }
+  .messages {
+    grid-column: 2 span;
+    background-color: rgb(255, 255, 255);
+    font-family: "Poppins", sans-serif;
+
+    .display {
+      font-family: "Poppins", sans-serif;
+
+      .display-messages {
+        @include custom-scroll-bar;
+        overflow-y: scroll;
+        height: 630px;
+        margin: 0 0 0 20px;
+      }
+    }
+  }
+}
+
+.bottombar {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 33.33%);
+  background-color: white;
+  border-top: 1px solid rgb(187, 185, 185);
+
+  .options {
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
+
+    button {
+      border: none;
+      outline: none;
+      font-size: 22px;
+      background-color: white;
+      border-right: 1px solid rgb(187, 185, 185);
+      color: rgb(187, 185, 185);
+    }
+
+    button:hover {
+      background-color: rgb(65, 225, 240);
+      color: rgb(66, 64, 64);
     }
   }
 
-  .bottombar {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(3, 33.33%);
-    background-color: white;
-    border-top: 1px solid rgb(187, 185, 185);
+  .type-area {
+    grid-column: 2 span;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    margin-left: 20px;
 
-    .options {
-      display: grid;
-      grid-template-columns: repeat(4, 25%);
-
-      button {
-        border: none;
-        outline: none;
-        font-size: 22px;
-        background-color: white;
-        border-right: 1px solid rgb(187, 185, 185);
-        color: rgb(187, 185, 185);
-      }
-
-      button:hover {
-        background-color: rgb(65, 225, 240);
-        color: rgb(66, 64, 64);
-      }
+    button {
+      border: none;
+      outline: none;
+      color: rgb(187, 185, 185);
+      background-color: white;
+      margin: 10px;
+      font-size: 22px;
     }
 
-    .type-area {
-      grid-column: 2 span;
-      display: flex;
-      flex-direction: row;
-      overflow: hidden;
-      margin-left: 20px;
+    button:hover {
+      color: rgb(161, 161, 161);
+    }
 
-      button {
-        border: none;
-        outline: none;
-        color: rgb(187, 185, 185);
-        background-color: white;
-        margin: 10px;
-        font-size: 22px;
-      }
+    input {
+      outline: none;
+      padding: 10px;
+      width: 80%;
+      color: black;
+      font-family: "Poppins", sans-serif;
+      border: none;
+    }
 
-      button:hover {
-        color: rgb(161, 161, 161);
-      }
+    .button-right {
+      color: rgb(75, 71, 71);
+      background-color: white;
+      margin: 10px;
+      font-size: 22px;
+    }
 
-      input {
-        outline: none;
-        padding: 10px;
-        width: 80%;
-        color: black;
-        font-family: "Poppins", sans-serif;
-        border: none;
-      }
-
-      .button-right {
-        color: rgb(75, 71, 71);
-        background-color: white;
-        margin: 10px;
-        font-size: 22px;
-      }
-
-      .button-right:hover {
-        color: rgb(65, 225, 240);
-      }
+    .button-right:hover {
+      color: rgb(65, 225, 240);
     }
   }
 }
@@ -580,7 +571,7 @@ export default {
   .msg {
     border-radius: 15px !important;
     border-bottom-right-radius: 0 !important;
-    background-color:rgb(65, 225, 240) !important;
+    background-color: rgb(65, 225, 240) !important;
   }
 
   .username-time {
@@ -589,59 +580,60 @@ export default {
 }
 
 @media only screen and (max-width: 425px) {
-.main {
-  .topbar {
-    #close {
-      float: right;
+  .main {
+    .topbar {
+      #close {
+        float: right;
+      }
     }
-  }
 
-  .search-roomname-bar {
-    display: none;
-  }
-
-  .chat-form {
-    display: grid;
-    grid-template-columns: repeat(1, 100%);
-
-    .users-wrapper {
+    .search-roomname-bar {
       display: none;
     }
-    .messages {
-      width: 100%;
 
-      .display {
-        .display-messages{
-          height: 620px;
-          margin: 0px;
+    .chat-form {
+      display: grid;
+      grid-template-columns: repeat(1, 100%);
 
-          .user-msg {
-            img {
-              width: 30px;
-              height: 30px;
-              margin: 10px 5px; 
+      .users-wrapper {
+        display: none;
+      }
+      .messages {
+        width: 100%;
+
+        .display {
+          .display-messages {
+            height: 620px;
+            margin: 0px;
+
+            .user-msg {
+              img {
+                width: 30px;
+                height: 30px;
+                margin: 10px 5px;
+              }
             }
           }
         }
-      }
-      .type-area {
-        padding: 0px;
-        button {
-          margin:0 0 0 5px;
-        }
+        .type-area {
+          padding: 0px;
+          button {
+            margin: 0 0 0 5px;
+          }
 
-        .button-right {
-          margin: 0 5px 0 0;
+          .button-right {
+            margin: 0 5px 0 0;
+          }
         }
       }
     }
-  }  
+  }
 }
-  
-  .search-roomname-bar {
-      display: none;
-    }
-    
+
+.search-roomname-bar {
+  display: none;
+}
+
 @media only screen and (max-width: 600px) {
 }
 
@@ -650,7 +642,6 @@ export default {
   background-color: white;
   margin-left: 300px;
   border: 1px solid rgb(179, 179, 179);
-
   width: 240px;
 }
 </style>
