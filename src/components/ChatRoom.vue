@@ -2,7 +2,6 @@
   <div class="main">
     <div class="topbar">
       <button id="close">x</button>
-      <button id="swipe-left">&larr;</button>
       <p>itrooms</p>
     </div>
     <!--div class="logo-img">
@@ -30,6 +29,12 @@
             <img src="../assets/pngfuel.com.png" />
             <p>{{user.username}}</p>
           </div>
+        </div>
+        <div class="options">
+          <button><i class="fas fa-cog"></i></button>
+          <button><i class="fas fa-user"></i></button>
+          <button><i class="fas fa-phone"></i></button>
+          <button><i class="fas fa-paper-plane"></i></button>
         </div>
       </div>
       <div class="messages">
@@ -88,7 +93,6 @@
         </button>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -248,7 +252,7 @@ export default {
       font-family: "Poppins", sans-serif;
       color: rgb(177, 177, 177);
       font-size: 14px;
-      margin: 10px;
+      margin: 8px;
     }
   }
 
@@ -354,6 +358,86 @@ export default {
         }
       }
 
+        .options {
+          display: grid;
+          grid-template-columns: repeat(4, 25%);
+          border-top: 1px solid rgb(187, 185, 185);
+
+          button {
+            border: none;
+            outline: none;
+            font-size: 22px;
+            background-color: white;
+            border-right: 1px solid rgb(187, 185, 185);
+            color:rgb(187, 185, 185);
+            padding: 10px;
+          }
+
+          button:hover {
+            background-color:rgb(65, 225, 240);
+            color:rgb(66, 64, 64);
+          }
+        }
+      }
+      .messages {
+        grid-column: 2 span;
+        background-color: rgb(255, 255, 255);
+        font-family: "Poppins", sans-serif;      
+     
+          .display {
+            font-family: "Poppins", sans-serif;
+
+            .display-messages {
+              @include custom-scroll-bar;
+              overflow-y: scroll;
+              height: 83vh;
+              margin:0 0 0 20px;
+            }
+          }
+
+          .type-area {
+            grid-column: 2 span;
+            display: flex;
+            flex-direction: row;
+            overflow: hidden;
+            padding: 0 20px;
+            border-top: 1px solid rgb(187, 185, 185);
+
+            button {
+              border: none;
+              outline: none;
+              color:rgb(187, 185, 185);
+              background-color: white;
+              margin: 10px;
+              font-size: 22px;
+            }
+
+            button:hover {
+            color:rgb(161, 161, 161);
+            }
+
+            input {
+            outline: none;
+            padding: 10px;
+            width: 85%;
+            color: black;
+            font-family: "Poppins", sans-serif;
+            border: none;   
+            }
+
+            .button-right {
+              color: rgb(75, 71, 71);
+              background-color: white;
+              margin: 10px;
+              font-size: 22px;
+            }
+
+            .button-right:hover {
+            color:rgb(65, 225, 240);
+            }
+          }
+        }
+        
       .second-user {
         @extend .first-user;
         background-color: rgb(243, 243, 243);
@@ -496,7 +580,7 @@ export default {
   .msg {
     border-radius: 15px !important;
     border-bottom-right-radius: 0 !important;
-    background-color: rgb(65, 225, 240) !important;
+    background-color:rgb(65, 225, 240) !important;
   }
 
   .username-time {
@@ -505,21 +589,59 @@ export default {
 }
 
 @media only screen and (max-width: 425px) {
-  .main {
-    .topbar {
-      #close {
-        display: none;
-      }
-      #swipe-left {
-        display: block;
-      }
-    }
-
-    .search-roomname-bar {
-      display: none;
+.main {
+  .topbar {
+    #close {
+      float: right;
     }
   }
+
+  .search-roomname-bar {
+    display: none;
+  }
+
+  .chat-form {
+    display: grid;
+    grid-template-columns: repeat(1, 100%);
+
+    .users-wrapper {
+      display: none;
+    }
+    .messages {
+      width: 100%;
+
+      .display {
+        .display-messages{
+          height: 620px;
+          margin: 0px;
+
+          .user-msg {
+            img {
+              width: 30px;
+              height: 30px;
+              margin: 10px 5px; 
+            }
+          }
+        }
+      }
+      .type-area {
+        padding: 0px;
+        button {
+          margin:0 0 0 5px;
+        }
+
+        .button-right {
+          margin: 0 5px 0 0;
+        }
+      }
+    }
+  }  
 }
+  
+  .search-roomname-bar {
+      display: none;
+    }
+    
 @media only screen and (max-width: 600px) {
 }
 
