@@ -2,7 +2,6 @@
   <div class="main">
     <div class="topbar">
       <button id="close">x</button>
-      <button id="swipe-left">&larr;</button>
       <p>itrooms</p>
     </div>
     <!--div class="logo-img">
@@ -26,6 +25,12 @@
             <p>{{user.username}}</p>
           </div>
         </div>
+        <div class="options">
+          <button><i class="fas fa-cog"></i></button>
+          <button><i class="fas fa-user"></i></button>
+          <button><i class="fas fa-phone"></i></button>
+          <button><i class="fas fa-paper-plane"></i></button>
+        </div>
       </div>
       <div class="messages">
         <div class="display">
@@ -45,16 +50,7 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="bottombar">
-      <div class="options">
-        <button><i class="fas fa-cog"></i></button>
-        <button><i class="fas fa-user"></i></button>
-        <button><i class="fas fa-phone"></i></button>
-        <button><i class="fas fa-paper-plane"></i></button>
-      </div>
-      <div class="type-area">
+        <div class="type-area">
             <p class="user-typing">{{userTypingMsg}}</p>
             <button><i class="fas fa-smile"></i></button>
             <button><i class="fas fa-paperclip"></i></button>
@@ -66,8 +62,10 @@
             />
             <button class="button-right" @click="sendMessage"><i class="fas fa-paper-plane"></i></button>
           </div>
+      </div>
+      
     </div>
-  </div>
+    </div>
 </template>
 
 <script>
@@ -196,20 +194,6 @@ export default {
       font-family: "Poppins", sans-serif;
     }
 
-    #swipe-left {
-      display: none;
-      float: left;
-      outline: none;
-      background-color: rgb(66, 64, 64);
-      color:rgb(177, 177, 177);
-      font-weight: bold;
-      border: none;
-      font-size: 18px;
-      margin: 5px 20px;
-      padding: 0px;
-      font-family: "Poppins", sans-serif;
-    }
-
     #close:hover {
       color:rgb(128, 127, 127)
     }
@@ -218,7 +202,7 @@ export default {
       font-family: "Poppins", sans-serif;
       color:rgb(177, 177, 177);
       font-size: 14px;
-      margin: 10px;
+      margin: 8px;
     }
   }
 
@@ -288,139 +272,137 @@ export default {
       }
     }
   }
-  
-  .chat-form {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(3, 33.33%);
-    background-color: white;
 
-      .users {
-        @include custom-scroll-bar;
-        overflow: auto;
-        height: 650px;
+    .chat-form {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 33.33%);
+      background-color: white;
+
+      .users-wrapper {
         display: flex;
         flex-direction: column;
-        border-right: 1px solid rgb(187, 185, 185);
 
-        .first-user {
-          display: flex;
-          flex-direction: row;
-          padding: 20px;
-          background-color: white;
-          color:rgb(0, 0, 0);
-          transition: all 0.1s ease;
-          img {
-            height: 50px;
-            margin: 5px;
-            border-radius: 50%;
-          }
-
-          p {
-            font-family: "Poppins", sans-serif;
-            font-size: 16px;
-            font-weight: bold;
-            margin: 5px;
-            padding: 7px;
-          }
-        }
-
-        .second-user {
-           @extend .first-user;
-           background-color: rgb(243, 243, 243);
-        } 
-
-        .first-user:hover {
-          background-color: rgb(65, 225, 240);
-          color:rgb(255, 255, 255);
-          }
-        
-      }
-    .messages {
-      grid-column: 2 span;
-      background-color: rgb(255, 255, 255);
-      font-family: "Poppins", sans-serif;      
-     
-      .display {
-        font-family: "Poppins", sans-serif;
-
-        .display-messages {
+        .users {
           @include custom-scroll-bar;
-          overflow-y: scroll;
-          height: 630px;
-          margin:0 0 0 20px;
-        }
-      }
-    }
-  }
+          overflow: auto;
+          height: 83vh;
+          display: flex;
+          flex-direction: column;
+          border-right: 1px solid rgb(187, 185, 185);
 
-  .bottombar {
-    width:100%;
-    display: grid;
-    grid-template-columns: repeat(3, 33.33%);
-    background-color: white;
-    border-top: 1px solid rgb(187, 185, 185);
+          .first-user {
+            display: flex;
+            flex-direction: row;
+            padding: 20px;
+            background-color: white;
+            color:rgb(0, 0, 0);
+            transition: all 0.1s ease;
+            img {
+              height: 50px;
+              margin: 5px;
+              border-radius: 50%;
+            }
 
-    .options {
-      display: grid;
-      grid-template-columns: repeat(4, 25%);
+            p {
+              font-family: "Poppins", sans-serif;
+              font-size: 16px;
+              font-weight: bold;
+              margin: 5px;
+              padding: 7px;
+            }
+          }
 
-      button {
-        border: none;
-        outline: none;
-        font-size: 22px;
-        background-color: white;
-        border-right: 1px solid rgb(187, 185, 185);
-        color:rgb(187, 185, 185)
-      }
+          .second-user {
+            @extend .first-user;
+            background-color: rgb(243, 243, 243);
+          } 
 
-      button:hover {
-        background-color:rgb(65, 225, 240);
-        color:rgb(66, 64, 64);
-      }
-    }
-
-    .type-area {
-      grid-column: 2 span;
-      display: flex;
-      flex-direction: row;
-      overflow: hidden;
-     margin-left: 20px;
-
-      button {
-        border: none;
-        outline: none;
-        color:rgb(187, 185, 185);
-        background-color: white;
-        margin: 10px;
-        font-size: 22px;
-      }
-
-      button:hover {
-        color:rgb(161, 161, 161);
-      }
-
-      input {
-        outline: none;
-        padding: 10px;
-        width: 80%;
-        color: black;
-        font-family: "Poppins", sans-serif;
-        border: none;
-           
-      }
-
-      .button-right {
-        color: rgb(75, 71, 71);
-        background-color: white;
-        margin: 10px;
-        font-size: 22px;
+          .first-user:hover {
+            background-color: rgb(65, 225, 240);
+            color:rgb(255, 255, 255);
+          }
         }
 
-      .button-right:hover {
-        color:rgb(65, 225, 240);
+        .options {
+          display: grid;
+          grid-template-columns: repeat(4, 25%);
+          border-top: 1px solid rgb(187, 185, 185);
+
+          button {
+            border: none;
+            outline: none;
+            font-size: 22px;
+            background-color: white;
+            border-right: 1px solid rgb(187, 185, 185);
+            color:rgb(187, 185, 185);
+            padding: 10px;
+          }
+
+          button:hover {
+            background-color:rgb(65, 225, 240);
+            color:rgb(66, 64, 64);
+          }
+        }
       }
-    }
+      .messages {
+        grid-column: 2 span;
+        background-color: rgb(255, 255, 255);
+        font-family: "Poppins", sans-serif;      
+     
+          .display {
+            font-family: "Poppins", sans-serif;
+
+            .display-messages {
+              @include custom-scroll-bar;
+              overflow-y: scroll;
+              height: 83vh;
+              margin:0 0 0 20px;
+            }
+          }
+
+          .type-area {
+            grid-column: 2 span;
+            display: flex;
+            flex-direction: row;
+            overflow: hidden;
+            padding: 0 20px;
+            border-top: 1px solid rgb(187, 185, 185);
+
+            button {
+              border: none;
+              outline: none;
+              color:rgb(187, 185, 185);
+              background-color: white;
+              margin: 10px;
+              font-size: 22px;
+            }
+
+            button:hover {
+            color:rgb(161, 161, 161);
+            }
+
+            input {
+            outline: none;
+            padding: 10px;
+            width: 85%;
+            color: black;
+            font-family: "Poppins", sans-serif;
+            border: none;   
+            }
+
+            .button-right {
+              color: rgb(75, 71, 71);
+              background-color: white;
+              margin: 10px;
+              font-size: 22px;
+            }
+
+            .button-right:hover {
+            color:rgb(65, 225, 240);
+            }
+          }
+        }
   }
 }
 
@@ -470,6 +452,7 @@ export default {
     border-radius: 15px !important;
     border-bottom-right-radius: 0 !important;
     background-color:rgb(65, 225, 240) !important;
+
   }
 
   .username-time {
@@ -482,17 +465,50 @@ export default {
 .main {
   .topbar {
     #close {
-      display: none;
-    }
-    #swipe-left {
-      display: block;
+      float: right;
     }
   }
 
   .search-roomname-bar {
     display: none;
   }
-  
+
+  .chat-form {
+    display: grid;
+    grid-template-columns: repeat(1, 100%);
+
+    .users-wrapper {
+      display: none;
+    }
+    .messages {
+      width: 100%;
+
+      .display {
+        .display-messages{
+          height: 620px;
+          margin: 0px;
+
+          .user-msg {
+            img {
+              width: 30px;
+              height: 30px;
+              margin: 10px 5px; 
+            }
+          }
+        }
+      }
+      .type-area {
+        padding: 0px;
+        button {
+          margin:0 0 0 5px;
+        }
+
+        .button-right {
+          margin: 0 5px 0 0;
+        }
+      }
+    }
+  }  
 }
   
  
