@@ -68,14 +68,9 @@
           <button>
             <i class="fas fa-paperclip"></i>
           </button>
-          <!--VueEmoji ref="emoji" @input="onInput" @keyup="typingMessage($event)" 
-          /-->
-          <input
-            type="text"
-            placeholder="Type a message..."
-            v-model="message"
-            @keyup="typingMessage($event)"
+          <VueEmoji ref="emoji" @input="onInput" @keyup="typingMessage($event)" 
           />
+          
           <button class="button-right" @click="sendMessage" :disabled="!message">
             <i class="fas fa-paper-plane"></i>
           </button>
@@ -86,12 +81,12 @@
 </template>
 
 <script>
-//import VueEmoji from "emoji-vue";
+import VueEmoji from "emoji-vue";
 export default {
   name: "ChatRoom",
-  /*components: {
+  components: {
     VueEmoji
-  },*/
+  },
   props: {},
   data() {
     return {
@@ -441,9 +436,9 @@ button:disabled {
           color: rgb(161, 161, 161);
         }
 
-        /*.emoji-vue-wraper {
+        .emoji-vue-wraper {
           outline: none;
-          width: 70%;
+          width: 30%;
           color: black;
           font-family: "Poppins", sans-serif;
           height: 30px;
@@ -461,7 +456,7 @@ button:disabled {
               }
             }
           }
-        }*/
+        }
 
         input {
           outline: none;
