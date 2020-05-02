@@ -5,9 +5,6 @@
         <ul class="nav_links">
           <!-- Delete the unnecessary ones -->
           <li>
-            <a href="#">Login</a>
-          </li>
-          <li>
             <a href="#">About us</a>
           </li>
           <li>
@@ -36,16 +33,16 @@
           </div>
           <div class="button-field">
             <button class="join-btn" @click="joinRoom">JOIN</button>
-            <button class="create-btn">CREATE ROOM</button>
+            <button class="create-btn">CREATE</button>
           </div>
           <!--p id="create-acc">
             <a href="#">Create your Account &rarr;</a>
           </p-->
         </div>
       </div>
-      <div class="footer">
-        <p>Copyright &copy; | ITAcademy 2020</p>
-      </div>
+    </div>
+    <div class="footer">
+      <p>&copy; 2020 All Rights Reserved | Design By ITAcademy Group A</p>
     </div>
   </div>
 </template>
@@ -106,7 +103,6 @@ a {
   transform: translate(-50%, -50%);
   width: 70%;
   .login-form {
-    /*     background-color: white;*/
     border-radius: 10px;
     display: flex;
     flex-direction: row;
@@ -130,6 +126,8 @@ a {
         text-align: center;
         font-family: "Poppins", sans-serif;
         letter-spacing: 2px;
+        font-size: 50px;
+        color: #000000;
       }
 
       .input-fields {
@@ -164,7 +162,7 @@ a {
           font-family: "Poppins", sans-serif;
           height: 50px;
           cursor: pointer;
-          font-weight: bold;
+          font-weight: 400;
           letter-spacing: 1px;
           transition: all 0.2 ease;
         }
@@ -202,9 +200,122 @@ a {
   }
 }
 .footer {
+  position: absolute;
   bottom: 0;
   width: 100%;
-  height: 2.5rem;
   color: #ffffff;
+  font-size: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* most mobile phones */
+@media only screen and (max-width: 600px) {
+  .header {
+    display: inline-block;
+    padding: 6px;
+  }
+
+  li,
+  a {
+    font-size: 12px;
+  }
+
+  .nav_links li {
+    margin-right: 14px;
+  }
+
+  .main {
+    left: 42%;
+    top: 40%;
+
+    .login-form {
+      padding: 5px;
+
+      .login {
+        width: 70%;
+        margin: 100px 0px 0px 70px;
+        h1 {
+          font-size: 40px;
+        }
+
+        .input-fields {
+          margin-top: 20px;
+
+          input {
+            text-align: center;
+          }
+        }
+
+        .button-field {
+          button {
+            font-size: 11px;
+            margin: 15px 3px 0px 0px;
+            width: 45%;
+            letter-spacing: 2px;
+          }
+        }
+      }
+    }
+  }
+  .footer {
+    font-size: 13px;
+    justify-content: center;
+  }
+}
+
+/* most tablets and laptops*/
+@media only screen and (max-width: 1200px) {
+  li,
+  a {
+    font-size: 15px;
+  }
+
+  .main {
+    left: 42%;
+    top: 40%;
+
+    .login-form {
+      padding: 3px;
+
+      .login {
+        width: 50%;
+        margin: 100px 0px 0px 70px;
+
+        .input-fields {
+          margin-top: 20px;
+
+          input {
+            text-align: center;
+          }
+        }
+
+        .button-field {
+          button {
+            font-size: 13px;
+            margin: 15px 3px 0px 0px;
+            width: 40%;
+            letter-spacing: 2px;
+          }
+        }
+      }
+    }
+  }
+  .footer {
+    font-size: 15px;
+    justify-content: center;
+  }
+}
+
+/* scaling for smaller phones than usual */
+@media screen and (max-width: 365px) {
+  li,
+  a {
+    font-size: 11px;
+  }
+
+  .footer {
+    font-size: 11px;
+  }
 }
 </style>
