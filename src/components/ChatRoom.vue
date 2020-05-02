@@ -2,9 +2,10 @@
   <div class="main">
     <div class="topbar">
       <button id="close" @click="closeChat">
-        <i class="fas fa-times"></i>
+        <i class="fas fa-power-off"></i>
       </button>
       <p>ITRooms</p>
+      <img src="../assets/logo.png" class="logo" />
     </div>
     <div class="search-roomname-bar">
       <div class="search">
@@ -213,14 +214,21 @@ button:disabled {
   position: relative;
 
   .topbar {
-    background-color: rgb(66, 64, 64);
+    background-color: #27272e;
     overflow: hidden;
+
+    .logo {
+      position: absolute;
+      top: 3px;
+      right: 10px;
+      width: 35px;
+    }
 
     #close {
       display: block;
       float: left;
       outline: none;
-      background-color: rgb(66, 64, 64);
+      background-color: #27272e;
       color: rgb(177, 177, 177);
       font-weight: bold;
       border: none;
@@ -245,14 +253,17 @@ button:disabled {
     }
 
     #close:hover {
-      color: rgb(128, 127, 127);
+      color: #e62270;
+      cursor: pointer;
     }
 
     p {
       font-family: "Poppins", sans-serif;
-      color: rgb(177, 177, 177);
-      font-size: 14px;
+      color: #b1b1b1;
+      font-size: 16px;
       margin: 8px;
+      text-align: right;
+      margin-right: 53px;
     }
   }
 
@@ -347,7 +358,7 @@ button:disabled {
           background-color: white;
           color: rgb(0, 0, 0);
           transition: all 0.1s ease;
-          
+
           img {
             height: 50px;
             margin: 5px;
@@ -363,13 +374,13 @@ button:disabled {
           }
         }
         .second-user {
-        @extend .first-user;
-        background-color: rgb(243, 243, 243);
+          @extend .first-user;
+          background-color: rgb(243, 243, 243);
         }
 
         .first-user:hover {
-        background-color: rgb(65, 225, 240);
-        color: rgb(255, 255, 255);
+          background-color: rgb(65, 225, 240);
+          color: rgb(255, 255, 255);
         }
       }
       .options {
@@ -406,7 +417,6 @@ button:disabled {
           overflow-y: scroll;
           height: 79.5vh;
           margin: 0 0px 25px 20px;
-          
         }
       }
 
@@ -543,11 +553,11 @@ button:disabled {
     }
 
     .user-typing {
-    position: absolute;
-    bottom: 4%;
-    left: 13% !important;
-    font-size: 12px;
-    color: rgb(177, 177, 177);
+      position: absolute;
+      bottom: 4%;
+      left: 13% !important;
+      font-size: 12px;
+      color: rgb(177, 177, 177);
     }
 
     .chat-form {
@@ -563,7 +573,7 @@ button:disabled {
         .display {
           .display-messages {
             height: 86vh !important;
-            margin-bottom:20px;
+            margin-bottom: 20px;
             margin-left: 0px;
             .user-msg {
               img {
@@ -590,29 +600,27 @@ button:disabled {
 }
 
 @media only screen and (max-width: 768px) {
- .user-typing {
+  .user-typing {
     position: absolute;
     bottom: 6%;
     left: 44% !important;
     font-size: 12px;
     color: rgb(177, 177, 177);
-    }
+  }
 }
 
-
 @media only screen and (max-width: 1440px) {
-
   .user-typing {
     position: absolute;
     bottom: 5%;
     left: 39%;
     font-size: 12px;
     color: rgb(177, 177, 177);
-    }
+  }
   .main {
     .chat-form {
       .messages {
-        .display{
+        .display {
           .display-messages {
             height: 79.4vh;
           }
@@ -623,23 +631,22 @@ button:disabled {
 }
 
 @media only screen and (max-width: 1024px) {
-
-   .user-typing {
+  .user-typing {
     position: absolute;
     bottom: 6%;
     left: 42%;
     font-size: 12px;
     color: rgb(177, 177, 177);
-    }
+  }
   .main {
     .chat-form {
-      .users-wrapper{
+      .users-wrapper {
         .users {
           height: 80.7vh;
         }
       }
       .messages {
-        .display{
+        .display {
           .display-messages {
             height: 77.2vh;
           }
