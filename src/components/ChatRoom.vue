@@ -1,8 +1,10 @@
 <template>
   <div class="main">
     <div class="topbar">
-      <button id="close">x</button>
-      <p>itrooms</p>
+      <button id="close" @click="closeChat">
+        <i class="fas fa-times"></i>
+      </button>
+      <p>ITRooms</p>
     </div>
     <div class="search-roomname-bar">
       <div class="search">
@@ -72,8 +74,8 @@
             placeholder="Type a message..."
             v-model="message"
             @keyup="typingMessage($event)"
-          />          
-          <button class="button-right" @click="sendMessage">
+          />
+          <button class="button-right" @click="sendMessage" :disabled="!message">
             <i class="fas fa-paper-plane"></i>
           </button>
         </div>
@@ -101,6 +103,10 @@ export default {
     };
   },
   methods: {
+    closeChat() {
+      this.$socket.close();
+      this.$router.push({ name: "roomhome" });
+    },
     typingMessage(e) {
       let canPublish = true;
 
@@ -128,7 +134,7 @@ export default {
     sendMessage() {
       this.emitTypingEvent(false);
       this.$socket.emit("chatMessage", this.message);
-     // this.$refs.emoji.clear();
+      // this.$refs.emoji.clear();
       this.message = "";
     },
     scrollToEndMessages() {
@@ -168,12 +174,17 @@ export default {
   created() {
     this.username = this.$route.params.username;
     this.room = this.$route.params.room;
+    this.$socket.connect();
     this.$socket.emit("joinRoom", { username: this.username, room: this.room });
   }
 };
 </script>
 
 <style lang="scss" scoped>
+button:disabled {
+  color: #ddd !important;
+}
+
 .user-typing {
   position: absolute;
   bottom: 5%;
@@ -369,7 +380,7 @@ export default {
           background-color: rgb(65, 225, 240);
           color: rgb(66, 64, 64);
         }
-      } 
+      }
     }
     .messages {
       grid-column: 2 span;
@@ -440,7 +451,7 @@ export default {
         }
 
         .button-right {
-          color: rgb(75, 71, 71);
+          color: #bbb9b9;
           background-color: white;
           margin: 10px;
           font-size: 22px;

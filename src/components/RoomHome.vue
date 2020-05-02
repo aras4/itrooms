@@ -31,6 +31,9 @@
             <!--ion-icon name="key-outline"></ion-icon-->
             <input type="text" v-model="room" placeholder="Room" />
           </div>
+          <div class="validation-msg">
+            <p>{{validationMsg}}</p>
+          </div>
           <div class="button-field">
             <button class="join-btn" @click="joinRoom">JOIN</button>
             <button class="create-btn">CREATE</button>
@@ -53,14 +56,23 @@ export default {
   data() {
     return {
       username: "",
-      room: ""
+      room: "",
+      validationMsg: ""
     };
   },
   methods: {
+    isEmpty(str) {
+      return !str || 0 === str.length;
+    },
     joinRoom() {
+      this.validationMsg = "";
+      if (this.isEmpty(this.username) || this.isEmpty(this.room)) {
+        this.validationMsg = "You need to fill required fields";
+        return;
+      }
       this.$router.push({
         name: "chatroom",
-        params: { username: this.username, room: "js" }
+        params: { username: this.username, room: this.room || "js" }
       });
     }
   }
