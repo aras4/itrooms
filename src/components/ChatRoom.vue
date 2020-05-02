@@ -27,27 +27,6 @@
             <p>{{user.username}}</p>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="messages">
-      <div class="display">
-        <div class="display-messages">
-          <div
-            v-for="(message,index) in messages"
-            :key="index"
-            :class="[username === message.username ? 'my-msg':'user-msg']"
-          >
-            <img v-if="username !== message.username" src="../assets/pngfuel.com.png" />
-            <div class="user-msg-time">
-              <div class="msg">
-                <p>{{message.text}}</p>
-              </div>
-              <span class="username-time">{{message.username}}, {{message.time}}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="bottombar">
         <div class="options">
           <button>
             <i class="fas fa-cog"></i>
@@ -62,22 +41,38 @@
             <i class="fas fa-paper-plane"></i>
           </button>
         </div>
+      </div>
+      <div class="messages">
+        <div class="display">
+          <div class="display-messages">
+            <div
+              v-for="(message,index) in messages"
+              :key="index"
+              :class="[username === message.username ? 'my-msg':'user-msg']"
+            >
+              <img v-if="username !== message.username" src="../assets/pngfuel.com.png" />
+              <div class="user-msg-time">
+                <div class="msg">
+                  <p>{{message.text}}</p>
+                </div>
+                <span class="username-time">{{message.username}}, {{message.time}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="type-area">
           <p class="user-typing">{{userTypingMsg}}</p>
           <button>
-            <i class="fas fa-smile"></i>
-          </button>
-          <button>
             <i class="fas fa-paperclip"></i>
           </button>
+          <!--VueEmoji ref="emoji" @input="onInput" @keyup="typingMessage($event)" 
+          /-->
           <input
             type="text"
             placeholder="Type a message..."
             v-model="message"
             @keyup="typingMessage($event)"
-          />
-
-          <VueEmoji ref="emoji" @input="onInput" class="text" @keyup="typingMessage($event)" />
+          />          
           <button class="button-right" @click="sendMessage">
             <i class="fas fa-paper-plane"></i>
           </button>
@@ -88,12 +83,12 @@
 </template>
 
 <script>
-import VueEmoji from "emoji-vue";
+//import VueEmoji from "emoji-vue";
 export default {
   name: "ChatRoom",
-  components: {
+  /*components: {
     VueEmoji
-  },
+  },*/
   props: {},
   data() {
     return {
@@ -133,7 +128,7 @@ export default {
     sendMessage() {
       this.emitTypingEvent(false);
       this.$socket.emit("chatMessage", this.message);
-      this.$refs.emoji.clear();
+     // this.$refs.emoji.clear();
       this.message = "";
     },
     scrollToEndMessages() {
@@ -181,8 +176,9 @@ export default {
 <style lang="scss" scoped>
 .user-typing {
   position: absolute;
-  top: -55px;
-  left: 0;
+  bottom: 5%;
+  left: 36%;
+  font-size: 14px;
 }
 
 @mixin custom-scroll-bar() {
@@ -202,7 +198,7 @@ export default {
 
 .main {
   width: 100%;
-  //position: relative;
+  position: relative;
 
   .topbar {
     background-color: rgb(66, 64, 64);
@@ -320,36 +316,40 @@ export default {
     grid-template-columns: repeat(3, 33.33%);
     background-color: white;
 
-    .users {
-      @include custom-scroll-bar;
-      overflow: auto;
-      height: 650px;
+    .users-wrapper {
       display: flex;
       flex-direction: column;
-      border-right: 1px solid rgb(187, 185, 185);
 
-      .first-user {
+      .users {
+        @include custom-scroll-bar;
+        overflow: auto;
+        height: 650px;
         display: flex;
-        flex-direction: row;
-        padding: 20px;
-        background-color: white;
-        color: rgb(0, 0, 0);
-        transition: all 0.1s ease;
-        img {
-          height: 50px;
-          margin: 5px;
-          border-radius: 50%;
-        }
+        flex-direction: column;
+        border-right: 1px solid rgb(187, 185, 185);
 
-        p {
-          font-family: "Poppins", sans-serif;
-          font-size: 16px;
-          font-weight: bold;
-          margin: 5px;
-          padding: 7px;
+        .first-user {
+          display: flex;
+          flex-direction: row;
+          padding: 20px;
+          background-color: white;
+          color: rgb(0, 0, 0);
+          transition: all 0.1s ease;
+          img {
+            height: 50px;
+            margin: 5px;
+            border-radius: 50%;
+          }
+
+          p {
+            font-family: "Poppins", sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 5px;
+            padding: 7px;
+          }
         }
       }
-
       .options {
         display: grid;
         grid-template-columns: repeat(4, 25%);
@@ -369,7 +369,7 @@ export default {
           background-color: rgb(65, 225, 240);
           color: rgb(66, 64, 64);
         }
-      }
+      } 
     }
     .messages {
       grid-column: 2 span;
@@ -382,8 +382,8 @@ export default {
         .display-messages {
           @include custom-scroll-bar;
           overflow-y: scroll;
-          height: 83vh;
-          margin: 0 0 0 20px;
+          height: 650px;
+          margin: 0 0 0px 20px;
         }
       }
 
@@ -408,10 +408,32 @@ export default {
           color: rgb(161, 161, 161);
         }
 
+        /*.emoji-vue-wraper {
+          outline: none;
+          width: 70%;
+          color: black;
+          font-family: "Poppins", sans-serif;
+          height: 30px;
+          
+          .emoji-picker-cantainer {
+        
+            .emoji-wysiwyg-editor {
+              padding: 0px;
+              border: none;
+
+              .emoji-picker {
+                right: 40px;
+                top: 2px;
+
+              }
+            }
+          }
+        }*/
+
         input {
           outline: none;
           padding: 10px;
-          width: 85%;
+          width: 90%;
           color: black;
           font-family: "Poppins", sans-serif;
           border: none;
@@ -438,90 +460,6 @@ export default {
     .first-user:hover {
       background-color: rgb(65, 225, 240);
       color: rgb(255, 255, 255);
-    }
-  }
-  .messages {
-    grid-column: 2 span;
-    background-color: rgb(255, 255, 255);
-    font-family: "Poppins", sans-serif;
-
-    .display {
-      font-family: "Poppins", sans-serif;
-
-      .display-messages {
-        @include custom-scroll-bar;
-        overflow-y: scroll;
-        height: 630px;
-        margin: 0 0 0 20px;
-      }
-    }
-  }
-}
-
-.bottombar {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, 33.33%);
-  background-color: white;
-  border-top: 1px solid rgb(187, 185, 185);
-
-  .options {
-    display: grid;
-    grid-template-columns: repeat(4, 25%);
-
-    button {
-      border: none;
-      outline: none;
-      font-size: 22px;
-      background-color: white;
-      border-right: 1px solid rgb(187, 185, 185);
-      color: rgb(187, 185, 185);
-    }
-
-    button:hover {
-      background-color: rgb(65, 225, 240);
-      color: rgb(66, 64, 64);
-    }
-  }
-
-  .type-area {
-    grid-column: 2 span;
-    display: flex;
-    flex-direction: row;
-    overflow: hidden;
-    margin-left: 20px;
-
-    button {
-      border: none;
-      outline: none;
-      color: rgb(187, 185, 185);
-      background-color: white;
-      margin: 10px;
-      font-size: 22px;
-    }
-
-    button:hover {
-      color: rgb(161, 161, 161);
-    }
-
-    input {
-      outline: none;
-      padding: 10px;
-      width: 80%;
-      color: black;
-      font-family: "Poppins", sans-serif;
-      border: none;
-    }
-
-    .button-right {
-      color: rgb(75, 71, 71);
-      background-color: white;
-      margin: 10px;
-      font-size: 22px;
-    }
-
-    .button-right:hover {
-      color: rgb(65, 225, 240);
     }
   }
 }
@@ -635,13 +573,5 @@ export default {
 }
 
 @media only screen and (max-width: 600px) {
-}
-
-.text {
-  color: black;
-  background-color: white;
-  margin-left: 300px;
-  border: 1px solid rgb(179, 179, 179);
-  width: 240px;
 }
 </style>

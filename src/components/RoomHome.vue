@@ -128,6 +128,8 @@ a {
       margin: 70px 40px 0 20px;
       h1 {
         text-align: center;
+        font-family: "Poppins", sans-serif;
+        letter-spacing: 2px;
       }
 
       .input-fields {
@@ -194,20 +196,6 @@ a {
           a:hover {
             color: rgb(168, 168, 168);
           }
-        }
-      }
-      #create-acc {
-        font-size: 14px;
-        text-align: center;
-        margin: 100px 0 0 0;
-
-        a {
-          color: rgb(197, 197, 197);
-          text-decoration: none;
-        }
-
-        a:hover {
-          color: rgb(168, 168, 168);
         }
       }
     }
