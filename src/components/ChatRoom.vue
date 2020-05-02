@@ -188,8 +188,9 @@ button:disabled {
 .user-typing {
   position: absolute;
   bottom: 5%;
-  left: 36%;
-  font-size: 14px;
+  left: 38.5%;
+  font-size: 12px;
+  color: rgb(177, 177, 177);
 }
 
 @mixin custom-scroll-bar() {
@@ -334,7 +335,7 @@ button:disabled {
       .users {
         @include custom-scroll-bar;
         overflow: auto;
-        height: 650px;
+        height: 82.6vh;
         display: flex;
         flex-direction: column;
         border-right: 1px solid rgb(187, 185, 185);
@@ -346,6 +347,7 @@ button:disabled {
           background-color: white;
           color: rgb(0, 0, 0);
           transition: all 0.1s ease;
+          
           img {
             height: 50px;
             margin: 5px;
@@ -359,6 +361,15 @@ button:disabled {
             margin: 5px;
             padding: 7px;
           }
+        }
+        .second-user {
+        @extend .first-user;
+        background-color: rgb(243, 243, 243);
+        }
+
+        .first-user:hover {
+        background-color: rgb(65, 225, 240);
+        color: rgb(255, 255, 255);
         }
       }
       .options {
@@ -393,8 +404,9 @@ button:disabled {
         .display-messages {
           @include custom-scroll-bar;
           overflow-y: scroll;
-          height: 650px;
-          margin: 0 0 0px 20px;
+          height: 79.5vh;
+          margin: 0 0px 25px 20px;
+          
         }
       }
 
@@ -461,16 +473,6 @@ button:disabled {
           color: rgb(65, 225, 240);
         }
       }
-    }
-
-    .second-user {
-      @extend .first-user;
-      background-color: rgb(243, 243, 243);
-    }
-
-    .first-user:hover {
-      background-color: rgb(65, 225, 240);
-      color: rgb(255, 255, 255);
     }
   }
 }
@@ -540,6 +542,14 @@ button:disabled {
       display: none;
     }
 
+    .user-typing {
+    position: absolute;
+    bottom: 4%;
+    left: 13% !important;
+    font-size: 12px;
+    color: rgb(177, 177, 177);
+    }
+
     .chat-form {
       display: grid;
       grid-template-columns: repeat(1, 100%);
@@ -552,9 +562,9 @@ button:disabled {
 
         .display {
           .display-messages {
-            height: 620px;
-            margin: 0px;
-
+            height: 86vh !important;
+            margin-bottom:20px;
+            margin-left: 0px;
             .user-msg {
               img {
                 width: 30px;
@@ -579,10 +589,63 @@ button:disabled {
   }
 }
 
-.search-roomname-bar {
-  display: none;
+@media only screen and (max-width: 768px) {
+ .user-typing {
+    position: absolute;
+    bottom: 6%;
+    left: 44% !important;
+    font-size: 12px;
+    color: rgb(177, 177, 177);
+    }
 }
 
-@media only screen and (max-width: 600px) {
+
+@media only screen and (max-width: 1440px) {
+
+  .user-typing {
+    position: absolute;
+    bottom: 5%;
+    left: 39%;
+    font-size: 12px;
+    color: rgb(177, 177, 177);
+    }
+  .main {
+    .chat-form {
+      .messages {
+        .display{
+          .display-messages {
+            height: 79.4vh;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+
+   .user-typing {
+    position: absolute;
+    bottom: 6%;
+    left: 42%;
+    font-size: 12px;
+    color: rgb(177, 177, 177);
+    }
+  .main {
+    .chat-form {
+      .users-wrapper{
+        .users {
+          height: 80.7vh;
+        }
+      }
+      .messages {
+        .display{
+          .display-messages {
+            height: 77.2vh;
+          }
+        }
+      }
+    }
+  }
 }
 </style>
