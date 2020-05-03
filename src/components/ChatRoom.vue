@@ -4,7 +4,10 @@
       <button id="close" @click="closeChat">
         <i class="fas fa-power-off"></i>
       </button>
-       <p class="onlineMembers" @click="onlineUsers" >Online:<span> {{roomUsers.users.length}}</span></p>
+      <p class="onlineMembers" @click="onlineUsers">
+        <i class="fas fa-users"></i>
+        <span>{{roomUsers.users.length}}</span>
+      </p>
       <p>ITRooms</p>
       <img src="../assets/logo.png" class="logo" />
     </div>
@@ -20,16 +23,16 @@
       </div>
     </div>
     <div class="chat-form">
-    <div class="OnlineUsers" v-if="clickOnlineMembers">
-     <div
-            v-for="(user,index) in roomUsers.users"
-            :key="index"
-            :class="[index % 2 === 0 ? 'first-user':'second-user']"
-          >
-            <img src="../assets/pngfuel.com.png" />
-            <p>{{user.username}}</p>
-          </div>
-    </div>
+      <div class="OnlineUsers" v-if="clickOnlineMembers">
+        <div
+          v-for="(user,index) in roomUsers.users"
+          :key="index"
+          :class="[index % 2 === 0 ? 'first-user':'second-user']"
+        >
+          <img src="../assets/pngfuel.com.png" />
+          <p>{{user.username}}</p>
+        </div>
+      </div>
       <div class="users-wrapper">
         <div class="users">
           <div
@@ -86,17 +89,19 @@
         <div class="type-area">
           <p class="user-typing">{{userTypingMsg}}</p>
           <!--click to open emojiPicker-->
-          <button @click="toggleEmo"><i class="far fa-smile"></i></button>
+          <button @click="toggleEmo">
+            <i class="far fa-smile"></i>
+          </button>
           <button>
             <i class="fas fa-paperclip"></i>
           </button>
-           <input
-              type="text"
-              placeholder="Type a message..."
-              v-model="message"
-              @keyup="typingMessage($event)"
-            />
-          
+          <input
+            type="text"
+            placeholder="Type a message..."
+            v-model="message"
+            @keyup="typingMessage($event)"
+          />
+
           <button class="button-right" @click="sendMessage" :disabled="!message">
             <i class="fas fa-paper-plane"></i>
           </button>
@@ -126,17 +131,12 @@ export default {
       room: "",
       userTypingMsg: "",
       emoStatus: false,
-      clickOnlineMembers:false
+      clickOnlineMembers: false
     };
   },
   methods: {
-   onlineUsers(){
-      if(this.clickOnlineMembers==false){
-        this.clickOnlineMembers=true;
-      }
-      else{
-        this.clickOnlineMembers=false;
-      }
+    onlineUsers() {
+      this.clickOnlineMembers = !this.clickOnlineMembers;
     },
     closeChat() {
       this.$socket.close();
@@ -159,7 +159,7 @@ export default {
         }
       }
     },
-    toggleEmo(){
+    toggleEmo() {
       this.emoStatus = !this.emoStatus;
     },
 
@@ -259,7 +259,7 @@ button:disabled {
       top: 3px;
       right: 10px;
       width: 35px;
-       margin-right:5px;
+      margin-right: 5px;
     }
 
     #close {
@@ -271,7 +271,7 @@ button:disabled {
       font-weight: bold;
       border: none;
       font-size: 18px;
-       margin: 5px 10px;
+      margin: 5px 10px;
       padding: 0px;
       font-family: "Poppins", sans-serif;
     }
@@ -439,8 +439,8 @@ button:disabled {
         .display-messages {
           @include custom-scroll-bar;
           overflow-y: scroll;
-          height: 79.5vh;
-          margin: 0 0px 25px 20px;
+          height: 79vh;
+          padding: 0 0 3.9vh 0.9vh;
         }
       }
 
@@ -541,54 +541,54 @@ button:disabled {
     text-align: right !important;
   }
 }
-.onlineMembers{
-  float:left;
-  margin-top:5px !important;
-  display:none;
-  span{
-    color:#7e8d09;
+.onlineMembers {
+  float: left;
+  margin-top: 5px !important;
+  display: none;
+  span {
+    padding-left: 5px;
+    color: rgba(65, 225, 240, 0.8);
   }
 }
-.OnlineUsers{
+.OnlineUsers {
   position: fixed;
-    width: 60%;
-    height: 80vh;
-    background: #2c3e50;
-    top: 39px;
-    left: 0;
-    text-align: center;
-    
-    .first-user {
-          display: flex;
-          flex-direction: row;
-          padding: 20px;
-          background-color: #2c3e50;
-          color: rgb(0, 0, 0);
-          transition: all 0.1s ease;
-          color:white;
-          img {
-            height: 50px;
-            margin: 5px;
-            border-radius: 50%;
-          }
-          p {
-            font-family: "Poppins", sans-serif;
-            font-size: 16px;
-            font-weight: bold;
-            margin: 5px;
-            padding: 7px;
-          }
-        }
-        .second-user {
-          @extend .first-user;
-          background-color: #2c3e50;
-          color:white;
-        }
-        .first-user:hover {
-          background-color: rgb(65, 225, 240);
-          color: rgb(255, 255, 255);
-        }
-    
+  width: 50%;
+  height: 100vh;
+  background: #2c3e50;
+  top: 40px;
+  left: 0;
+  text-align: center;
+
+  .first-user {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    background-color: #2c3e50;
+    color: rgb(0, 0, 0);
+    transition: all 0.1s ease;
+    color: white;
+    img {
+      height: 50px;
+      margin: 5px;
+      border-radius: 50%;
+    }
+    p {
+      font-family: "Poppins", sans-serif;
+      font-size: 16px;
+      font-weight: bold;
+      margin: 5px;
+      padding: 7px;
+    }
+  }
+  .second-user {
+    @extend .first-user;
+    background-color: #2c3e50;
+    color: white;
+  }
+  .first-user:hover {
+    background-color: rgb(65, 225, 240);
+    color: rgb(255, 255, 255);
+  }
 }
 
 @media only screen and (max-width: 425px) {
@@ -648,8 +648,8 @@ button:disabled {
       }
     }
   }
-  .onlineMembers{
-    display:block;
+  .onlineMembers {
+    display: block;
   }
 }
 
