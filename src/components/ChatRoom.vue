@@ -63,13 +63,28 @@
             </div>
           </div>
         </div>
+        <!--div v-if="emoStatus" class="emoji-picker">
+          <picker :data="emojiIndex" set="twitter" />
+          <picker :data="emojiIndex" @select="this.selectEmoji" />
+          <picker :data="emojiIndex" title="Pick your emoji…" emoji="point_up" />
+          <picker :data="emojiIndex" :style="{ position: 'absolute', bottom: '20px', right: '20px' }" />
+          <picker :data="emojiIndex" 
+            :i18n="{ search: 'Recherche', categories: { search: 'Résultats de recherche', recent: 'Récents' } }"
+          />
+        </div-->
         <div class="type-area">
           <p class="user-typing">{{userTypingMsg}}</p>
+          <!--click to open emojiPicker-->
+          <button @click="toggleEmo"><i class="far fa-smile"></i></button>
           <button>
             <i class="fas fa-paperclip"></i>
           </button>
-          <VueEmoji ref="emoji" @input="onInput" @keyup="typingMessage($event)" 
-          />
+           <input
+              type="text"
+              placeholder="Type a message..."
+              v-model="message"
+              @keyup="typingMessage($event)"
+            />
           
           <button class="button-right" @click="sendMessage" :disabled="!message">
             <i class="fas fa-paper-plane"></i>
@@ -81,12 +96,15 @@
 </template>
 
 <script>
-import VueEmoji from "emoji-vue";
+/*import data from '../data/all.json'
+import { Picker, EmojiIndex } from 'emoji-mart-vue-fast'
+let emojiIndex = new EmojiIndex(data)
+import 'emoji-mart-vue-fast/css/emoji-mart.css'*/
 export default {
   name: "ChatRoom",
-  components: {
-    VueEmoji
-  },
+  /*components: {
+    Picker
+  },*/
   props: {},
   data() {
     return {
@@ -95,7 +113,8 @@ export default {
       roomUsers: { room: "", users: [] },
       username: "",
       room: "",
-      userTypingMsg: ""
+      userTypingMsg: "",
+      emoStatus: false
     };
   },
   methods: {
@@ -120,6 +139,10 @@ export default {
         }
       }
     },
+    toggleEmo(){
+      this.emoStatus = !this.emoStatus;
+    },
+
     emitTypingEvent(isTyping) {
       this.$socket.emit("typing", {
         room: this.room,
@@ -130,7 +153,6 @@ export default {
     sendMessage() {
       this.emitTypingEvent(false);
       this.$socket.emit("chatMessage", this.message);
-      // this.$refs.emoji.clear();
       this.message = "";
     },
     scrollToEndMessages() {
@@ -261,20 +283,6 @@ button:disabled {
       margin-right: 53px;
     }
   }
-
-  /*.logo-img {
-    border-radius: 50%;
-    position: absolute;
-    top: 7%;
-    left: 62%;
-    background-color: rgb(46, 44, 44);
-    padding: 10px;
-
-    img {
-      width: 40px;
-      border-radius: 50%;
-    }
-  }*/
 
   .search-roomname-bar {
     display: grid;
@@ -434,28 +442,6 @@ button:disabled {
 
         button:hover {
           color: rgb(161, 161, 161);
-        }
-
-        .emoji-vue-wraper {
-          outline: none;
-          width: 30%;
-          color: black;
-          font-family: "Poppins", sans-serif;
-          height: 30px;
-          
-          .emoji-picker-cantainer {
-        
-            .emoji-wysiwyg-editor {
-              padding: 0px;
-              border: none;
-
-              .emoji-picker {
-                right: 40px;
-                top: 2px;
-
-              }
-            }
-          }
         }
 
         input {
