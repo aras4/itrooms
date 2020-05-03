@@ -225,12 +225,8 @@ a {
 @media only screen and (max-width: 600px) {
   .header {
     display: inline-block;
-    padding: 6px;
-  }
-
-  li,
-  a {
-    font-size: 12px;
+    padding: 2px;
+    margin-right: 35px;
   }
 
   .nav_links li {
@@ -276,58 +272,15 @@ a {
   }
 }
 
-/* most tablets and laptops*/
-@media only screen and (max-width: 1200px) {
-  li,
-  a {
-    font-size: 15px;
-  }
-
-  .main {
-    left: 42%;
-    top: 40%;
-
-    .login-form {
-      padding: 3px;
-
-      .login {
-        width: 50%;
-        margin: 100px 0px 0px 70px;
-
-        .input-fields {
-          margin-top: 20px;
-
-          input {
-            text-align: center;
-          }
-        }
-
-        .button-field {
-          button {
-            font-size: 13px;
-            margin: 15px 3px 0px 0px;
-            width: 40%;
-            letter-spacing: 2px;
-          }
-        }
-      }
-    }
-  }
-  .footer {
-    font-size: 15px;
-    justify-content: center;
-  }
-}
-
 /* scaling for smaller phones than usual */
-@media screen and (max-width: 365px) {
+@media screen and (max-width: 445px) {
   li,
   a {
-    font-size: 11px;
+    font-size: 9px;
   }
 
   .footer {
-    font-size: 11px;
+    font-size: 9px;
   }
 }
 </style>
