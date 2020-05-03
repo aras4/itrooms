@@ -4,6 +4,7 @@
       <button id="close" @click="closeChat">
         <i class="fas fa-power-off"></i>
       </button>
+       <p class="onlineMembers" @click="onlineUsers" >Online:<span> {{roomUsers.users.length}}</span></p>
       <p>ITRooms</p>
       <img src="../assets/logo.png" class="logo" />
     </div>
@@ -19,6 +20,16 @@
       </div>
     </div>
     <div class="chat-form">
+    <div class="OnlineUsers" v-if="clickOnlineMembers">
+     <div
+            v-for="(user,index) in roomUsers.users"
+            :key="index"
+            :class="[index % 2 === 0 ? 'first-user':'second-user']"
+          >
+            <img src="../assets/pngfuel.com.png" />
+            <p>{{user.username}}</p>
+          </div>
+    </div>
       <div class="users-wrapper">
         <div class="users">
           <div
@@ -114,10 +125,19 @@ export default {
       username: "",
       room: "",
       userTypingMsg: "",
-      emoStatus: false
+      emoStatus: false,
+      clickOnlineMembers:false
     };
   },
   methods: {
+   onlineUsers(){
+      if(this.clickOnlineMembers==false){
+        this.clickOnlineMembers=true;
+      }
+      else{
+        this.clickOnlineMembers=false;
+      }
+    },
     closeChat() {
       this.$socket.close();
       this.$router.push({ name: "roomhome" });
@@ -239,6 +259,7 @@ button:disabled {
       top: 3px;
       right: 10px;
       width: 35px;
+       margin-right:5px;
     }
 
     #close {
@@ -250,7 +271,7 @@ button:disabled {
       font-weight: bold;
       border: none;
       font-size: 18px;
-      margin: 5px 20px;
+       margin: 5px 10px;
       padding: 0px;
       font-family: "Poppins", sans-serif;
     }
@@ -349,7 +370,7 @@ button:disabled {
       .users {
         @include custom-scroll-bar;
         overflow: auto;
-        height: 82.6vh;
+        height: 82.9vh;
         display: flex;
         flex-direction: column;
         border-right: 1px solid rgb(187, 185, 185);
@@ -520,12 +541,61 @@ button:disabled {
     text-align: right !important;
   }
 }
+.onlineMembers{
+  float:left;
+  margin-top:5px !important;
+  display:none;
+  span{
+    color:#7e8d09;
+  }
+}
+.OnlineUsers{
+  position: fixed;
+    width: 60%;
+    height: 80vh;
+    background: #2c3e50;
+    top: 39px;
+    left: 0;
+    text-align: center;
+    
+    .first-user {
+          display: flex;
+          flex-direction: row;
+          padding: 20px;
+          background-color: #2c3e50;
+          color: rgb(0, 0, 0);
+          transition: all 0.1s ease;
+          color:white;
+          img {
+            height: 50px;
+            margin: 5px;
+            border-radius: 50%;
+          }
+          p {
+            font-family: "Poppins", sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 5px;
+            padding: 7px;
+          }
+        }
+        .second-user {
+          @extend .first-user;
+          background-color: #2c3e50;
+          color:white;
+        }
+        .first-user:hover {
+          background-color: rgb(65, 225, 240);
+          color: rgb(255, 255, 255);
+        }
+    
+}
 
 @media only screen and (max-width: 425px) {
   .main {
     .topbar {
       #close {
-        float: right;
+        float: left;
       }
     }
 
@@ -549,7 +619,7 @@ button:disabled {
         display: none;
       }
       .messages {
-        width: 100%;
+        width: 98%;
 
         .display {
           .display-messages {
@@ -577,6 +647,9 @@ button:disabled {
         }
       }
     }
+  }
+  .onlineMembers{
+    display:block;
   }
 }
 
