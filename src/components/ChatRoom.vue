@@ -11,19 +11,14 @@
       <p>ITRooms</p>
       <img src="../assets/logo.png" class="logo" />
     </div>
-    <div class="search-roomname-bar">
-      <div class="search">
-        <input type="text" placeholder="Search" />
-        <button>
-          <i class="fas fa-search"></i>
-        </button>
+    <div class="code-chat-form">
+      <div class="code">
+        
+          <prism>
+          {{code}}
+        </prism>
       </div>
-      <div class="room-name">
-        <p>{{roomUsers.room}}</p>
-      </div>
-    </div>
-    <div class="chat-form">
-      <div class="OnlineUsers" v-if="clickOnlineMembers">
+      <!--div class="OnlineUsers" v-if="clickOnlineMembers">
         <div
           v-for="(user,index) in roomUsers.users"
           :key="index"
@@ -32,33 +27,7 @@
           <img src="../assets/pngfuel.com.png" />
           <p>{{user.username}}</p>
         </div>
-      </div>
-      <div class="users-wrapper">
-        <div class="users">
-          <div
-            v-for="(user,index) in roomUsers.users"
-            :key="index"
-            :class="[index % 2 === 0 ? 'first-user':'second-user']"
-          >
-            <img src="../assets/pngfuel.com.png" />
-            <p>{{user.username}}</p>
-          </div>
-        </div>
-        <div class="options">
-          <button>
-            <i class="fas fa-cog"></i>
-          </button>
-          <button>
-            <i class="fas fa-user"></i>
-          </button>
-          <button>
-            <i class="fas fa-phone"></i>
-          </button>
-          <button>
-            <i class="fas fa-paper-plane"></i>
-          </button>
-        </div>
-      </div>
+      </div-->
       <div class="messages">
         <div class="display">
           <div class="display-messages">
@@ -104,11 +73,15 @@
 </template>
 
 <script>
+import "prismjs/prism";
+import "prismjs/themes/prism.css";
 import VEmojiPicker from "v-emoji-picker";
+import Prism from "vue-prism-component";
 export default {
   name: "ChatRoom",
   components: {
-    VEmojiPicker
+    VEmojiPicker,
+    Prism
   },
   props: {},
   data() {
@@ -120,7 +93,8 @@ export default {
       room: "",
       userTypingMsg: "",
       emoStatus: false,
-      clickOnlineMembers: false
+      clickOnlineMembers: false,
+      code: '<html><div>Lorem ipsum</div></html>'
     };
   },
   methods: {
@@ -171,20 +145,13 @@ export default {
       var container = document.querySelector(".display-messages");
       var scrollHeight = container.scrollHeight;
       container.scrollTop = scrollHeight;
-    },
-    scrollToEndUsers() {
-      var container = document.querySelector(".users");
-      var scrollHeight = container.scrollHeight;
-      container.scrollTop = scrollHeight;
     }
   },
   mounted() {
     this.scrollToEndMessages();
-    this.scrollToEndMessages();
   },
   updated() {
     this.scrollToEndMessages();
-    this.scrollToEndUsers();
   },
   sockets: {
     typing(data) {
@@ -268,20 +235,6 @@ button:disabled {
       font-family: "Poppins", sans-serif;
     }
 
-    #swipe-left {
-      display: none;
-      float: left;
-      outline: none;
-      background-color: rgb(66, 64, 64);
-      color: rgb(177, 177, 177);
-      font-weight: bold;
-      border: none;
-      font-size: 18px;
-      margin: 5px 20px;
-      padding: 0px;
-      font-family: "Poppins", sans-serif;
-    }
-
     #close:hover {
       color: #e62270;
       cursor: pointer;
@@ -297,131 +250,14 @@ button:disabled {
     }
   }
 
-  .search-roomname-bar {
-    display: grid;
-    grid-template-columns: repeat(3, 33.33%);
-    background-color: rgb(75, 71, 71);
-
-    .search {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      border-right: 1px solid rgb(110, 110, 110);
-
-      input {
-        padding: 10px;
-        margin-left: 10px;
-        width: 70%;
-        background-color: rgb(75, 71, 71);
-        font-size: 16px;
-        color: rgb(177, 177, 177);
-        font-family: "Poppins", sans-serif;
-        border: none;
-        outline: none;
-      }
-
-      button {
-        padding: 9px;
-        background-color: rgb(75, 71, 71);
-        font-size: 16px;
-        margin-right: 10px;
-        color: rgb(177, 177, 177);
-        font-family: "Poppins", sans-serif;
-        border: none;
-        outline: none;
-        font-size: 20px;
-      }
-
-      button:hover {
-        color: rgb(161, 161, 161);
-      }
-    }
-    .room-name {
-      grid-column: 2 span;
-      background-color: rgb(75, 71, 71);
-
-      p {
-        color: rgb(177, 177, 177);
-        text-align: left;
-        margin: 15px 0px 15px 40px;
-        font-size: 18px;
-      }
-    }
-  }
-
-  .chat-form {
+  .code-chat-form {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(3, 33.33%);
+    grid-template-columns: repeat(2, 60% 40%);
     background-color: white;
 
-    .users-wrapper {
-      display: flex;
-      flex-direction: column;
-
-      .users {
-        @include custom-scroll-bar;
-        overflow: auto;
-        height: 82.9vh;
-        display: flex;
-        flex-direction: column;
-        border-right: 1px solid rgb(187, 185, 185);
-
-        .first-user {
-          display: flex;
-          flex-direction: row;
-          padding: 20px;
-          background-color: white;
-          color: rgb(0, 0, 0);
-          transition: all 0.1s ease;
-
-          img {
-            height: 50px;
-            margin: 5px;
-            border-radius: 50%;
-          }
-
-          p {
-            font-family: "Poppins", sans-serif;
-            font-size: 16px;
-            font-weight: bold;
-            margin: 5px;
-            padding: 7px;
-          }
-        }
-        .second-user {
-          @extend .first-user;
-          background-color: rgb(243, 243, 243);
-        }
-
-        .first-user:hover {
-          background-color: rgb(65, 225, 240);
-          color: rgb(255, 255, 255);
-        }
-      }
-      .options {
-        display: grid;
-        grid-template-columns: repeat(4, 25%);
-        border-top: 1px solid rgb(187, 185, 185);
-
-        button {
-          border: none;
-          outline: none;
-          font-size: 22px;
-          background-color: white;
-          border-right: 1px solid rgb(187, 185, 185);
-          color: rgb(187, 185, 185);
-          padding: 10px;
-        }
-
-        button:hover {
-          background-color: rgb(65, 225, 240);
-          color: rgb(66, 64, 64);
-        }
-      }
-    }
     .messages {
-      grid-column: 2 span;
+      border-left: 1px solid rgb(187, 185, 185);
       background-color: rgb(255, 255, 255);
       font-family: "Poppins", sans-serif;
 
