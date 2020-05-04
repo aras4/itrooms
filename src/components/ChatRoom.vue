@@ -77,15 +77,6 @@
             </div>
           </div>
         </div>
-        <!--div v-if="emoStatus" class="emoji-picker">
-          <picker :data="emojiIndex" set="twitter" />
-          <picker :data="emojiIndex" @select="this.selectEmoji" />
-          <picker :data="emojiIndex" title="Pick your emoji…" emoji="point_up" />
-          <picker :data="emojiIndex" :style="{ position: 'absolute', bottom: '20px', right: '20px' }" />
-          <picker :data="emojiIndex" 
-            :i18n="{ search: 'Recherche', categories: { search: 'Résultats de recherche', recent: 'Récents' } }"
-          />
-        </div-->
         <div class="type-area">
           <p class="user-typing">{{userTypingMsg}}</p>
           <!--click to open emojiPicker-->
@@ -102,6 +93,7 @@
             @keyup="typingMessage($event)"
           />
 
+          <VEmojiPicker v-if="emoStatus" @select="selectEmoji" />
           <button class="button-right" @click="sendMessage" :disabled="!message">
             <i class="fas fa-paper-plane"></i>
           </button>
@@ -112,15 +104,12 @@
 </template>
 
 <script>
-/*import data from '../data/all.json'
-import { Picker, EmojiIndex } from 'emoji-mart-vue-fast'
-let emojiIndex = new EmojiIndex(data)
-import 'emoji-mart-vue-fast/css/emoji-mart.css'*/
+import VEmojiPicker from "v-emoji-picker";
 export default {
   name: "ChatRoom",
-  /*components: {
-    Picker
-  },*/
+  components: {
+    VEmojiPicker
+  },
   props: {},
   data() {
     return {
@@ -135,6 +124,9 @@ export default {
     };
   },
   methods: {
+    selectEmoji(emoji) {
+      this.message += emoji.data;
+    },
     onlineUsers() {
       this.clickOnlineMembers = !this.clickOnlineMembers;
     },
@@ -184,10 +176,6 @@ export default {
       var container = document.querySelector(".users");
       var scrollHeight = container.scrollHeight;
       container.scrollTop = scrollHeight;
-    },
-    onInput(event) {
-      event.data;
-      this.message = event.data;
     }
   },
   mounted() {
@@ -219,6 +207,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#EmojiPicker {
+  position: absolute;
+  bottom: 45px;
+}
 button:disabled {
   color: #ddd !important;
 }
