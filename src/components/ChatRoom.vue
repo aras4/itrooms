@@ -13,10 +13,7 @@
     </div>
     <div class="code-chat-form">
       <div class="code">
-        
-          <prism>
-          {{code}}
-        </prism>
+        <prism>{{code}}</prism>
       </div>
       <!--div class="OnlineUsers" v-if="clickOnlineMembers">
         <div
@@ -52,15 +49,15 @@
           <button @click="toggleEmo">
             <i class="far fa-smile"></i>
           </button>
-          <button>
+          <!--button>
             <i class="fas fa-paperclip"></i>
-          </button>
-          <input
+          </button-->
+          <textarea
             type="text"
             placeholder="Type a message..."
             v-model="message"
             @keyup="typingMessage($event)"
-          />
+          ></textarea>
 
           <VEmojiPicker v-if="emoStatus" @select="selectEmoji" />
           <button class="button-right" @click="sendMessage" :disabled="!message">
@@ -94,7 +91,7 @@ export default {
       userTypingMsg: "",
       emoStatus: false,
       clickOnlineMembers: false,
-      code: '<html><div>Lorem ipsum</div></html>'
+      code: "<html><div>Lorem ipsum</div></html>"
     };
   },
   methods: {
@@ -216,22 +213,21 @@ button:disabled {
     .logo {
       position: absolute;
       top: 3px;
-      right: 10px;
+      left: 10px;
       width: 35px;
-      margin-right: 5px;
+      margin-left: 5px;
     }
 
     #close {
       display: block;
-      float: left;
+      float: right;
       outline: none;
       background-color: #27272e;
       color: rgb(177, 177, 177);
       font-weight: bold;
       border: none;
-      font-size: 18px;
-      margin: 5px 10px;
-      padding: 0px;
+      font-size: 20px;
+      margin: 5px 15px;
       font-family: "Poppins", sans-serif;
     }
 
@@ -245,8 +241,8 @@ button:disabled {
       color: #b1b1b1;
       font-size: 16px;
       margin: 8px;
-      text-align: right;
-      margin-right: 53px;
+      text-align: left;
+      margin-left: 53px;
     }
   }
 
@@ -277,7 +273,7 @@ button:disabled {
         display: flex;
         flex-direction: row;
         overflow: hidden;
-        padding: 0 20px;
+        padding: 0 10px 0 0;
         border-top: 1px solid rgb(187, 185, 185);
 
         button {
@@ -293,13 +289,15 @@ button:disabled {
           color: rgb(161, 161, 161);
         }
 
-        input {
+        textarea {
           outline: none;
           padding: 10px;
           width: 90%;
           color: black;
           font-family: "Poppins", sans-serif;
           border: none;
+          resize: none;
+          height: 28px;
         }
 
         .button-right {
