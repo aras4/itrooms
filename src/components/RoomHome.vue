@@ -5,7 +5,7 @@
         <ul class="nav_links">
           <!-- Delete the unnecessary ones -->
           <li>
-            <a href="#">About us</a>
+            <a href="#"  @click="joinAboutUs" >About us</a>
           </li>
           <li>
             <a href="#">Register</a>
@@ -74,6 +74,12 @@ export default {
         name: "chatroom",
         params: { username: this.username, room: this.room || "js" }
       });
+    },
+     joinAboutUs() {
+      this.$router.push({
+        name: "aboutus"
+      });
+
     }
   }
 };
