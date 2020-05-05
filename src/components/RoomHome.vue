@@ -1,11 +1,6 @@
 <template>
   <div>
     <div class="header">
-      <div class="logo">
-        <img src="../assets/logo.png">
-        <span>ITRooms</span>
-      </div>
-
       <div class="hamburger-menu">
         <input type="checkbox" class="toggler" @click="openMenu" />
         <div class="hamburger"><div></div></div>
@@ -42,20 +37,22 @@
     </div>
     <div class="main" v-if="!isOpen" >
       <div class="login-form">
+        <img src="../assets/logo4.png">
         <div class="login">
-          <h1>ITRooms</h1>
           <div class="input-fields">
-            <input type="text" v-model="username" placeholder="Username" />
+            <i class="fas fa-user"></i><input type="text" v-model="username" placeholder="Username" />
           </div>
           <div class="input-fields">
-            <input type="text" v-model="room" placeholder="Room" />
+            <i class="fas fa-hotel"></i><input type="text" v-model="room" placeholder="Room" />
           </div>
           <div class="validation-msg">
             <p>{{validationMsg}}</p>
           </div>
           <div class="button-field">
             <button class="join-btn" @click="joinRoom">JOIN</button>
-            <button class="create-btn" @click="joinRoom">CREATE</button>
+            <!--button class="create-btn" @click="joinRoom">CREATE</button-->
+            <p id="new-room">CREATE NEW ROOM</p>
+            <p id="help">NEED HELP?</p>
           </div>
         </div>
       </div>
@@ -205,20 +202,6 @@ export default {
   justify-content: flex-end;
   align-items: center;
   padding: 10px 5%;
-  
-  .logo {
-    position: absolute;
-    top: 2%;
-    left: 2%;
-    img {
-    width: 40px;
-    border-radius: 50%;
-    }
-    span{
-      color: #d9cfce;
-      font-family: "Poppins", sans-serif;
-    }
-  }
 }
 .nav_links {
   list-style: none;
@@ -251,41 +234,48 @@ export default {
   width: 70%;
 
   .login-form {
-    border-radius: 10px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
-    padding: 70px;
+    align-content: center;
+    padding: 50px;
+
+    img {
+      width: 150px;
+      height: 150px;
+      margin: auto;
+      margin-bottom: 40px;
+      border-radius: 30px;
+    }
 
     .login {
-      width: 40%;
-      margin: 70px 40px 0 20px;
-      h1 {
-        text-align: center;
-        font-family: "Poppins", sans-serif;
-        letter-spacing: 2px;
-        font-size: 40px;
-        color: #dadada;
-      }
+      width: 50%;
+      margin: auto;
 
       .input-fields {
         display: flex;
         flex-direction: row;
         background-color: rgba(230, 230, 230, 0.219);
         border-radius: 30px;
-        margin-bottom: 10px;
         height: 50px;
+        width: 100%;
+        color: white;
+        margin-bottom: 10px;
+
+        svg{
+         margin:16px;
+         margin-left: 30px;
+        }
 
         input {
-          padding: 15px;
+          padding: 10px;
           color: white;
           border: none;
           outline: none;
           background-color: rgba(230, 230, 230, 0);
-          margin: 5px;
-          width: 90%;
           border-radius: 30px;
           font-family: "Poppins", sans-serif;
+          width: 70%;
         }
       }
 
@@ -295,8 +285,8 @@ export default {
           border: none;
           outline: none;
           border-radius: 30px;
-          margin: 15px 5px 3px 0px;
-          width: 35%;
+          margin: 15px 5px 30px 0px;
+          width: 100%;
           color: white;
           font-family: "Poppins", sans-serif;
           height: 50px;
@@ -307,20 +297,45 @@ export default {
         }
 
         .join-btn {
-          background-color: rgb(82, 187, 82);
+          background-color: rgba(65, 225, 240, 0.8);
         }
 
         .join-btn:hover {
-          background-color: #4caf50;
+          background-color:rgb(65, 225, 240);
         }
 
-        .create-btn {
+        #new-room {
+          float: left;
+          color:white;
+          font-family: "Poppins", sans-serif;
+          margin-left: 10px;
+          font-weight: bold;
+          cursor: pointer;
+        }
+
+        #new-room:hover {
+          color: rgb(65, 225, 240);
+        }
+
+        #help {
+          float: right;
+          color: white;
+          font-family: "Poppins", sans-serif;
+          margin-right: 10px;
+          cursor: pointer;
+        }
+
+        #help:hover {
+          color: #d9cfce;
+        }
+
+        /*.create-btn {
           background-color: rgb(26, 149, 237);
         }
 
         .create-btn:hover {
           background-color: rgb(52, 160, 237);
-        }
+        }*/
       }
     }
   }
@@ -342,57 +357,41 @@ export default {
     }
     .main {
       width: 80%;
-
-      .login-form {
-        .login {
-          h1 {
-            font-size: 34px;
-          }
-        }
-      }
     }
 }
 
 @media only screen and (max-width: 768px) {
   .hamburger-menu {
   display: block;
-}
+  }
   .header {
     padding: 10px;
     margin-right: 10px;
   }
-
   .nav_links {
     display: none;
   }
 
   .main {
-    left: 42%;
-    top: 40%;
 
     .login-form {
       padding: 5px;
 
       .login {
         width: 70%;
-        margin: 100px 0px 0px 70px;
-        h1 {
-          font-size: 40px;
-        }
 
         .input-fields {
           margin-top: 20px;
 
           input {
-            text-align: center;
+           
           }
         }
 
         .button-field {
           button {
-            font-size: 11px;
+            font-size: 14px;
             margin: 15px 3px 0px 0px;
-            width: 45%;
             letter-spacing: 2px;
           }
         }
@@ -406,14 +405,9 @@ export default {
 
 /* scaling for smaller phones than usual */
 @media screen and (max-width: 425px) {
-  
-  li,
-  a {
-    font-size: 9px;
-  }
-
-  .footer {
-    font-size: 9px;
+  #help {
+    float: left !important;
+    margin-left: 10px;
   }
 }
 </style>
