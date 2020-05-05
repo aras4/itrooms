@@ -10,9 +10,15 @@
     <div class="code-chat-form">
       <div class="code">
         <div class="code-title">
-        <p>share your code</p>
-      </div>
-        <prism>{{code}}</prism>
+          <p>Share your code</p>
+        </div>
+        <prism-editor
+          @change="shareCode"
+          :lineNumbers="true"
+          :autoStyleLineNumbers="true"
+          v-model="code"
+          language="js"
+        ></prism-editor>
       </div>
       <div class="messages">
         <div class="room-name">
@@ -25,9 +31,9 @@
         <div class="display">
           <div class="OnlineUsers" v-if="clickOnlineMembers">
             <div
-            v-for="(user,index) in roomUsers.users"
-            :key="index"
-            :class="[index % 2 === 0 ? 'first-user':'second-user']"
+              v-for="(user,index) in roomUsers.users"
+              :key="index"
+              :class="[index % 2 === 0 ? 'first-user':'second-user']"
             >
               <img src="../assets/pngfuel.com.png" />
               <p>{{user.username}}</p>
@@ -58,12 +64,12 @@
           <!--button>
             <i class="fas fa-paperclip"></i>
           </button-->
-          <textarea
+          <input
             type="text"
             placeholder="Type a message..."
             v-model="message"
             @keyup="typingMessage($event)"
-          ></textarea>
+          />
 
           <VEmojiPicker v-if="emoStatus" @select="selectEmoji" />
           <button class="button-right" @click="sendMessage" :disabled="!message">
@@ -76,15 +82,18 @@
 </template>
 
 <script>
-import "prismjs/prism";
-import "prismjs/themes/prism.css";
+import axios from "axios";
 import VEmojiPicker from "v-emoji-picker";
-import Prism from "vue-prism-component";
+import "prismjs";
+import "prismjs/themes/prism.css";
+import "vue-prism-editor/dist/VuePrismEditor.css";
+import PrismEditor from "vue-prism-editor";
+
 export default {
   name: "ChatRoom",
   components: {
     VEmojiPicker,
-    Prism
+    PrismEditor
   },
   props: {},
   data() {
@@ -97,10 +106,28 @@ export default {
       userTypingMsg: "",
       emoStatus: false,
       clickOnlineMembers: false,
-      code: "<html><div>Lorem ipsum</div></html>"
+      code: ""
     };
   },
   methods: {
+    preventEnter(e) {
+      return e.keyCode !== 13;
+    },
+    getShareCode() {
+      axios(
+        `https://it-collaboration-server.herokuapp.com/getShareCode/${this.room}`
+      )
+        .then(response => {
+          this.code = response.data;
+        })
+        .catch(err => console.error(err));
+    },
+    shareCode() {
+      this.$socket.emit("shareCode", {
+        room: this.room,
+        code: this.code
+      });
+    },
     selectEmoji(emoji) {
       this.message += emoji.data;
     },
@@ -157,6 +184,9 @@ export default {
     this.scrollToEndMessages();
   },
   sockets: {
+    shareCode(data) {
+      this.code = data.code;
+    },
     typing(data) {
       this.userTypingMsg = data.username !== this.username ? data.msg : "";
     },
@@ -172,11 +202,24 @@ export default {
     this.room = this.$route.params.room;
     this.$socket.connect();
     this.$socket.emit("joinRoom", { username: this.username, room: this.room });
+    this.getShareCode();
   }
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
+.prism-editor__line-numbers {
+  background-color: rgba(65, 225, 240, 0.8) !important;
+  padding-right: 5px;
+  border-right: 1px solid #27272e;
+  .token {
+    color: #27272e;
+  }
+}
+.prism-editor-wrapper pre {
+  background-color: #f8f8f8 !important;
+}
+
 #EmojiPicker {
   position: absolute;
   bottom: 45px;
@@ -232,7 +275,7 @@ button:disabled {
       color: rgb(177, 177, 177);
       font-weight: bold;
       border: none;
-      font-size: 20px;
+      font-size: 18px;
       margin: 5px 15px;
       font-family: "Poppins", sans-serif;
     }
@@ -260,11 +303,11 @@ button:disabled {
     height: 94.7vh;
 
     .code {
-
+      height: 89vh;
       .code-title {
         background-color: #27272ef3;
         padding: 10px;
-        
+
         p {
           font-family: "Poppins", sans-serif;
           color: #b1b1b1;
@@ -283,7 +326,7 @@ button:disabled {
       .room-name {
         background-color: #27272ef3;
         padding: 10px;
-        
+
         p {
           font-family: "Poppins", sans-serif;
           color: #b1b1b1;
@@ -325,15 +368,13 @@ button:disabled {
           color: rgb(161, 161, 161);
         }
 
-        textarea {
+        input {
           outline: none;
           padding: 10px;
           width: 90%;
           color: black;
           font-family: "Poppins", sans-serif;
           border: none;
-          resize: none;
-          height: 28px;
         }
 
         .button-right {
@@ -407,9 +448,9 @@ button:disabled {
   @include custom-scroll-bar;
   overflow-y: scroll;
   float: left;
-  color:rgb(187, 185, 185);
+  color: rgb(187, 185, 185);
   margin-left: 4%;
-  
+
   span {
     padding-left: 5px;
     color: rgba(65, 225, 240, 0.8);
@@ -430,13 +471,13 @@ button:disabled {
     padding: 15px;
     color: rgb(0, 0, 0);
     transition: all 0.1s ease;
-    
+
     img {
       height: 50px;
       margin: 5px;
       border-radius: 50%;
     }
-    
+
     p {
       font-family: "Poppins", sans-serif;
       font-size: 16px;
@@ -447,8 +488,8 @@ button:disabled {
   }
   .second-user {
     @extend .first-user;
-    background-color:rgb(238, 238, 238);
-    color:black;
+    background-color: rgb(238, 238, 238);
+    color: black;
   }
   .first-user:hover {
     background-color: rgb(65, 225, 240);
@@ -458,12 +499,11 @@ button:disabled {
 
 @media only screen and (max-width: 425px) {
   .main {
-
     .OnlineUsers {
-        width: 100% !important;
-        border: none;
-        height: 82.6vh !important;
-      }
+      width: 100% !important;
+      border: none;
+      height: 82.6vh !important;
+    }
 
     .user-typing {
       position: absolute;
@@ -481,7 +521,7 @@ button:disabled {
       .code {
         display: none;
       }
-      
+
       .messages {
         width: 100%;
         border: none;
@@ -526,38 +566,35 @@ button:disabled {
 
 @media only screen and (max-width: 768px) {
   .user-typing {
-      position: absolute;
-      bottom: 4%;
-      left: 5% !important;
-      font-size: 12px;
-      color: rgb(177, 177, 177);
-    }
+    position: absolute;
+    bottom: 4%;
+    left: 5% !important;
+    font-size: 12px;
+    color: rgb(177, 177, 177);
+  }
 
   .code-chat-form {
-      display: grid;
-      grid-template-columns: repeat(1, 100%) !important;
-      .code {
-        display: none;
-      }
+    display: grid;
+    grid-template-columns: repeat(1, 100%) !important;
+    .code {
+      display: none;
+    }
 
-      .messages {
-        border: none !important;
-      }
+    .messages {
+      border: none !important;
+    }
 
-      .OnlineUsers {
-        width: 50%;
-      }
+    .OnlineUsers {
+      width: 50%;
+    }
   }
 }
-
-
-
 
 @media only screen and (max-width: 1024px) {
   .user-typing {
     position: absolute;
     bottom: 6%;
-    left: 63%; 
+    left: 63%;
     font-size: 12px;
     color: rgb(177, 177, 177);
   }
@@ -566,7 +603,6 @@ button:disabled {
       height: 94vh;
       .messages {
         .display {
-
           .OnlineUsers {
             height: 80.6vh;
 
@@ -574,10 +610,9 @@ button:disabled {
               img {
                 height: 40px;
               }
-              p{
+              p {
                 font-size: 14px !important;
               }
-              
             }
           }
           .display-messages {

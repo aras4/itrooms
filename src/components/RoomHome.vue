@@ -5,7 +5,7 @@
         <ul class="nav_links">
           <!-- Delete the unnecessary ones -->
           <li>
-          <a href="#" @click="joinAboutUs">About us</a>
+            <a href="#" @click="joinAboutUs">About us</a>
           </li>
           <li>
             <a href="#">Register</a>
@@ -36,7 +36,7 @@
           </div>
           <div class="button-field">
             <button class="join-btn" @click="joinRoom">JOIN</button>
-            <button class="create-btn">CREATE</button>
+            <button class="create-btn" @click="joinRoom">CREATE</button>
           </div>
           <!--p id="create-acc">
             <a href="#">Create your Account &rarr;</a>
@@ -75,11 +75,8 @@ export default {
         params: { username: this.username, room: this.room || "js" }
       });
     },
-    ,
     joinAboutUs() {
-      this.$router.push({
-        name: "aboutus"
-      });
+      this.$router.push("aboutus");
     }
   }
 };

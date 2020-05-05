@@ -38,27 +38,9 @@
 export default {
   name: "AboutUs",
   data() {
-    return {
-      username: "",
-      room: "",
-      validationMsg: ""
-    };
+    return {};
   },
   methods: {
-    isEmpty(str) {
-      return !str || 0 === str.length;
-    },
-    joinRoom() {
-      this.validationMsg = "";
-      if (this.isEmpty(this.username) || this.isEmpty(this.room)) {
-        this.validationMsg = "You need to fill required fields";
-        return;
-      }
-      this.$router.push({
-        name: "chatroom",
-        params: { username: this.username, room: this.room || "js" }
-      });
-    },
     joinAboutUs() {
       this.$router.push({
         name: "aboutus"
