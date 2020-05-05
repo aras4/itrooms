@@ -5,44 +5,28 @@
         <ul class="nav_links">
           <!-- Delete the unnecessary ones -->
           <li>
-          <a href="#" @click="joinAboutUs">About us</a>
+            <a href="#">Contact</a>
           </li>
           <li>
             <a href="#">Register</a>
           </li>
           <li>
-            <a href="#">Contact</a>
+            <a href="#" @click="joinAboutUs">About us</a>
           </li>
         </ul>
       </nav>
     </div>
     <div class="main">
-      <div class="login-form">
-        <!--         <div class="login-img">
-          <img src="../assets/login.png" />
-        </div>-->
-        <div class="login">
-          <h1>ITRooms</h1>
-          <div class="input-fields">
-            <!--ion-icon name="mail-outline"></ion-icon-->
-            <input type="text" v-model="username" placeholder="Username" />
-          </div>
-          <div class="input-fields">
-            <!--ion-icon name="key-outline"></ion-icon-->
-            <input type="text" v-model="room" placeholder="Room" />
-          </div>
-          <div class="validation-msg">
-            <p>{{validationMsg}}</p>
-          </div>
-          <div class="button-field">
-            <button class="join-btn" @click="joinRoom">JOIN</button>
-            <button class="create-btn">CREATE</button>
-          </div>
-          <!--p id="create-acc">
-            <a href="#">Create your Account &rarr;</a>
-          </p-->
-        </div>
+      <h1 class="h1about">About us</h1>
+      <div class="aboutus">
+        <p>
+          <b>ITRooms</b> is our first chat application.
+          For this project, we use popular JavaScript framework called "VueJS".
+          The idea was created by a professor Amir Ramic.
+          If you would like to join us please contact us.
+        </p>
       </div>
+      <a class="homelink" href="#" @click="joinRoomHome">Home page</a>
     </div>
     <div class="footer">
       <p>&copy; 2020 All Rights Reserved | Design By ITAcademy Group A</p>
@@ -52,7 +36,7 @@
 
 <script>
 export default {
-  name: "RoomHome",
+  name: "AboutUs",
   data() {
     return {
       username: "",
@@ -75,10 +59,14 @@ export default {
         params: { username: this.username, room: this.room || "js" }
       });
     },
-    ,
     joinAboutUs() {
       this.$router.push({
         name: "aboutus"
+      });
+    },
+    joinRoomHome() {
+      this.$router.push({
+        name: "roomhome"
       });
     }
   }
@@ -120,6 +108,25 @@ a {
   top: 50%;
   transform: translate(-50%, -50%);
   width: 70%;
+  .aboutus {
+    background-color: #d9cfce;
+    color: #000000;
+    padding: 20px;
+    font-size: 18px;
+    border-radius: 30px;
+  }
+  .h1about {
+    color: #000000;
+    font-size: 50px;
+  }
+  .homelink {
+    float: right;
+    margin: 5px 5px;
+  }
+  .homelink:hover {
+    color: #d9cfce;
+  }
+
   .login-form {
     border-radius: 10px;
     display: flex;
@@ -222,7 +229,7 @@ a {
   bottom: 0;
   width: 100%;
   color: #ffffff;
-  font-size: 20px;
+  font-size: 14px;
   display: flex;
   justify-content: flex-end;
 }
@@ -231,8 +238,12 @@ a {
 @media only screen and (max-width: 600px) {
   .header {
     display: inline-block;
-    padding: 2px;
-    margin-right: 35px;
+    padding: 6px;
+  }
+
+  li,
+  a {
+    font-size: 12px;
   }
 
   .nav_links li {
@@ -278,15 +289,58 @@ a {
   }
 }
 
-/* scaling for smaller phones than usual */
-@media screen and (max-width: 445px) {
+/* most tablets and laptops*/
+@media only screen and (max-width: 1200px) {
   li,
   a {
-    font-size: 9px;
+    font-size: 15px;
+  }
+
+  .main {
+    left: 42%;
+    top: 40%;
+
+    .login-form {
+      padding: 3px;
+
+      .login {
+        width: 50%;
+        margin: 100px 0px 0px 70px;
+
+        .input-fields {
+          margin-top: 20px;
+
+          input {
+            text-align: center;
+          }
+        }
+
+        .button-field {
+          button {
+            font-size: 13px;
+            margin: 15px 3px 0px 0px;
+            width: 40%;
+            letter-spacing: 2px;
+          }
+        }
+      }
+    }
+  }
+  .footer {
+    font-size: 15px;
+    justify-content: center;
+  }
+}
+
+/* scaling for smaller phones than usual */
+@media screen and (max-width: 365px) {
+  li,
+  a {
+    font-size: 11px;
   }
 
   .footer {
-    font-size: 9px;
+    font-size: 11px;
   }
 }
 </style>
