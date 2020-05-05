@@ -196,6 +196,7 @@ export default {
 
 .validation-msg{
   color: rgba(255, 0, 0, 0.527);
+  font-family: "Poppins", sans-serif;
 }
 .header {
   display: flex;
