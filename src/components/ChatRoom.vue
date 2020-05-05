@@ -216,6 +216,10 @@ export default {
     color: #27272e;
   }
 }
+
+.prism-editor-wrapper {
+  height: 89vh;
+}
 .prism-editor-wrapper pre {
   background-color: #f8f8f8 !important;
 }
@@ -303,7 +307,7 @@ button:disabled {
     height: 94.7vh;
 
     .code {
-      height: 89vh;
+      height: 94vh;
       .code-title {
         background-color: #27272ef3;
         padding: 10px;
@@ -597,6 +601,10 @@ button:disabled {
     left: 63%;
     font-size: 12px;
     color: rgb(177, 177, 177);
+  }
+
+  .prism-editor-wrapper {
+    height: 87.6vh !important;
   }
   .main {
     .code-chat-form {

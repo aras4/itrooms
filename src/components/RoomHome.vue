@@ -1,6 +1,30 @@
 <template>
   <div>
     <div class="header">
+      <div class="logo">
+        <img src="../assets/logo.png">
+        <span>ITRooms</span>
+      </div>
+
+      <div class="hamburger-menu">
+        <input type="checkbox" class="toggler" @click="openMenu" />
+        <div class="hamburger"><div></div></div>
+        <div class="menu" v-if="isOpen">
+          <div class="nav">
+          <ul>
+          <li>
+            <a href="#" @click="joinAboutUs">About us</a>
+          </li>
+          <li>
+            <a href="#">Register</a>
+          </li>
+          <li>
+            <a href="#">Contact</a>
+          </li>
+          </ul>
+        </div>
+        </div>
+      </div>
       <nav class="navbar">
         <ul class="nav_links">
           <!-- Delete the unnecessary ones -->
@@ -16,19 +40,14 @@
         </ul>
       </nav>
     </div>
-    <div class="main">
+    <div class="main" v-if="!isOpen" >
       <div class="login-form">
-        <!--         <div class="login-img">
-          <img src="../assets/login.png" />
-        </div>-->
         <div class="login">
           <h1>ITRooms</h1>
           <div class="input-fields">
-            <!--ion-icon name="mail-outline"></ion-icon-->
             <input type="text" v-model="username" placeholder="Username" />
           </div>
           <div class="input-fields">
-            <!--ion-icon name="key-outline"></ion-icon-->
             <input type="text" v-model="room" placeholder="Room" />
           </div>
           <div class="validation-msg">
@@ -38,9 +57,6 @@
             <button class="join-btn" @click="joinRoom">JOIN</button>
             <button class="create-btn" @click="joinRoom">CREATE</button>
           </div>
-          <!--p id="create-acc">
-            <a href="#">Create your Account &rarr;</a>
-          </p-->
         </div>
       </div>
     </div>
@@ -57,7 +73,8 @@ export default {
     return {
       username: "",
       room: "",
-      validationMsg: ""
+      validationMsg: "",
+      isOpen: false
     };
   },
   methods: {
@@ -77,38 +94,153 @@ export default {
     },
     joinAboutUs() {
       this.$router.push("aboutus");
+    },
+    openMenu() {
+      this.isOpen = !this.isOpen;
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+
+.hamburger-menu {
+  display: none;
+}
+
+.toggler {
+  position: absolute;
+  top: 2%;
+  right: 5%;
+  z-index: 2;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  opacity: 0;
+}
+
+.hamburger {
+  position: absolute;
+  top: 2%;
+  right: 5%;
+  z-index: 1;
+  width: 30px;
+  height: 30px;
+  padding: 3px;
+
+  div {
+    position: relative;
+    top: 19px;
+    width: 100%;
+    height: 2px;
+    flex: none;
+    background: #dadada;
+    align-items: center;
+    transition: all 0.4s ease;
+  }
+  div::before,
+  div::after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    top: -10px;
+    left: 0px;
+    width: 100%;
+    height: 2px;
+    background-color: #dadada;
+  }
+  div::after {
+    top: 10px;
+  }
+}
+.toggler:checked + .hamburger div {
+  transform: rotate(135deg);
+}
+/* Turns Lines Into X */
+.toggler:checked + .hamburger div:before,
+.toggler:checked + .hamburger div:after {
+  top: 0;
+  transform: rotate(90deg);
+}
+
+.menu {
+  position: absolute;
+  top: 10%;
+  left:0px;
+  z-index: 1;
+  width: 100%;
+  height: 80vh;
+  background-color:#0f151700;
+
+  .nav {
+    ul {
+      list-style: none;
+      margin: 0px;
+      padding: 0px;
+      li{
+        text-align: center;
+        padding: 20px;
+        a{
+          font-size: 20px;
+          text-decoration: none;
+          color: #dadada;
+          font-family: "Poppins", sans-serif;
+        }
+      }
+    }
+  }
+  .nav ul li a:hover {
+    color: #ffffff;
+  }
+  .nav ul li:hover {
+    background-color:rgba(248, 248, 248, 0.164);
+  }
+}
+
+.validation-msg{
+  color: rgba(255, 0, 0, 0.527);
+}
 .header {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 5px 7%;
-}
-li,
-a {
-  font-family: "Poppins", sans-serif;
-  color: #ffffff;
-  text-decoration: none;
+  padding: 10px 5%;
+  
+  .logo {
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    img {
+    width: 40px;
+    border-radius: 50%;
+    }
+    span{
+      color: #d9cfce;
+      font-family: "Poppins", sans-serif;
+    }
+  }
 }
 .nav_links {
   list-style: none;
 }
 .nav_links li {
   display: inline-block;
-  padding: 0px 20px;
+  padding: 0px;
+  margin-right: 5px;
 }
 
 .nav_links li a {
+  font-size: 18px;
+  font-family: "Poppins", sans-serif;
+   text-decoration: none;
+  color: #d9cfce;
+  padding: 10px 15px;
   transition: all 0.3 ease 0s;
 }
 
 .nav_links li a:hover {
-  color: #d9cfce;
+  color: #ffffff;
+  background-color:rgba(248, 248, 248, 0.164);
 }
 
 .main {
@@ -117,22 +249,13 @@ a {
   top: 50%;
   transform: translate(-50%, -50%);
   width: 70%;
+
   .login-form {
     border-radius: 10px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     padding: 70px;
-    /*     .login-img {
-      width: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      img {
-        width: 40%;
-      }
-    } */
 
     .login {
       width: 40%;
@@ -141,23 +264,24 @@ a {
         text-align: center;
         font-family: "Poppins", sans-serif;
         letter-spacing: 2px;
-        font-size: 50px;
-        color: #000000;
+        font-size: 40px;
+        color: #dadada;
       }
 
       .input-fields {
         display: flex;
         flex-direction: row;
-        background-color: rgb(230, 230, 230);
+        background-color: rgba(230, 230, 230, 0.219);
         border-radius: 30px;
         margin-bottom: 10px;
         height: 50px;
 
         input {
           padding: 15px;
+          color: white;
           border: none;
           outline: none;
-          background-color: rgb(230, 230, 230);
+          background-color: rgba(230, 230, 230, 0);
           margin: 5px;
           width: 90%;
           border-radius: 30px;
@@ -197,19 +321,6 @@ a {
         .create-btn:hover {
           background-color: rgb(52, 160, 237);
         }
-
-        p {
-          text-align: center;
-
-          a {
-            color: rgb(197, 197, 197);
-            font-size: 14px;
-            text-decoration: none;
-          }
-          a:hover {
-            color: rgb(168, 168, 168);
-          }
-        }
       }
     }
   }
@@ -217,23 +328,42 @@ a {
 .footer {
   position: absolute;
   bottom: 0;
+  right: 2%;
   width: 100%;
   color: #ffffff;
-  font-size: 20px;
+  font-size: 12px;
   display: flex;
   justify-content: flex-end;
 }
 
-/* most mobile phones */
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 1024px) {
+    .nav_links li a {
+      font-size: 16px;
+    }
+    .main {
+      width: 80%;
+
+      .login-form {
+        .login {
+          h1 {
+            font-size: 34px;
+          }
+        }
+      }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+  .hamburger-menu {
+  display: block;
+}
   .header {
-    display: inline-block;
-    padding: 2px;
-    margin-right: 35px;
+    padding: 10px;
+    margin-right: 10px;
   }
 
-  .nav_links li {
-    margin-right: 14px;
+  .nav_links {
+    display: none;
   }
 
   .main {
@@ -270,13 +400,13 @@ a {
     }
   }
   .footer {
-    font-size: 13px;
-    justify-content: center;
+    display:none;
   }
 }
 
 /* scaling for smaller phones than usual */
-@media screen and (max-width: 445px) {
+@media screen and (max-width: 425px) {
+  
   li,
   a {
     font-size: 9px;
