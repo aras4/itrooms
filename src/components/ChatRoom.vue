@@ -4,29 +4,35 @@
       <button id="close" @click="closeChat">
         <i class="fas fa-power-off"></i>
       </button>
-      <p class="onlineMembers" @click="onlineUsers">
-        <i class="fas fa-users"></i>
-        <span>{{roomUsers.users.length}}</span>
-      </p>
       <p>ITRooms</p>
       <img src="../assets/logo.png" class="logo" />
     </div>
     <div class="code-chat-form">
       <div class="code">
+        <div class="code-title">
+        <p>share your code</p>
+      </div>
         <prism>{{code}}</prism>
       </div>
-      <!--div class="OnlineUsers" v-if="clickOnlineMembers">
-        <div
-          v-for="(user,index) in roomUsers.users"
-          :key="index"
-          :class="[index % 2 === 0 ? 'first-user':'second-user']"
-        >
-          <img src="../assets/pngfuel.com.png" />
-          <p>{{user.username}}</p>
-        </div>
-      </div-->
       <div class="messages">
+        <div class="room-name">
+          <div class="onlineMembers" @click="onlineUsers">
+            <i class="fas fa-users"></i>
+            <span>{{roomUsers.users.length}}</span>
+          </div>
+          <p>{{roomUsers.room}}</p>
+        </div>
         <div class="display">
+          <div class="OnlineUsers" v-if="clickOnlineMembers">
+            <div
+            v-for="(user,index) in roomUsers.users"
+            :key="index"
+            :class="[index % 2 === 0 ? 'first-user':'second-user']"
+            >
+              <img src="../assets/pngfuel.com.png" />
+              <p>{{user.username}}</p>
+            </div>
+          </div>
           <div class="display-messages">
             <div
               v-for="(message,index) in messages"
@@ -182,7 +188,7 @@ button:disabled {
 .user-typing {
   position: absolute;
   bottom: 5%;
-  left: 38.5%;
+  left: 63%;
   font-size: 12px;
   color: rgb(177, 177, 177);
 }
@@ -251,11 +257,41 @@ button:disabled {
     display: grid;
     grid-template-columns: repeat(2, 60% 40%);
     background-color: white;
+    height: 94.7vh;
+
+    .code {
+
+      .code-title {
+        background-color: #27272ef3;
+        padding: 10px;
+        
+        p {
+          font-family: "Poppins", sans-serif;
+          color: #b1b1b1;
+          text-align: left;
+          margin: 0px;
+          margin-left: 3%;
+        }
+      }
+    }
 
     .messages {
       border-left: 1px solid rgb(187, 185, 185);
       background-color: rgb(255, 255, 255);
       font-family: "Poppins", sans-serif;
+
+      .room-name {
+        background-color: #27272ef3;
+        padding: 10px;
+        
+        p {
+          font-family: "Poppins", sans-serif;
+          color: #b1b1b1;
+          text-align: right;
+          margin: 0px;
+          margin-right: 5%;
+        }
+      }
 
       .display {
         font-family: "Poppins", sans-serif;
@@ -263,7 +299,7 @@ button:disabled {
         .display-messages {
           @include custom-scroll-bar;
           overflow-y: scroll;
-          height: 79vh;
+          height: 78.8vh;
           padding: 0 0 3.9vh 0.9vh;
         }
       }
@@ -325,7 +361,7 @@ button:disabled {
     flex-direction: column;
 
     .msg {
-      background-color: rgb(92, 86, 86);
+      background-color: #27272e;
       border-radius: 15px;
       margin: 5px;
       margin-bottom: 0px;
@@ -368,36 +404,39 @@ button:disabled {
   }
 }
 .onlineMembers {
+  @include custom-scroll-bar;
+  overflow-y: scroll;
   float: left;
-  margin-top: 5px !important;
-  display: none;
+  color:rgb(187, 185, 185);
+  margin-left: 4%;
+  
   span {
     padding-left: 5px;
     color: rgba(65, 225, 240, 0.8);
   }
 }
 .OnlineUsers {
-  position: fixed;
-  width: 50%;
-  height: 100vh;
-  background: #2c3e50;
-  top: 40px;
-  left: 0;
+  position: absolute;
+  width: 30%;
+  height: 82.6vh;
+  background-color: rgb(248, 248, 248);
   text-align: center;
+  border-right: 1px solid rgb(187, 185, 185);
+  z-index: 1;
 
   .first-user {
     display: flex;
     flex-direction: row;
-    padding: 20px;
-    background-color: #2c3e50;
+    padding: 15px;
     color: rgb(0, 0, 0);
     transition: all 0.1s ease;
-    color: white;
+    
     img {
       height: 50px;
       margin: 5px;
       border-radius: 50%;
     }
+    
     p {
       font-family: "Poppins", sans-serif;
       font-size: 16px;
@@ -408,8 +447,8 @@ button:disabled {
   }
   .second-user {
     @extend .first-user;
-    background-color: #2c3e50;
-    color: white;
+    background-color:rgb(238, 238, 238);
+    color:black;
   }
   .first-user:hover {
     background-color: rgb(65, 225, 240);
@@ -419,37 +458,46 @@ button:disabled {
 
 @media only screen and (max-width: 425px) {
   .main {
-    .topbar {
-      #close {
-        float: left;
-      }
-    }
 
-    .search-roomname-bar {
-      display: none;
-    }
+    .OnlineUsers {
+        width: 100% !important;
+        border: none;
+        height: 82.6vh !important;
+      }
 
     .user-typing {
       position: absolute;
-      bottom: 4%;
-      left: 13% !important;
+      bottom: 5%;
+      left: 8% !important;
       font-size: 12px;
       color: rgb(177, 177, 177);
     }
 
-    .chat-form {
+    .code-chat-form {
       display: grid;
       grid-template-columns: repeat(1, 100%);
+      height: 94vh !important;
 
-      .users-wrapper {
+      .code {
         display: none;
       }
+      
       .messages {
-        width: 98%;
+        width: 100%;
+        border: none;
+
+        .room-name {
+          padding: 5px;
+          p {
+            text-align: right;
+            font-size: 14px;
+            margin-right: 5%;
+          }
+        }
 
         .display {
           .display-messages {
-            height: 86vh !important;
+            height: 75.9vh !important;
             margin-bottom: 20px;
             margin-left: 0px;
             .user-msg {
@@ -474,61 +522,66 @@ button:disabled {
       }
     }
   }
-  .onlineMembers {
-    display: block;
-  }
 }
 
 @media only screen and (max-width: 768px) {
   .user-typing {
-    position: absolute;
-    bottom: 6%;
-    left: 44% !important;
-    font-size: 12px;
-    color: rgb(177, 177, 177);
+      position: absolute;
+      bottom: 4%;
+      left: 5% !important;
+      font-size: 12px;
+      color: rgb(177, 177, 177);
+    }
+
+  .code-chat-form {
+      display: grid;
+      grid-template-columns: repeat(1, 100%) !important;
+      .code {
+        display: none;
+      }
+
+      .messages {
+        border: none !important;
+      }
+
+      .OnlineUsers {
+        width: 50%;
+      }
   }
 }
 
-@media only screen and (max-width: 1440px) {
-  .user-typing {
-    position: absolute;
-    bottom: 5%;
-    left: 39%;
-    font-size: 12px;
-    color: rgb(177, 177, 177);
-  }
-  .main {
-    .chat-form {
-      .messages {
-        .display {
-          .display-messages {
-            height: 79.4vh;
-          }
-        }
-      }
-    }
-  }
-}
+
+
 
 @media only screen and (max-width: 1024px) {
   .user-typing {
     position: absolute;
     bottom: 6%;
-    left: 42%;
+    left: 63%; 
     font-size: 12px;
     color: rgb(177, 177, 177);
   }
   .main {
-    .chat-form {
-      .users-wrapper {
-        .users {
-          height: 80.7vh;
-        }
-      }
+    .code-chat-form {
+      height: 94vh;
       .messages {
         .display {
+
+          .OnlineUsers {
+            height: 80.6vh;
+
+            .first-user {
+              img {
+                height: 40px;
+              }
+              p{
+                font-size: 14px !important;
+              }
+              
+            }
+          }
           .display-messages {
-            height: 77.2vh;
+            height: 76.7vh;
           }
         }
       }
