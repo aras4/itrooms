@@ -7,7 +7,13 @@
           <li>
             <a href="#">Contact</a>
           </li>
+
           
+
+          <!--li>
+            <a href="#">Register</a>
+          </li-->
+
           <li>
             <a href="#" @click="joinRoomHome">Home Page</a>
           </li>
@@ -108,12 +114,17 @@ a {
   width: 70%;
   .aboutus {
     color: #fff;
+
     font-size: 20px;
     font-family: "Poppins", sans-serif;
     text-align: center;
   }
   .aboutus-links:hover {
     color: rgb(65, 225, 240);
+
+    padding: 20px;
+    font-size: 20px;
+
   }
   .h1about {
     color: #fff;
