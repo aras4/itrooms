@@ -4,6 +4,10 @@
       <button id="close" @click="closeChat">
         <i class="fas fa-power-off"></i>
       </button>
+      <div class="online-user" :class="[isOnline ? 'green':'grey']">
+        <span>{{username}}</span>
+        <i class="fas fa-user"></i>
+      </div>
       <p>ITRooms</p>
       <img src="../assets/logo.png" class="logo" />
     </div>
@@ -11,6 +15,28 @@
       <div class="code">
         <div class="code-title">
           <p>Share your code</p>
+          <select class = "select-lang">
+            <option class="option" value="0">Select language</option>
+            <option value="1">BASIC</option>
+            <option value="2">C</option>
+            <option value="3">C#</option>
+            <option value="4">C++</option>
+            <option value="5">CSS</option>
+            <option value="6">HTML</option>
+            <option value="7">Java</option>
+            <option value="8">JavaScript</option>
+            <option value="9">Pascal</option>
+            <option value="10">Perl</option>
+            <option value="11">PHP</option>
+            <option value="12">Python</option>
+            <option value="13">React JSX</option>
+            <option value="14">React TSX</option>
+            <option value="15">Ruby</option>
+            <option value="16">Sass</option>
+            <option value="17">SQL</option>
+            <option value="18">TypeScript</option>
+            <option value="19">Visual Basic</option>
+          </select>
         </div>
         <prism-editor
           @change="shareCode"
@@ -106,7 +132,8 @@ export default {
       userTypingMsg: "",
       emoStatus: false,
       clickOnlineMembers: false,
-      code: ""
+      code: "",
+      isOnline: true
     };
   },
   methods: {
@@ -209,7 +236,7 @@ export default {
 
 <style lang="scss" >
 .prism-editor__line-numbers {
-  background-color: rgba(65, 225, 240, 0.8) !important;
+  background-color: rgb(65, 225, 240) !important;
   padding-right: 5px;
   border-right: 1px solid #27272e;
   .token {
@@ -271,6 +298,26 @@ button:disabled {
       margin-left: 5px;
     }
 
+    .online-user {
+      color:  rgb(177, 177, 177);
+      float: right;
+      padding: 8px;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .green {
+      color: rgb(14, 179, 14);
+    }
+
+    .grey {
+      color:  rgb(177, 177, 177);
+    }
+
+    span {
+      color:  rgb(177, 177, 177);
+      margin-right: 10px;
+    }
+
     #close {
       display: block;
       float: right;
@@ -311,6 +358,7 @@ button:disabled {
       .code-title {
         background-color: #27272ef3;
         padding: 10px;
+        position: relative;
 
         p {
           font-family: "Poppins", sans-serif;
@@ -318,6 +366,27 @@ button:disabled {
           text-align: left;
           margin: 0px;
           margin-left: 3%;
+        }
+
+        .select-lang {
+          width: 25%;
+          border: 1px solid #757575;
+          outline: none;
+          color: #b1b1b1;
+          padding: 0.4vh;
+          background-color: #27272e00;
+          position: absolute;
+          top: 1vh;
+          right: 4vh;
+          font-family: "Poppins", sans-serif;
+
+          option {
+            color: #b1b1b1;
+            background-color: white;
+          }
+          option:hover {
+            background-color:  rgb(65, 225, 240) !important;
+          }
         }
       }
     }
@@ -457,7 +526,7 @@ button:disabled {
 
   span {
     padding-left: 5px;
-    color: rgba(65, 225, 240, 0.8);
+    color: rgb(65, 225, 240);
   }
 }
 .OnlineUsers {
