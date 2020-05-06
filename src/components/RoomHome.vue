@@ -25,11 +25,13 @@
           <h1>ITRooms</h1>
           <div class="input-fields">
             <!--ion-icon name="mail-outline"></ion-icon-->
-            <input type="text" v-model="username" placeholder="Username" />
+            <input type="text"  v-model.number ="username" placeholder="Username" 
+            />
           </div>
           <div class="input-fields">
             <!--ion-icon name="key-outline"></ion-icon-->
-            <input type="text" v-model="room" placeholder="Room" />
+            <input type="text" v-model="room" placeholder="Room"
+            />
           </div>
           <div class="validation-msg">
             <p>{{validationMsg}}</p>
@@ -55,12 +57,14 @@ export default {
   name: "RoomHome",
   data() {
     return {
-      username: "",
+      username: null,
       room: "",
-      validationMsg: ""
+      validationMsg:"",
+      letters : /^[0-9a-zA-Z]+$/
     };
   },
   methods: {
+    
     isEmpty(str) {
       return !str || 0 === str.length;
     },
@@ -70,12 +74,22 @@ export default {
         this.validationMsg = "You need to fill required fields";
         return;
       }
+     
+      if(this.username.length>10 || this.room.length>10){
+        this.validationMsg="Maximum  10 characters is allowed !!!"
+        return;
+
+      }
+      if(!this.username.match(this.letters) || !this.room.match(this.letters)){
+         this.validationMsg="Enter numbers and alphabets only.";
+        return;
+       }
       this.$router.push({
         name: "chatroom",
         params: { username: this.username, room: this.room || "js" }
       });
     },
-    ,
+    
     joinAboutUs() {
       this.$router.push({
         name: "aboutus"
