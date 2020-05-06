@@ -25,8 +25,8 @@ export default {
 body {
   padding: 0;
   margin: 0;
-  background-size: 1440px 825px;
-  background-image: url("./assets/bcgimg3.jpg");
+  background-size: 1980px 1020px;
+  background-image: url("./assets/bcgimg_3.jpg");
   font-family: "Poppins", sans-serif;
 }
 </style>
