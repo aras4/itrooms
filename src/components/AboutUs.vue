@@ -7,11 +7,11 @@
           <li>
             <a href="#">Contact</a>
           </li>
-          <li>
+          <!--li>
             <a href="#">Register</a>
-          </li>
+          </li-->
           <li>
-            <a href="#" @click="joinAboutUs">About us</a>
+            <a href="#" @click="joinRoomHome">Home Page</a>
           </li>
         </ul>
       </nav>
@@ -26,7 +26,6 @@
           If you would like to join us please contact us.
         </p>
       </div>
-      <a class="homelink" href="#" @click="joinRoomHome">Home page</a>
     </div>
     <div class="footer">
       <p>&copy; 2020 All Rights Reserved | Design By ITAcademy Group A</p>
@@ -91,11 +90,9 @@ a {
   transform: translate(-50%, -50%);
   width: 70%;
   .aboutus {
-    background-color: #d9cfce;
-    color: #000000;
+    color: #fff;
     padding: 20px;
-    font-size: 18px;
-    border-radius: 30px;
+    font-size: 20px;
   }
   .h1about {
     color: #000000;

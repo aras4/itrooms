@@ -3,21 +3,23 @@
     <div class="header">
       <div class="hamburger-menu">
         <input type="checkbox" class="toggler" @click="openMenu" />
-        <div class="hamburger"><div></div></div>
+        <div class="hamburger">
+          <div></div>
+        </div>
         <div class="menu" v-if="isOpen">
           <div class="nav">
-          <ul>
-          <li>
-            <a href="#" @click="joinAboutUs">About us</a>
-          </li>
-          <li>
-            <a href="#">Register</a>
-          </li>
-          <li>
-            <a href="#">Contact</a>
-          </li>
-          </ul>
-        </div>
+            <ul>
+              <li>
+                <a href="#" @click="joinAboutUs">About us</a>
+              </li>
+              <!--li>
+                <a href="#">Register</a>
+              </li-->
+              <li>
+                <a href="#">Contact</a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
       <nav class="navbar">
@@ -26,31 +28,32 @@
           <li>
             <a href="#" @click="joinAboutUs">About us</a>
           </li>
-          <li>
+          <!--li>
             <a href="#">Register</a>
-          </li>
+          </li-->
           <li>
             <a href="#">Contact</a>
           </li>
         </ul>
       </nav>
     </div>
-    <div class="main" v-if="!isOpen" >
+    <div class="main" v-if="!isOpen">
       <div class="login-form">
-        <img src="../assets/logo4.png">
+        <img src="../assets/logo4.png" />
         <div class="login">
           <div class="input-fields">
-            <i class="fas fa-user"></i><input type="text" v-model="username" placeholder="Username" />
+            <i class="fas fa-user"></i>
+            <input type="text" v-model="username" placeholder="Username" />
           </div>
           <div class="input-fields">
-            <i class="fas fa-hotel"></i><input type="text" v-model="room" placeholder="Room" />
+            <i class="fas fa-hotel"></i>
+            <input type="text" v-model="room" placeholder="Room" />
           </div>
-          <div class="validation-msg">
+          <div class="validation-msg" v-if="validationMsg">
             <p>{{validationMsg}}</p>
           </div>
           <div class="button-field">
             <button class="join-btn" @click="joinRoom">JOIN</button>
-            <!--button class="create-btn" @click="joinRoom">CREATE</button-->
             <p id="new-room">CREATE NEW ROOM</p>
             <p id="help">NEED HELP?</p>
           </div>
@@ -100,7 +103,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .hamburger-menu {
   display: none;
 }
@@ -137,7 +139,7 @@ export default {
   }
   div::before,
   div::after {
-    content: '';
+    content: "";
     position: absolute;
     z-index: 1;
     top: -10px;
@@ -163,21 +165,21 @@ export default {
 .menu {
   position: absolute;
   top: 10%;
-  left:0px;
+  left: 0px;
   z-index: 1;
   width: 100%;
   height: 80vh;
-  background-color:#0f151700;
+  background-color: #0f151700;
 
   .nav {
     ul {
       list-style: none;
       margin: 0px;
       padding: 0px;
-      li{
+      li {
         text-align: center;
         padding: 20px;
-        a{
+        a {
           font-size: 20px;
           text-decoration: none;
           color: #dadada;
@@ -190,13 +192,19 @@ export default {
     color: #ffffff;
   }
   .nav ul li:hover {
-    background-color:rgba(248, 248, 248, 0.164);
+    background-color: rgba(248, 248, 248, 0.164);
   }
 }
 
-.validation-msg{
-  color: rgba(255, 0, 0, 0.527);
-  font-family: "Poppins", sans-serif;
+.validation-msg {
+  p {
+    color: #fff;
+    border: 1px solid #520202;
+    font-size: 12px;
+    padding: 5px;
+    border-radius: 32px;
+    box-shadow: -1px 3px 72px -1px rgba(163, 2, 2, 1);
+  }
 }
 .header {
   display: flex;
@@ -214,9 +222,9 @@ export default {
 }
 
 .nav_links li a {
-  font-size: 18px;
+  font-size: 14px;
   font-family: "Poppins", sans-serif;
-   text-decoration: none;
+  text-decoration: none;
   color: #d9cfce;
   padding: 10px 15px;
   transition: all 0.3 ease 0s;
@@ -224,29 +232,22 @@ export default {
 
 .nav_links li a:hover {
   color: #ffffff;
-  background-color:rgba(248, 248, 248, 0.164);
+  background-color: rgba(248, 248, 248, 0.164);
 }
 
 .main {
+  z-index: -1;
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 39%;
   transform: translate(-50%, -50%);
   width: 70%;
+  overflow: visible;
 
   .login-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    padding: 50px;
-
     img {
-      width: 150px;
-      height: 150px;
+      width: 200px;
       margin: auto;
-      margin-bottom: 40px;
-      border-radius: 30px;
     }
 
     .login {
@@ -263,9 +264,9 @@ export default {
         color: white;
         margin-bottom: 10px;
 
-        svg{
-         margin:16px;
-         margin-left: 30px;
+        svg {
+          margin: 16px;
+          margin-left: 30px;
         }
 
         input {
@@ -302,15 +303,14 @@ export default {
         }
 
         .join-btn:hover {
-          background-color:rgb(65, 225, 240);
+          background-color: rgb(65, 225, 240);
         }
 
         #new-room {
           float: left;
-          color:white;
+          color: white;
           font-family: "Poppins", sans-serif;
           margin-left: 10px;
-          font-weight: bold;
           cursor: pointer;
         }
 
@@ -353,17 +353,17 @@ export default {
 }
 
 @media only screen and (max-width: 1024px) {
-    .nav_links li a {
-      font-size: 16px;
-    }
-    .main {
-      width: 80%;
-    }
+  .nav_links li a {
+    font-size: 16px;
+  }
+  .main {
+    width: 80%;
+  }
 }
 
 @media only screen and (max-width: 768px) {
   .hamburger-menu {
-  display: block;
+    display: block;
   }
   .header {
     padding: 10px;
@@ -374,7 +374,6 @@ export default {
   }
 
   .main {
-
     .login-form {
       padding: 5px;
 
@@ -383,10 +382,6 @@ export default {
 
         .input-fields {
           margin-top: 20px;
-
-          input {
-           
-          }
         }
 
         .button-field {
@@ -400,7 +395,7 @@ export default {
     }
   }
   .footer {
-    display:none;
+    display: none;
   }
 }
 
@@ -409,6 +404,10 @@ export default {
   #help {
     float: left !important;
     margin-left: 10px;
+  }
+
+  .main img {
+    width: 100px !important;
   }
 }
 </style>

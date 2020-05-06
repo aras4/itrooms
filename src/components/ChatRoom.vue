@@ -26,7 +26,7 @@
             <i class="fas fa-users"></i>
             <span>{{roomUsers.users.length}}</span>
           </div>
-          <p>{{roomUsers.room}}</p>
+          <p>Room: {{roomUsers.room}}</p>
         </div>
         <div class="display">
           <div class="OnlineUsers" v-if="clickOnlineMembers">

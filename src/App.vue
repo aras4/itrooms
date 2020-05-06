@@ -25,8 +25,16 @@ export default {
 body {
   padding: 0;
   margin: 0;
-  background-size: 1980px 1020px;
-  background-image: url("./assets/bcgimg_3.jpg");
+  background-image: url("./assets/background.jpg");
+  background-size: cover;
   font-family: "Poppins", sans-serif;
+}
+
+/* scaling for smaller phones than usual */
+@media screen and (max-width: 425px) {
+  body {
+    background-image: none !important;
+    background-color: black;
+  }
 }
 </style>
