@@ -9,14 +9,15 @@
         <div class="menu" v-if="isOpen">
           <div class="nav">
             <ul>
-              <li>
-                <a href="#" @click="joinAboutUs">About us</a>
-              </li>
               <!--li>
                 <a href="#">Register</a>
               </li-->
               <li>
-                <a href="#">Contact</a>
+                <a href="#" @click="joinAboutUs">About us</a>
+              </li>
+
+              <li>
+                <a href="#" @click="joinContactUs">Contact</a>
               </li>
             </ul>
           </div>
@@ -28,12 +29,12 @@
           <li>
             <a href="#" @click="joinAboutUs">About us</a>
           </li>
+          <li>
+            <a href="#" @click="joinContactUs">Contact</a>
+          </li>
           <!--li>
             <a href="#">Register</a>
           </li-->
-          <li>
-            <a href="#">Contact</a>
-          </li>
         </ul>
       </nav>
     </div>
@@ -94,6 +95,9 @@ export default {
     },
     joinAboutUs() {
       this.$router.push("aboutus");
+    },
+    joinContactUs() {
+      this.$router.push("contactus");
     },
     openMenu() {
       this.isOpen = !this.isOpen;

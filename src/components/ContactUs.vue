@@ -5,35 +5,23 @@
         <ul class="nav_links">
           <!-- Delete the unnecessary ones -->
           <li>
-            <a href="#" @click="joinAboutUs" id="aboutus-white">About us</a>
+            <a href="#" @click="joinAboutUs">About us</a>
           </li>
           <!--li>
             <a href="#">Register</a>
           </li-->
           <li>
-            <a href="#" @click="joinContactUs">Contact</a>
+            <a href="#" @click="joinContactUs" id="contactus-white">Contact</a>
           </li>
         </ul>
       </nav>
     </div>
     <div class="main">
-      <h1 class="h1about">About us</h1>
+      <h1 class="h1about">Contact</h1>
       <div class="aboutus">
         <p>
-          <b>ITRooms</b> is our first chat application.
-          For this project, we use popular JavaScript framework called "VueJS".
-          The idea was created by a professor
-          <a
-            href="https://github.com/aras4"
-            class="aboutus-links"
-            target="_blank"
-          >Amir Ramic</a>.
-          If you would like to join us please
-          <a
-            href="#"
-            @click="joinContactUs"
-            class="aboutus-links"
-          >contact us</a>.
+          Our support team is ready to help you with any questions or comments you may have! The staff will answer incoming emails within 24 hours from Monday to Friday.
+          <br />E-mail: support@itrooms.com
         </p>
       </div>
       <div class="aboutus">
@@ -65,7 +53,7 @@
 
 <script>
 export default {
-  name: "AboutUs",
+  name: "ContactUs",
   data() {
     return {};
   },
@@ -124,7 +112,7 @@ a {
   background-color: rgba(248, 248, 248, 0.164);
 }
 
-#aboutus-white {
+#contactus-white {
   color: #ffffff;
 }
 
