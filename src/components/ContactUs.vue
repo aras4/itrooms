@@ -5,54 +5,24 @@
         <ul class="nav_links">
           <!-- Delete the unnecessary ones -->
           <li>
-            <a href="#" @click="joinAboutUs" id="aboutus-white">About us</a>
+            <a href="#" @click="joinAboutUs">About us</a>
           </li>
-
-          
-
           <!--li>
             <a href="#">Register</a>
           </li-->
-
           <li>
-            <a href="#" @click="joinContactUs">Contact</a>
+            <a href="#" @click="joinContactUs" id="contactus-white">Contact</a>
           </li>
         </ul>
       </nav>
     </div>
     <div class="main">
-      <h1 class="h1about">About us</h1>
+      <h1 class="h1about">Contact</h1>
       <div class="aboutus">
         <p>
-          <b>ITRooms</b> is our first chat application.
-          For this project, we use popular JavaScript framework called "VueJS".
-          The idea was created by a professor
-          <a
-            href="https://github.com/aras4"
-            class="aboutus-links"
-            target="_blank"
-          >Amir Ramic</a>.
-          If you would like to join us please
-          <a
-            href="#"
-            @click="joinContactUs"
-            class="aboutus-links"
-          >contact us</a>.
-
+          Our support team is ready to help you with any questions or comments you may have! The staff will answer incoming emails within 24 hours from Monday to Friday.
+          <br />E-mail: support@itrooms.com
         </p>
-        Built by Developers:
-        <a
-          href="https://github.com/djordjeavr"
-          class="aboutus-links"
-          target="_blank"
-        >Djordje Avram</a>,
-        <a href="https://github.com/harislapo" class="aboutus-links" target="_blank">Haris Lapo</a>,
-        <a
-          href="https://github.com/sminela"
-          class="aboutus-links"
-          target="_blank"
-        >Minela Salkicevic</a>,
-        <a href="https://github.com/sahaa46" class="aboutus-links" target="_blank">Emin Sahat</a>.
       </div>
       <div class="aboutus">
         Built by Developers:
@@ -83,7 +53,7 @@
 
 <script>
 export default {
-  name: "AboutUs",
+  name: "ContactUs",
   data() {
     return {};
   },
@@ -142,7 +112,7 @@ a {
   background-color: rgba(248, 248, 248, 0.164);
 }
 
-#aboutus-white {
+#contactus-white {
   color: #ffffff;
 }
 
@@ -160,11 +130,6 @@ a {
   }
   .aboutus-links:hover {
     color: rgb(65, 225, 240);
-    font-size: 20px;
-    font-family: "Poppins", sans-serif;
-    text-align: center;
-  }
-  
   }
   .h1about {
     color: #fff;
@@ -288,7 +253,6 @@ a {
       }
     }
   }
-  
 }
 .footer {
   position: absolute;
@@ -299,78 +263,116 @@ a {
   font-size: 12px;
   font-family: "Poppins", sans-serif;
   display: flex;
-
-    font-size: 15px;
-    justify-content: center;
- 
+  justify-content: flex-end;
 }
 
 /* most mobile phones */
 @media only screen and (max-width: 600px) {
   .header {
-  
+    display: inline-block;
     padding: 6px;
-   
   }
 
- 
+  li,
+  a {
+    font-size: 12px;
+  }
 
   .nav_links li {
-    margin-right: 4px;
+    margin-right: 14px;
   }
 
   .main {
-    left: 50%;
+    left: 42%;
     top: 40%;
-    height:350px;
-    p{
-     font-size: 12px;
-    }
-    a{
-      font-size: 12px;
-    }
-   .navbar{
-     width:400px;
-   }
 
-    
-    
+    .login-form {
+      padding: 5px;
+
+      .login {
+        width: 70%;
+        margin: 100px 0px 0px 70px;
+        h1 {
+          font-size: 40px;
+        }
+
+        .input-fields {
+          margin-top: 20px;
+
+          input {
+            text-align: center;
+          }
+        }
+
+        .button-field {
+          button {
+            font-size: 11px;
+            margin: 15px 3px 0px 0px;
+            width: 45%;
+            letter-spacing: 2px;
+          }
+        }
+      }
+    }
   }
   .footer {
-    font-size: 12px;
+    font-size: 13px;
     justify-content: center;
   }
 }
 
 /* most tablets and laptops*/
-@media only screen and(min-width:1024px) and (max-width: 1200px) {
+@media only screen and (max-width: 1200px) {
   li,
   a {
     font-size: 15px;
   }
 
   .main {
-    left: 50%;
+    left: 42%;
     top: 40%;
 
-    
-    
+    .login-form {
+      padding: 3px;
+
+      .login {
+        width: 50%;
+        margin: 100px 0px 0px 70px;
+
+        .input-fields {
+          margin-top: 20px;
+
+          input {
+            text-align: center;
+          }
+        }
+
+        .button-field {
+          button {
+            font-size: 13px;
+            margin: 15px 3px 0px 0px;
+            width: 40%;
+            letter-spacing: 2px;
+          }
+        }
+      }
+    }
   }
   .footer {
     font-size: 15px;
     justify-content: center;
   }
 }
-@media only screen and(min-width:768px) and (max-width: 980px) {
 
- .main {
-    left: 50%;
-    top: 40%;
-    
-  } 
+/* scaling for smaller phones than usual */
+@media screen and (max-width: 365px) {
+  li,
+  a {
+    font-size: 11px;
+  }
+
   .footer {
-    font-size: 15px;
-    justify-content: center;
+    font-size: 11px;
   }
 }
 </style>

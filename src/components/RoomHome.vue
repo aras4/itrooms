@@ -9,14 +9,15 @@
         <div class="menu" v-if="isOpen">
           <div class="nav">
             <ul>
-              <li>
-                <a href="#" @click="joinAboutUs">About us</a>
-              </li>
               <!--li>
                 <a href="#">Register</a>
               </li-->
               <li>
-                <a href="#">Contact</a>
+                <a href="#" @click="joinAboutUs">About us</a>
+              </li>
+
+              <li>
+                <a href="#" @click="joinContactUs">Contact</a>
               </li>
             </ul>
           </div>
@@ -28,12 +29,12 @@
           <li>
             <a href="#" @click="joinAboutUs">About us</a>
           </li>
+          <li>
+            <a href="#" @click="joinContactUs">Contact</a>
+          </li>
           <!--li>
             <a href="#">Register</a>
           </li-->
-          <li>
-            <a href="#">Contact</a>
-          </li>
         </ul>
       </nav>
     </div>
@@ -107,6 +108,9 @@ export default {
 
     joinAboutUs() {
       this.$router.push("aboutus");
+    },
+    joinContactUs() {
+      this.$router.push("contactus");
     },
     openMenu() {
       this.isOpen = !this.isOpen;
@@ -230,8 +234,7 @@ export default {
 }
 .nav_links li {
   display: inline-block;
-  padding: 0px;
-  margin-right: 5px;
+  padding: 0px 20px;
 }
 
 .nav_links li a {
@@ -239,7 +242,7 @@ export default {
   font-family: "Poppins", sans-serif;
   text-decoration: none;
   color: #d9cfce;
-  padding: 10px 15px;
+  padding: 10px 10px;
   transition: all 0.3 ease 0s;
 }
 
@@ -361,6 +364,7 @@ export default {
   width: 100%;
   color: #ffffff;
   font-size: 12px;
+  font-family: "Poppins", sans-serif;
   display: flex;
   justify-content: flex-end;
 }
