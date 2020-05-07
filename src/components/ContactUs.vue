@@ -4,15 +4,16 @@
       <nav class="navbar">
         <ul class="nav_links">
           <!-- Delete the unnecessary ones -->
+
+          <li>
+            <a href="#" @click="joinRoomHome">Home</a>
+          </li>
           <li>
             <a href="#" @click="joinAboutUs">About us</a>
           </li>
           <!--li>
             <a href="#">Register</a>
           </li-->
-          <li>
-            <a href="#" @click="joinContactUs" id="contactus-white">Contact</a>
-          </li>
         </ul>
       </nav>
     </div>
@@ -38,11 +39,6 @@
           target="_blank"
         >Minela Salkicevic</a>,
         <a href="https://github.com/sahaa46" class="aboutus-links" target="_blank">Emin Sahat</a>.
-      </div>
-      <div class="second">
-        <a href="#" @click="joinRoomHome">
-          <img src="../assets/logo4.png" title="Home page" id="logo-link" />
-        </a>
       </div>
     </div>
     <div class="footer">
@@ -144,35 +140,12 @@ a {
     color: #d9cfce;
   }
 
-  #logo-link {
-    width: 20%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    left: 82%;
-    top: 170%;
-    img {
-      width: 40%;
-    }
-  }
-
   .login-form {
     border-radius: 10px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     padding: 70px;
-    /*     .login-img {
-      width: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      img {
-        width: 40%;
-      }
-    } */
 
     .login {
       width: 40%;

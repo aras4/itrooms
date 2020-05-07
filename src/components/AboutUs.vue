@@ -5,11 +5,8 @@
         <ul class="nav_links">
           <!-- Delete the unnecessary ones -->
           <li>
-            <a href="#" @click="joinAboutUs" id="aboutus-white">About us</a>
+            <a href="#" @click="joinRoomHome">Home</a>
           </li>
-
-          
-
           <!--li>
             <a href="#">Register</a>
           </li-->
@@ -37,10 +34,8 @@
             href="#"
             @click="joinContactUs"
             class="aboutus-links"
-          >contact us</a>.
-
-        </p>
-        Built by Developers:
+          >contact us</a>
+        </p>Built by Developers:
         <a
           href="https://github.com/djordjeavr"
           class="aboutus-links"
@@ -53,26 +48,6 @@
           target="_blank"
         >Minela Salkicevic</a>,
         <a href="https://github.com/sahaa46" class="aboutus-links" target="_blank">Emin Sahat</a>.
-      </div>
-      <div class="aboutus">
-        Built by Developers:
-        <a
-          href="https://github.com/djordjeavr"
-          class="aboutus-links"
-          target="_blank"
-        >Djordje Avram</a>,
-        <a href="https://github.com/harislapo" class="aboutus-links" target="_blank">Haris Lapo</a>,
-        <a
-          href="https://github.com/sminela"
-          class="aboutus-links"
-          target="_blank"
-        >Minela Salkicevic</a>,
-        <a href="https://github.com/sahaa46" class="aboutus-links" target="_blank">Emin Sahat</a>.
-      </div>
-      <div class="second">
-        <a href="#" @click="joinRoomHome">
-          <img src="../assets/logo4.png" title="Home page" id="logo-link" />
-        </a>
       </div>
     </div>
     <div class="footer">
@@ -164,41 +139,27 @@ a {
     font-family: "Poppins", sans-serif;
     text-align: center;
   }
-  
-  }
-  .h1about {
-    color: #fff;
-    font-size: 50px;
-    font-family: "Poppins", sans-serif;
-  }
-  .homelink {
-    float: right;
-    margin: 5px 5px;
-  }
-  .homelink:hover {
-    color: #d9cfce;
-  }
+}
+.h1about {
+  color: #fff;
+  font-size: 50px;
+  font-family: "Poppins", sans-serif;
+}
+.homelink {
+  float: right;
+  margin: 5px 5px;
+}
+.homelink:hover {
+  color: #d9cfce;
+}
 
-  #logo-link {
-    width: 20%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    left: 82%;
-    top: 170%;
-    img {
-      width: 40%;
-    }
-  }
-
-  .login-form {
-    border-radius: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    padding: 70px;
-    /*     .login-img {
+.login-form {
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 70px;
+  /*     .login-img {
       width: 50%;
       display: flex;
       justify-content: center;
@@ -209,86 +170,84 @@ a {
       }
     } */
 
-    .login {
-      width: 40%;
-      margin: 70px 40px 0 20px;
-      h1 {
-        text-align: center;
-        font-family: "Poppins", sans-serif;
-        letter-spacing: 2px;
-        font-size: 50px;
-        color: #000000;
-      }
+  .login {
+    width: 40%;
+    margin: 70px 40px 0 20px;
+    h1 {
+      text-align: center;
+      font-family: "Poppins", sans-serif;
+      letter-spacing: 2px;
+      font-size: 50px;
+      color: #000000;
+    }
 
-      .input-fields {
-        display: flex;
-        flex-direction: row;
+    .input-fields {
+      display: flex;
+      flex-direction: row;
+      background-color: rgb(230, 230, 230);
+      border-radius: 30px;
+      margin-bottom: 10px;
+      height: 50px;
+
+      input {
+        padding: 15px;
+        border: none;
+        outline: none;
         background-color: rgb(230, 230, 230);
+        margin: 5px;
+        width: 90%;
         border-radius: 30px;
-        margin-bottom: 10px;
-        height: 50px;
+        font-family: "Poppins", sans-serif;
+      }
+    }
 
-        input {
-          padding: 15px;
-          border: none;
-          outline: none;
-          background-color: rgb(230, 230, 230);
-          margin: 5px;
-          width: 90%;
-          border-radius: 30px;
-          font-family: "Poppins", sans-serif;
-        }
+    .button-field {
+      button {
+        padding: 15px;
+        border: none;
+        outline: none;
+        border-radius: 30px;
+        margin: 15px 5px 3px 0px;
+        width: 35%;
+        color: white;
+        font-family: "Poppins", sans-serif;
+        height: 50px;
+        cursor: pointer;
+        font-weight: 400;
+        letter-spacing: 1px;
+        transition: all 0.2 ease;
       }
 
-      .button-field {
-        button {
-          padding: 15px;
-          border: none;
-          outline: none;
-          border-radius: 30px;
-          margin: 15px 5px 3px 0px;
-          width: 35%;
-          color: white;
-          font-family: "Poppins", sans-serif;
-          height: 50px;
-          cursor: pointer;
-          font-weight: 400;
-          letter-spacing: 1px;
-          transition: all 0.2 ease;
+      .join-btn {
+        background-color: rgb(82, 187, 82);
+      }
+
+      .join-btn:hover {
+        background-color: #4caf50;
+      }
+
+      .create-btn {
+        background-color: rgb(26, 149, 237);
+      }
+
+      .create-btn:hover {
+        background-color: rgb(52, 160, 237);
+      }
+
+      p {
+        text-align: center;
+
+        a {
+          color: rgb(197, 197, 197);
+          font-size: 14px;
+          text-decoration: none;
         }
-
-        .join-btn {
-          background-color: rgb(82, 187, 82);
-        }
-
-        .join-btn:hover {
-          background-color: #4caf50;
-        }
-
-        .create-btn {
-          background-color: rgb(26, 149, 237);
-        }
-
-        .create-btn:hover {
-          background-color: rgb(52, 160, 237);
-        }
-
-        p {
-          text-align: center;
-
-          a {
-            color: rgb(197, 197, 197);
-            font-size: 14px;
-            text-decoration: none;
-          }
-          a:hover {
-            color: rgb(168, 168, 168);
-          }
+        a:hover {
+          color: rgb(168, 168, 168);
         }
       }
     }
   }
-  
 }
 .footer {
   position: absolute;
@@ -299,21 +258,14 @@ a {
   font-size: 12px;
   font-family: "Poppins", sans-serif;
   display: flex;
-
-    font-size: 15px;
-    justify-content: center;
- 
+  justify-content: flex-end;
 }
 
 /* most mobile phones */
 @media only screen and (max-width: 600px) {
   .header {
-  
     padding: 6px;
-   
   }
-
- 
 
   .nav_links li {
     margin-right: 4px;
@@ -322,19 +274,16 @@ a {
   .main {
     left: 50%;
     top: 40%;
-    height:350px;
-    p{
-     font-size: 12px;
-    }
-    a{
+    height: 350px;
+    p {
       font-size: 12px;
     }
-   .navbar{
-     width:400px;
-   }
-
-    
-    
+    a {
+      font-size: 12px;
+    }
+    .navbar {
+      width: 400px;
+    }
   }
   .footer {
     font-size: 12px;
@@ -352,9 +301,6 @@ a {
   .main {
     left: 50%;
     top: 40%;
-
-    
-    
   }
   .footer {
     font-size: 15px;
@@ -362,12 +308,10 @@ a {
   }
 }
 @media only screen and(min-width:768px) and (max-width: 980px) {
-
- .main {
+  .main {
     left: 50%;
     top: 40%;
-    
-  } 
+  }
   .footer {
     font-size: 15px;
     justify-content: center;
