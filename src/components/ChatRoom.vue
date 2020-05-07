@@ -15,27 +15,22 @@
       <div class="code">
         <div class="code-title">
           <p>Share your code</p>
-          <select class = "select-lang">
-            <option class="option" value="0">Select language</option>
-            <option value="1">BASIC</option>
-            <option value="2">C</option>
-            <option value="3">C#</option>
-            <option value="4">C++</option>
-            <option value="5">CSS</option>
-            <option value="6">HTML</option>
-            <option value="7">Java</option>
-            <option value="8">JavaScript</option>
-            <option value="9">Pascal</option>
-            <option value="10">Perl</option>
-            <option value="11">PHP</option>
-            <option value="12">Python</option>
-            <option value="13">React JSX</option>
-            <option value="14">React TSX</option>
-            <option value="15">Ruby</option>
-            <option value="16">Sass</option>
-            <option value="17">SQL</option>
-            <option value="18">TypeScript</option>
-            <option value="19">Visual Basic</option>
+          <select class="select-lang" v-model="editorLang">
+            <option value="csharp">C#</option>
+            <option value="cpp">C++</option>
+            <option value="css">CSS</option>
+            <option value="go">Go</option>
+            <option value="html">HTML</option>
+            <option value="js">JavaScript</option>
+            <option value="java">Java</option>
+            <option value="perl">Perl</option>
+            <option value="php">PHP</option>
+            <option value="python">Python</option>
+            <option value="ruby">Ruby</option>
+            <option value="rust">Rust</option>
+            <option value="sass">Sass</option>
+            <option value="sql">SQL</option>
+            <option value="typescript">TypeScript</option>
           </select>
         </div>
         <prism-editor
@@ -43,7 +38,7 @@
           :lineNumbers="true"
           :autoStyleLineNumbers="true"
           v-model="code"
-          language="js"
+          :language="editorLang"
         ></prism-editor>
       </div>
       <div class="messages">
@@ -114,7 +109,9 @@ import "prismjs";
 import "prismjs/themes/prism.css";
 import "vue-prism-editor/dist/VuePrismEditor.css";
 import PrismEditor from "vue-prism-editor";
-
+["csharp", "go", "perl", "java", "typescript"].forEach(lang =>
+  require("prismjs/components/prism-" + lang)
+);
 export default {
   name: "ChatRoom",
   components: {
@@ -133,7 +130,8 @@ export default {
       emoStatus: false,
       clickOnlineMembers: false,
       code: "",
-      isOnline: true
+      isOnline: true,
+      editorLang: "js"
     };
   },
   methods: {
@@ -228,7 +226,10 @@ export default {
     this.username = this.$route.params.username;
     this.room = this.$route.params.room;
     this.$socket.connect();
-    this.$socket.emit("joinRoom", { username: this.username, room: this.room });
+    this.$socket.emit("joinRoom", {
+      username: this.username,
+      room: this.room
+    });
     this.getShareCode();
   }
 };
@@ -299,7 +300,7 @@ button:disabled {
     }
 
     .online-user {
-      color:  rgb(177, 177, 177);
+      color: rgb(177, 177, 177);
       float: right;
       padding: 8px;
       font-family: "Poppins", sans-serif;
@@ -310,11 +311,11 @@ button:disabled {
     }
 
     .grey {
-      color:  rgb(177, 177, 177);
+      color: rgb(177, 177, 177);
     }
 
     span {
-      color:  rgb(177, 177, 177);
+      color: rgb(177, 177, 177);
       margin-right: 10px;
     }
 
@@ -385,7 +386,7 @@ button:disabled {
             background-color: white;
           }
           option:hover {
-            background-color:  rgb(65, 225, 240) !important;
+            background-color: rgb(65, 225, 240) !important;
           }
         }
       }
