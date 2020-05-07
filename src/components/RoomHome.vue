@@ -217,8 +217,7 @@ export default {
 }
 .nav_links li {
   display: inline-block;
-  padding: 0px;
-  margin-right: 5px;
+  padding: 0px 20px;
 }
 
 .nav_links li a {
@@ -226,7 +225,7 @@ export default {
   font-family: "Poppins", sans-serif;
   text-decoration: none;
   color: #d9cfce;
-  padding: 10px 15px;
+  padding: 10px 10px;
   transition: all 0.3 ease 0s;
 }
 
@@ -348,6 +347,7 @@ export default {
   width: 100%;
   color: #ffffff;
   font-size: 12px;
+  font-family: "Poppins", sans-serif;
   display: flex;
   justify-content: flex-end;
 }

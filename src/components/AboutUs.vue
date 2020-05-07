@@ -22,9 +22,24 @@
         <p>
           <b>ITRooms</b> is our first chat application.
           For this project, we use popular JavaScript framework called "VueJS".
-          The idea was created by a professor Amir Ramic.
+          The idea was created by a professor <a href="https://github.com/aras4" class="aboutus-links" target="_blank">Amir Ramic</a>.
           If you would like to join us please contact us.
         </p>
+      </div>
+      <div class="aboutus">
+        Built by Developers:
+        <a
+          href="https://github.com/djordjeavr"
+          class="aboutus-links"
+          target="_blank"
+        >Djordje Avram</a>,
+        <a href="https://github.com/harislapo" class="aboutus-links" target="_blank">Haris Lapo</a>,
+        <a
+          href="https://github.com/sminela"
+          class="aboutus-links"
+          target="_blank"
+        >Minela Salkicevic</a>,
+        <a href="https://github.com/sahaa46" class="aboutus-links" target="_blank">Emin Sahat</a>.
       </div>
     </div>
     <div class="footer">
@@ -76,27 +91,38 @@ a {
 }
 
 .nav_links li a {
+  font-size: 14px;
+  font-family: "Poppins", sans-serif;
+  text-decoration: none;
+  color: #d9cfce;
+  padding: 10px 10px;
   transition: all 0.3 ease 0s;
 }
 
 .nav_links li a:hover {
-  color: #d9cfce;
+  color: #ffffff;
+  background-color: rgba(248, 248, 248, 0.164);
 }
 
 .main {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 25%;
   transform: translate(-50%, -50%);
   width: 70%;
   .aboutus {
     color: #fff;
-    padding: 20px;
     font-size: 20px;
+    font-family: "Poppins", sans-serif;
+    text-align: center;
+  }
+  .aboutus-links:hover {
+    color: rgb(65, 225, 240);
   }
   .h1about {
-    color: #000000;
+    color: #fff;
     font-size: 50px;
+    font-family: "Poppins", sans-serif;
   }
   .homelink {
     float: right;
@@ -206,9 +232,11 @@ a {
 .footer {
   position: absolute;
   bottom: 0;
+  right: 2%;
   width: 100%;
   color: #ffffff;
-  font-size: 14px;
+  font-size: 12px;
+  font-family: "Poppins", sans-serif;
   display: flex;
   justify-content: flex-end;
 }
