@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="topbar">
-      <button id="close" @click="closeChat">
+      <button id="close" @click="closeChat" title="Logout">
         <i class="fas fa-power-off"></i>
       </button>
       <div class="online-user" :class="[isOnline ? 'green':'grey']">
@@ -238,7 +238,7 @@ export default {
 <style lang="scss" >
 .prism-editor__line-numbers {
   background-color: rgb(65, 225, 240) !important;
-  padding-right: 5px;
+  padding-right: 2px;
   border-right: 1px solid #27272e;
   .token {
     color: #27272e;
@@ -295,8 +295,8 @@ button:disabled {
       position: absolute;
       top: 3px;
       left: 10px;
-      width: 35px;
-      margin-left: 5px;
+      width: 37px;
+      border-radius: 50%;
     }
 
     .online-user {
@@ -350,7 +350,7 @@ button:disabled {
   .code-chat-form {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(2, 60% 40%);
+    grid-template-columns: 65% 35%;
     background-color: white;
     height: 94.7vh;
 
@@ -468,7 +468,7 @@ button:disabled {
 
 .user-msg {
   display: flex;
-  margin: 5px 10px 0;
+  margin: 5px 0 0;
   justify-content: flex-start;
 
   .user-msg-time {
@@ -484,8 +484,10 @@ button:disabled {
 
       p {
         margin: 8px;
-        color: rgb(255, 255, 255);
+        color: #fff;
         font-size: 12px;
+        word-break: break-all;
+        text-align: left;
       }
     }
     .username-time {
@@ -511,7 +513,7 @@ button:disabled {
   .msg {
     border-radius: 15px !important;
     border-bottom-right-radius: 0 !important;
-    background-color: rgb(65, 225, 240) !important;
+    background-color: #1f9fa3 !important;
   }
 
   .username-time {
