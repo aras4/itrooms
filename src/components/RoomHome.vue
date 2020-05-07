@@ -44,11 +44,11 @@
         <div class="login">
           <div class="input-fields">
             <i class="fas fa-user"></i>
-            <input type="text" v-model="username" placeholder="Username" />
+            <input type="text" maxlength="10" v-model="username" placeholder="Username" />
           </div>
           <div class="input-fields">
             <i class="fas fa-hotel"></i>
-            <input type="text" v-model="room" placeholder="Room" />
+            <input type="text" maxlength="10" v-model="room" placeholder="Room" />
           </div>
           <div class="validation-msg" v-if="validationMsg">
             <p>{{validationMsg}}</p>
@@ -72,9 +72,10 @@ export default {
   name: "RoomHome",
   data() {
     return {
-      username: "",
+      username: null,
       room: "",
       validationMsg: "",
+      letters: new RegExp(/^([a-zA-Z0-9]+\s?)*$/),
       isOpen: false
     };
   },
@@ -88,11 +89,23 @@ export default {
         this.validationMsg = "You need to fill required fields";
         return;
       }
+
+      if (
+        !this.username.match(this.letters) ||
+        !this.room.match(this.letters)
+      ) {
+        this.validationMsg = "Enter numbers and alphabets only";
+        return;
+      }
       this.$router.push({
         name: "chatroom",
-        params: { username: this.username, room: this.room || "js" }
+        params: {
+          username: this.username || "system",
+          room: this.room.toUpperCase() || "JS"
+        }
       });
     },
+
     joinAboutUs() {
       this.$router.push("aboutus");
     },

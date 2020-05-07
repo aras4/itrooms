@@ -1,9 +1,13 @@
 <template>
   <div class="main">
     <div class="topbar">
-      <button id="close" @click="closeChat">
+      <button id="close" @click="closeChat" title="Logout">
         <i class="fas fa-power-off"></i>
       </button>
+      <div class="online-user" :class="[isOnline ? 'green':'grey']">
+        <span>{{username}}</span>
+        <i class="fas fa-user"></i>
+      </div>
       <p>ITRooms</p>
       <img src="../assets/logo.png" class="logo" />
     </div>
@@ -11,13 +15,30 @@
       <div class="code">
         <div class="code-title">
           <p>Share your code</p>
+          <select class="select-lang" v-model="editorLang">
+            <option value="csharp">C#</option>
+            <option value="cpp">C++</option>
+            <option value="css">CSS</option>
+            <option value="go">Go</option>
+            <option value="html">HTML</option>
+            <option value="js">JavaScript</option>
+            <option value="java">Java</option>
+            <option value="perl">Perl</option>
+            <option value="php">PHP</option>
+            <option value="python">Python</option>
+            <option value="ruby">Ruby</option>
+            <option value="rust">Rust</option>
+            <option value="sass">Sass</option>
+            <option value="sql">SQL</option>
+            <option value="typescript">TypeScript</option>
+          </select>
         </div>
         <prism-editor
           @change="shareCode"
           :lineNumbers="true"
           :autoStyleLineNumbers="true"
           v-model="code"
-          language="js"
+          :language="editorLang"
         ></prism-editor>
       </div>
       <div class="messages">
@@ -88,7 +109,9 @@ import "prismjs";
 import "prismjs/themes/prism.css";
 import "vue-prism-editor/dist/VuePrismEditor.css";
 import PrismEditor from "vue-prism-editor";
-
+["csharp", "go", "perl", "java", "typescript"].forEach(lang =>
+  require("prismjs/components/prism-" + lang)
+);
 export default {
   name: "ChatRoom",
   components: {
@@ -106,7 +129,9 @@ export default {
       userTypingMsg: "",
       emoStatus: false,
       clickOnlineMembers: false,
-      code: ""
+      code: "",
+      isOnline: true,
+      editorLang: "js"
     };
   },
   methods: {
@@ -201,7 +226,10 @@ export default {
     this.username = this.$route.params.username;
     this.room = this.$route.params.room;
     this.$socket.connect();
-    this.$socket.emit("joinRoom", { username: this.username, room: this.room });
+    this.$socket.emit("joinRoom", {
+      username: this.username,
+      room: this.room
+    });
     this.getShareCode();
   }
 };
@@ -209,8 +237,8 @@ export default {
 
 <style lang="scss" >
 .prism-editor__line-numbers {
-  background-color: rgba(65, 225, 240, 0.8) !important;
-  padding-right: 5px;
+  background-color: rgb(65, 225, 240) !important;
+  padding-right: 2px;
   border-right: 1px solid #27272e;
   .token {
     color: #27272e;
@@ -267,8 +295,28 @@ button:disabled {
       position: absolute;
       top: 3px;
       left: 10px;
-      width: 35px;
-      margin-left: 5px;
+      width: 37px;
+      border-radius: 50%;
+    }
+
+    .online-user {
+      color: rgb(177, 177, 177);
+      float: right;
+      padding: 8px;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .green {
+      color: rgb(14, 179, 14);
+    }
+
+    .grey {
+      color: rgb(177, 177, 177);
+    }
+
+    span {
+      color: rgb(177, 177, 177);
+      margin-right: 10px;
     }
 
     #close {
@@ -302,7 +350,7 @@ button:disabled {
   .code-chat-form {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(2, 60% 40%);
+    grid-template-columns: 65% 35%;
     background-color: white;
     height: 94.7vh;
 
@@ -311,6 +359,7 @@ button:disabled {
       .code-title {
         background-color: #27272ef3;
         padding: 10px;
+        position: relative;
 
         p {
           font-family: "Poppins", sans-serif;
@@ -318,6 +367,27 @@ button:disabled {
           text-align: left;
           margin: 0px;
           margin-left: 3%;
+        }
+
+        .select-lang {
+          width: 25%;
+          border: 1px solid #757575;
+          outline: none;
+          color: #b1b1b1;
+          padding: 0.4vh;
+          background-color: #27272e00;
+          position: absolute;
+          top: 1vh;
+          right: 4vh;
+          font-family: "Poppins", sans-serif;
+
+          option {
+            color: #b1b1b1;
+            background-color: white;
+          }
+          option:hover {
+            background-color: rgb(65, 225, 240) !important;
+          }
         }
       }
     }
@@ -398,7 +468,7 @@ button:disabled {
 
 .user-msg {
   display: flex;
-  margin: 5px 10px 0;
+  margin: 5px 0 0;
   justify-content: flex-start;
 
   .user-msg-time {
@@ -414,8 +484,10 @@ button:disabled {
 
       p {
         margin: 8px;
-        color: rgb(255, 255, 255);
+        color: #fff;
         font-size: 12px;
+        word-break: break-all;
+        text-align: left;
       }
     }
     .username-time {
@@ -441,7 +513,7 @@ button:disabled {
   .msg {
     border-radius: 15px !important;
     border-bottom-right-radius: 0 !important;
-    background-color: rgb(65, 225, 240) !important;
+    background-color: #1f9fa3 !important;
   }
 
   .username-time {
@@ -457,7 +529,7 @@ button:disabled {
 
   span {
     padding-left: 5px;
-    color: rgba(65, 225, 240, 0.8);
+    color: rgb(65, 225, 240);
   }
 }
 .OnlineUsers {

@@ -7,9 +7,13 @@
           <li>
             <a href="#" @click="joinAboutUs" id="aboutus-white">About us</a>
           </li>
+
+          
+
           <!--li>
             <a href="#">Register</a>
           </li-->
+
           <li>
             <a href="#" @click="joinContactUs">Contact</a>
           </li>
@@ -34,7 +38,21 @@
             @click="joinContactUs"
             class="aboutus-links"
           >contact us</a>.
+
         </p>
+        Built by Developers:
+        <a
+          href="https://github.com/djordjeavr"
+          class="aboutus-links"
+          target="_blank"
+        >Djordje Avram</a>,
+        <a href="https://github.com/harislapo" class="aboutus-links" target="_blank">Haris Lapo</a>,
+        <a
+          href="https://github.com/sminela"
+          class="aboutus-links"
+          target="_blank"
+        >Minela Salkicevic</a>,
+        <a href="https://github.com/sahaa46" class="aboutus-links" target="_blank">Emin Sahat</a>.
       </div>
       <div class="aboutus">
         Built by Developers:
@@ -142,6 +160,11 @@ a {
   }
   .aboutus-links:hover {
     color: rgb(65, 225, 240);
+    font-size: 20px;
+    font-family: "Poppins", sans-serif;
+    text-align: center;
+  }
+  
   }
   .h1about {
     color: #fff;
@@ -265,6 +288,7 @@ a {
       }
     }
   }
+  
 }
 .footer {
   position: absolute;
@@ -275,116 +299,78 @@ a {
   font-size: 12px;
   font-family: "Poppins", sans-serif;
   display: flex;
-  justify-content: flex-end;
+
+    font-size: 15px;
+    justify-content: center;
+ 
 }
 
 /* most mobile phones */
 @media only screen and (max-width: 600px) {
   .header {
-    display: inline-block;
+  
     padding: 6px;
+   
   }
 
-  li,
-  a {
-    font-size: 12px;
-  }
+ 
 
   .nav_links li {
-    margin-right: 14px;
+    margin-right: 4px;
   }
 
   .main {
-    left: 42%;
+    left: 50%;
     top: 40%;
-
-    .login-form {
-      padding: 5px;
-
-      .login {
-        width: 70%;
-        margin: 100px 0px 0px 70px;
-        h1 {
-          font-size: 40px;
-        }
-
-        .input-fields {
-          margin-top: 20px;
-
-          input {
-            text-align: center;
-          }
-        }
-
-        .button-field {
-          button {
-            font-size: 11px;
-            margin: 15px 3px 0px 0px;
-            width: 45%;
-            letter-spacing: 2px;
-          }
-        }
-      }
+    height:350px;
+    p{
+     font-size: 12px;
     }
+    a{
+      font-size: 12px;
+    }
+   .navbar{
+     width:400px;
+   }
+
+    
+    
   }
   .footer {
-    font-size: 13px;
+    font-size: 12px;
     justify-content: center;
   }
 }
 
 /* most tablets and laptops*/
-@media only screen and (max-width: 1200px) {
+@media only screen and(min-width:1024px) and (max-width: 1200px) {
   li,
   a {
     font-size: 15px;
   }
 
   .main {
-    left: 42%;
+    left: 50%;
     top: 40%;
 
-    .login-form {
-      padding: 3px;
-
-      .login {
-        width: 50%;
-        margin: 100px 0px 0px 70px;
-
-        .input-fields {
-          margin-top: 20px;
-
-          input {
-            text-align: center;
-          }
-        }
-
-        .button-field {
-          button {
-            font-size: 13px;
-            margin: 15px 3px 0px 0px;
-            width: 40%;
-            letter-spacing: 2px;
-          }
-        }
-      }
-    }
+    
+    
   }
   .footer {
     font-size: 15px;
     justify-content: center;
   }
 }
+@media only screen and(min-width:768px) and (max-width: 980px) {
 
-/* scaling for smaller phones than usual */
-@media screen and (max-width: 365px) {
-  li,
-  a {
-    font-size: 11px;
-  }
-
+ .main {
+    left: 50%;
+    top: 40%;
+    
+  } 
   .footer {
-    font-size: 11px;
+    font-size: 15px;
+    justify-content: center;
   }
 }
 </style>
