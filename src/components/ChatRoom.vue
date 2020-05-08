@@ -47,7 +47,10 @@
             <i class="fas fa-users"></i>
             <span>{{roomUsers.users.length}}</span>
           </div>
-          <p>Room: {{roomUsers.room}}</p>
+          <p>
+            Room:
+            <span class="room-title">{{roomUsers.room}}</span>
+          </p>
         </div>
         <div class="display">
           <div class="OnlineUsers" v-if="clickOnlineMembers">
@@ -236,6 +239,11 @@ export default {
 </script>
 
 <style lang="scss" >
+.room-title {
+  color: rgb(65, 225, 240) !important;
+  padding: 0 2px;
+}
+
 .prism-editor__line-numbers {
   background-color: rgb(65, 225, 240) !important;
   padding-right: 2px;
